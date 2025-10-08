@@ -50,4 +50,26 @@ class UsuarioController {
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
+
+    public static function buscarUsuario(string $valor, string $coluna = 'id'): array {
+
+        $colunasPermitidas = ['id', 'email', 'nome'];
+
+        if (!in_array($coluna, $colunasPermitidas)) {
+            return ['status' => 'bad_request', 'message' => 'Coluna inválida. Permitidas: ' . implode(', ', $colunasPermitidas) . '.'];
+        }
+
+        try {
+            $usuario = GabineteModel::where($coluna, $valor)->where('id', '<>', '1')->first();
+
+            if (!$usuario) {
+                return ['status' => 'not_found', 'message' => 'Usuário não encontrado'];
+            }
+
+            return ['status' => 'success', 'data' => $usuario->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
 }
