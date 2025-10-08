@@ -83,12 +83,6 @@ class GabineteController {
      */
     public static function buscarGabinete(string $valor, string $coluna = 'id'): array {
 
-        $colunasPermitidas = ['id', 'email', 'nome'];
-
-        if (!in_array($coluna, $colunasPermitidas)) {
-            return ['status' => 'bad_request', 'message' => 'Coluna inválida. Permitidas: ' . implode(', ', $colunasPermitidas) . '.'];
-        }
-
         try {
             $gabinete = GabineteModel::where($coluna, $valor)->where('id', '<>', '1')->first();
 
