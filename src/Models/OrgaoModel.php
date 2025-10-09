@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrgaoModel extends Model
 {
-    protected $table = 'orgaos';
+    protected $table = 'orgao';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;

@@ -91,7 +91,7 @@
         ('1', 'Sem tipo definido', '1');
 
     CREATE TABLE
-        orgaos(
+        orgao(
             id VARCHAR(36) PRIMARY KEY,
             nome VARCHAR(100) NOT NULL UNIQUE,
             email VARCHAR(100) DEFAULT NULL,
@@ -112,6 +112,11 @@
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP        
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+    INSERT INTO
+        orgao (id, nome, cidade, estado, tipo_id, gabinete_id)
+    VALUES
+        ('1', 'Órgão Sistema', 'BRASILIA', 'DF', '1', '1');
 
     CREATE TABLE
         tipo_pessoa (
@@ -147,6 +152,8 @@
             importancia INT DEFAULT NULL,
             foto VARCHAR(255) DEFAULT NULL,
             informacoes_adicionais TEXT DEFAULT NULL,
+            orgao_id VARCHAR(36) DEFAULT NULL,
+            FOREIGN KEY (orgao_id) REFERENCES orgao (id) ON DELETE SET NULL ON UPDATE CASCADE,
             tipo_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_id) REFERENCES tipo_pessoa (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             gabinete_id VARCHAR(36) NOT NULL,

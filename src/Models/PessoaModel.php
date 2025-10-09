@@ -35,7 +35,6 @@ class PessoaModel extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'data_nascimento',
     ];
 
     /**
@@ -44,6 +43,14 @@ class PessoaModel extends Model
     public function tipo()
     {
         return $this->belongsTo(TipoPessoaModel::class, 'tipo_id', 'id');
+    }
+
+    /**
+     * Relacionamento com o Ogao (opcional)
+     */
+    public function orgao()
+    {
+        return $this->belongsTo(OrgaoModel::class, 'orgao_id', 'id');
     }
 
     /**
