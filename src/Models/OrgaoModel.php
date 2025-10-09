@@ -22,7 +22,6 @@ class OrgaoModel extends Model
         'site',
         'instagram',
         'facebook',
-        'twitter',
         'informacoes_adicionais',
         'tipo_id',
         'gabinete_id',

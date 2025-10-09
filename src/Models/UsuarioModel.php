@@ -17,6 +17,8 @@ class UsuarioModel extends Model
         'senha',
         'telefone',
         'token',
+        'data_nascimento',
+        'foto',
         'ativo',
         'tipo_usuario_id',
         'gabinete_id'
