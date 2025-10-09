@@ -93,7 +93,7 @@
     CREATE TABLE
         orgaos(
             id VARCHAR(36) PRIMARY KEY,
-            nome VARCHAR(100) NOT NULL,
+            nome VARCHAR(100) NOT NULL UNIQUE,
             email VARCHAR(100) DEFAULT NULL,
             telefone VARCHAR(20) DEFAULT NULL,
             endereco VARCHAR(255) DEFAULT NULL,
