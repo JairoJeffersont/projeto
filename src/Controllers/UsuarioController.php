@@ -51,8 +51,13 @@ class UsuarioController {
         }
     }
 
-    public static function buscarUsuario(string $valor, string $coluna = 'id'): array {
+    public static function buscarUsuario(string $valor = '', string $coluna = 'id'): array {
         try {
+
+            if (empty($valor)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do usuário não enviado'];
+            }
+
             $usuario = UsuarioModel::where($coluna, $valor)->where('id', '<>', '1')->first();
 
             if (!$usuario) {

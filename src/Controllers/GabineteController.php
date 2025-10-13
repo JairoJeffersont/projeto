@@ -42,9 +42,14 @@ class GabineteController {
     }
 
 
-    public static function buscarGabinete(string $valor, string $coluna = 'id'): array {
+    public static function buscarGabinete(string $valor = '', string $coluna = 'id'): array {
 
         try {
+
+            if (empty($valor)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
             $gabinete = GabineteModel::where($coluna, $valor)->where('id', '<>', '1')->first();
 
             if (!$gabinete) {
