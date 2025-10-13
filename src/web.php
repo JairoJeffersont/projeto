@@ -80,10 +80,25 @@ return function (App $app) {
             return $responder($response, [UsuarioController::class, 'apagarUsuario'], [$args['id']]);
         });
 
-        // Criar novo usuário
         $group->post('', function (Request $request, Response $response) use ($responder) {
-            return $responder($response, [UsuarioController::class, 'novoUsuario'], [], $request);
+            $contentType = $request->getHeaderLine('Content-Type');
+
+            if (str_contains($contentType, 'application/json')) {
+                // Requisição JSON
+                $dados = json_decode((string)$request->getBody(), true);
+            } else {
+                // Form-data ou outros tipos: usamos $_POST e $_FILES
+                $dados = $_POST;
+
+                // Se existir arquivo 'foto', mantém no array
+                if (isset($_FILES['foto'])) {
+                    $dados['foto'] = $_FILES['foto'];
+                }
+            }
+
+            return $responder($response, [UsuarioController::class, 'novoUsuario'], $dados, $request);
         });
+
 
         // Atualizar usuário
         $group->put('/{id}', function (Request $request, Response $response, array $args) use ($responder) {
