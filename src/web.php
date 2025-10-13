@@ -8,8 +8,12 @@ use Slim\App;
 return function (App $app) {
 
     $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write("COLOCAR A DOCUMENTAÇÃO");
-        return $response;
+
+        $payload = ['status_code' => 200, 'status' => 'success', 'message' => 'API em funcionamento. Consulte a documentação.'];
+
+        $response->getBody()->write(json_encode($payload, JSON_UNESCAPED_UNICODE));
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
     });
-    
 };

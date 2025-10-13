@@ -57,21 +57,21 @@
             senha VARCHAR(255) NOT NULL,
             telefone VARCHAR(20) NOT NULL,
             foto VARCHAR(255) DEFAULT NULL,
-            data_nascimento VARCHAR(5) DEFAULT NULL,
+            data_nascimento VARCHAR(5) NOT NULL,
             token TEXT DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
             tipo_usuario_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-            gabinete_id VARCHAR(36) DEFAULT NULL,
+            gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
     INSERT INTO
-        usuario (id, nome, email, senha, telefone, gabinete_id, tipo_usuario_id) 
+        usuario (id, nome, email, senha, telefone, data_nascimento, gabinete_id, tipo_usuario_id) 
     VALUES 
-        ('1', 'Usuário Sistema', 'email@email.com', '$2y$10$e0NRG7k8bq5lYFh3H8jzUuJ8mZ6kF1O9H1Z1Z1Z1Z1Z1Z1Z1Z1Z1', '00000000000', '1', '1');
+        ('1', 'Usuário Sistema', 'email@email.com', '$2y$10$e0NRG7k8bq5lYFh3H8jzUuJ8mZ6kF1O9H1Z1Z1Z1Z1Z1Z1Z1Z1Z1', '00000000000', '01/01', '1', '1');
 
     CREATE TABLE
         tipo_orgao (
