@@ -71,8 +71,13 @@ class UsuarioController {
         }
     }
 
-    public static function apagarUsuario(string $id): array {
+    public static function apagarUsuario(string $id = ''): array {
         try {
+
+            if (empty($id)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do usuário não enviado'];
+            }
+
             if ($id === '1') {
                 return ['status_code' => 403, 'status' => 'not_permitted', 'message' => 'Este usuário não pode ser apagado.'];
             }

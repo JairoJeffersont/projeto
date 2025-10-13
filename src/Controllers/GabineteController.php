@@ -64,8 +64,12 @@ class GabineteController {
     }
 
 
-    public static function apagarGabinete(string $id): array {
+    public static function apagarGabinete(string $id = ''): array {
         try {
+
+            if (empty($id)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
 
             if ($id === '1') {
                 return ['status_code' => 403, 'status' => 'not_permitted'];
