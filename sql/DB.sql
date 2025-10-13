@@ -18,9 +18,9 @@
     CREATE TABLE
         gabinete (
             id VARCHAR(36) PRIMARY KEY,
-            nome VARCHAR(100) NOT NULL,
+            nome VARCHAR(100) NOT NULL UNIQUE,
             nome_slug VARCHAR(100) NOT NULL,
-            email VARCHAR(100) NOT NULL UNIQUE,
+            email VARCHAR(100) NOT NULL,
             estado VARCHAR(2) NOT NULL,
             cidade VARCHAR(100) DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
