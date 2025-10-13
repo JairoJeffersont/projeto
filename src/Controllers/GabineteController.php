@@ -113,7 +113,7 @@ class GabineteController {
             }
 
             // Verifica duplicidade pelo email
-            $gabinete = GabineteModel::where('email', $dados['email'])->first();
+            $gabinete = GabineteModel::where('nome', $dados['nome'])->first();
             if ($gabinete) {
                 return ['status_code' => 409, 'status' => 'conflict', 'message' => 'Gabinete já cadastrado.'];
             }
@@ -153,6 +153,10 @@ class GabineteController {
                 if ($emailExistente) {
                     return ['status_code' => 409, 'status' => 'conflict', 'message' => 'Gabinete já cadastrado.'];
                 }
+            }
+
+            if (isset($dados['nome'])) {
+                $dados['nome_slug'] = \App\Helpers\Slugfy::slug($dados['nome']);
             }
 
             $gabinete->update($dados);
