@@ -103,6 +103,10 @@ class UsuarioController {
     public static function novoUsuario(array $dados): array {
         try {
 
+            if (empty($dados)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
+            }
+
             // Define campos obrigatórios
             $camposObrigatorios = ['nome', 'email', 'senha', 'telefone', 'data_nascimento', 'tipo_usuario_id', 'gabinete_id'];
 
@@ -142,6 +146,11 @@ class UsuarioController {
 
     public static function atualizarUsuario(string $id, array $dados): array {
         try {
+
+            if (empty($dados)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
+            }
+
             $usuario = UsuarioModel::find($id);
 
             if (!$usuario) {

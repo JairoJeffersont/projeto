@@ -98,6 +98,10 @@ class GabineteController {
     public static function novoGabinete(array $dados): array {
         try {
 
+            if (empty($dados)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
+            }
+
             // Define campos obrigatórios
             $camposObrigatorios = ['nome', 'email', 'estado', 'tipo_gabinete_id'];
 
@@ -131,6 +135,10 @@ class GabineteController {
 
     public static function atualizarGabinete(string $id, array $dados): array {
         try {
+
+            if (empty($dados)) {
+                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
+            }
 
             $gabinete = GabineteModel::find($id);
 
