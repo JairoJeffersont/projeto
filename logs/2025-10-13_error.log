@@ -1,2 +1,0 @@
-[2025-10-13 17:09:00] [ERROR] [68ed322c907db] server_error | /usuarios | POST | Unknown named parameter $nome
-[2025-10-13 17:09:32] [ERROR] [68ed324c894ed] server_error | /usuarios | POST | Unknown named parameter $nome

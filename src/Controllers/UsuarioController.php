@@ -16,58 +16,57 @@ class UsuarioController {
             $tiposUsuarios = TipoUsuarioModel::get();
 
             if ($tiposUsuarios->isEmpty()) {
-                return ['status_code' => 200, 'status' => 'empty', 'message' => 'Nenhum tipo de usuário registrado.'];
+                return ['status' => 'empty', 'message' => 'Nenhum tipo de usuário registrado.'];
             }
 
-            return ['status_code' => 200, 'status' => 'success', 'data' => $tiposUsuarios->toArray()];
+            return ['status' => 'success', 'data' => $tiposUsuarios->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-            return ['status_code' => 500, 'status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
 
     public static function listarUsuarios($gabineteId = ''): array {
         try {
             if (empty($gabineteId)) {
-                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
             }
 
             $gabinete = GabineteModel::where('id', $gabineteId)->where('id', '<>', 1)->first();
 
             if (!$gabinete) {
-                return ['status_code' => 404, 'status' => 'not_found', 'message' => 'Gabinete não encontrado'];
+                return ['status' => 'not_found', 'message' => 'Gabinete não encontrado'];
             }
 
             $usuarios = UsuarioModel::where('id', '!=', 1)->where('gabinete_id', $gabinete->id)->get();
 
             if ($usuarios->isEmpty()) {
-                return ['status_code' => 200, 'status' => 'empty', 'message' => 'Nenhum usuário registrado.'];
+                return ['status' => 'empty', 'message' => 'Nenhum usuário registrado.'];
             }
 
-            return ['status_code' => 200, 'status' => 'success', 'data' => $usuarios->toArray()];
+            return ['status' => 'success', 'data' => $usuarios->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-            return ['status_code' => 500, 'status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
 
     public static function buscarUsuario(string $valor = '', string $coluna = 'id'): array {
         try {
-
             if (empty($valor)) {
-                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do usuário não enviado'];
+                return ['status' => 'bad_request', 'message' => 'ID do usuário não enviado'];
             }
 
             $usuario = UsuarioModel::where($coluna, $valor)->where('id', '<>', '1')->first();
 
             if (!$usuario) {
-                return ['status_code' => 404, 'status' => 'not_found', 'message' => 'Usuário não encontrado'];
+                return ['status' => 'not_found', 'message' => 'Usuário não encontrado'];
             }
 
-            return ['status_code' => 200, 'status' => 'success', 'data' => $usuario->toArray()];
+            return ['status' => 'success', 'data' => $usuario->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-            return ['status_code' => 500, 'status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
 
@@ -75,52 +74,34 @@ class UsuarioController {
         try {
 
             if (empty($id)) {
-                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'ID do usuário não enviado'];
-            }
-
-            if ($id === '1') {
-                return ['status_code' => 403, 'status' => 'not_permitted', 'message' => 'Este usuário não pode ser apagado.'];
+                return ['status' => 'bad_request', 'message' => 'ID do usuário não enviado'];
             }
 
             $usuario = UsuarioModel::find($id);
 
             if (!$usuario) {
-                return ['status_code' => 404, 'status' => 'not_found', 'message' => 'Usuário não encontrado'];
+                return ['status' => 'not_found', 'message' => 'Usuário não encontrado'];
             }
 
             $usuario->delete();
-            return ['status_code' => 200, 'status' => 'success', 'message' => 'Usuário apagado.'];
+            return ['status' => 'success', 'message' => 'Usuário apagado.'];
         } catch (\Exception $e) {
             if (strpos($e->getMessage(), 'FOREIGN KEY') !== false) {
-                return ['status_code' => 403, 'status' => 'not_permitted', 'message' => 'Este usuário não pode ser apagado.'];
+                return ['status' => 'not_permitted', 'message' => 'Este usuário não pode ser apagado.'];
             }
 
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-            return ['status_code' => 500, 'status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
 
     public static function novoUsuario(array $dados): array {
         try {
 
-            if (empty($dados)) {
-                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
-            }
-
-            // Define campos obrigatórios
-            $camposObrigatorios = ['nome', 'email', 'senha', 'telefone', 'data_nascimento', 'tipo_usuario_id', 'gabinete_id'];
-
-            // Verifica campos obrigatórios
-            $camposFaltando = array_filter($camposObrigatorios, fn($campo) => empty($dados[$campo]));
-
-            if (!empty($camposFaltando)) {
-                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Campos obrigatórios não enviados: ' . implode(', ', $camposFaltando)];
-            }
-
             $usuario = UsuarioModel::where('email', $dados['email'])->first();
 
             if ($usuario) {
-                return ['status_code' => 409, 'status' => 'conflict', 'message' => 'Usuário já cadastrado.'];
+                return ['status' => 'conflict', 'message' => 'Usuário já cadastrado.'];
             }
 
             if (isset($dados['foto'])) {
@@ -137,31 +118,26 @@ class UsuarioController {
 
             $usuario = UsuarioModel::create($dados);
 
-            return ['status_code' => 201, 'status' => 'success', 'message' => 'Usuário criado.', 'data' => $usuario->toArray()];
+            return ['status' => 'success', 'message' => 'Usuário criado.', 'data' => $usuario->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-            return ['status_code' => 500, 'status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
 
     public static function atualizarUsuario(string $id, array $dados): array {
         try {
 
-            if (empty($dados)) {
-                return ['status_code' => 400, 'status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
-            }
-
             $usuario = UsuarioModel::find($id);
 
             if (!$usuario) {
-                return ['status_code' => 404, 'status' => 'not_found', 'message' => 'Usuário não encontrado.'];
+                return ['status' => 'not_found', 'message' => 'Usuário não encontrado.'];
             }
 
             if (isset($dados['email'])) {
                 $emailExistente = UsuarioModel::where('email', $dados['email'])->where('id', '<>', $id)->first();
-
                 if ($emailExistente) {
-                    return ['status_code' => 409, 'status' => 'conflict', 'message' => 'Email já cadastrado.'];
+                    return ['status' => 'conflict', 'message' => 'Email já cadastrado.'];
                 }
             }
 
@@ -176,10 +152,10 @@ class UsuarioController {
 
             $usuario->update($dados);
 
-            return ['status_code' => 200, 'status' => 'success', 'data' => $usuario->toArray()];
+            return ['status' => 'success', 'data' => $usuario->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
-            return ['status_code' => 500, 'status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
 }
