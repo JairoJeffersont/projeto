@@ -20,6 +20,8 @@ class LoginController {
                 $usuario = UsuarioModel::where('telefone', Slugfy::slug($dados['login']))->first();
             }
 
+           
+
             if (!$usuario) {
                 return ['status' => 'not_found', 'message' => 'Usuário não encontrado'];
             }
@@ -32,7 +34,7 @@ class LoginController {
                 return ['status' => 'wrong_password', 'message' => 'Senha incorreta'];
             }
 
-            if (SessionHelper::iniciarSessao($usuario)) {
+            if (SessionHelper::iniciarSessao($usuario->toArray())) {
                 return ['status' => 'success', 'message' => 'Login feito com sucesso!'];
             } else {
                 return ['status' => 'login_failed', 'message' => 'Falha ao iniciar sessão.'];
@@ -71,7 +73,6 @@ class LoginController {
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
-
 
     public static function novaSenha(string $token, string $senha): array {
 

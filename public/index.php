@@ -1,7 +1,8 @@
 <?php
 
 define('LOG_FOLDER', dirname(__DIR__, 1) . '/logs');
-define('PUBLIC_FOLDER', dirname(__DIR__, 1) . '/public');
+define('PUBLIC_FOLDER', dirname(__DIR__, 2) . '/public');
+define('BASE_URL', '/');
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Dotenv\Dotenv;
@@ -23,3 +24,5 @@ $capsule->addConnection([
 ]);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
+
+include('../src/Views/base/base_layout.php');

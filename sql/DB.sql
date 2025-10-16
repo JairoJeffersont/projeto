@@ -20,7 +20,6 @@
             id VARCHAR(36) PRIMARY KEY,
             nome VARCHAR(100) NOT NULL UNIQUE,
             nome_slug VARCHAR(100) NOT NULL,
-            email VARCHAR(100) NOT NULL,
             estado VARCHAR(2) NOT NULL,
             cidade VARCHAR(100) DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
@@ -31,9 +30,9 @@
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
 
     INSERT INTO
-        gabinete (id, nome, nome_slug, email, estado, cidade, tipo_gabinete_id) 
+        gabinete (id, nome, nome_slug, estado, cidade, tipo_gabinete_id) 
     VALUES 
-        ('1', 'Gabinete Sistema', 'gabinete-sistema', 'email@email.com', 'DF', 'BRASILIA', '1');
+        ('1', 'Gabinete Sistema', 'gabinete-sistema', 'DF', 'BRASILIA', '1');
 
     CREATE TABLE
         tipo_usuario (
@@ -55,9 +54,9 @@
             nome VARCHAR(100) NOT NULL,
             email VARCHAR(100) NOT NULL UNIQUE,
             senha VARCHAR(255) NOT NULL,
-            telefone VARCHAR(20) NOT NULL,
+            telefone VARCHAR(20) NOT NULL UNIQUE,
             foto VARCHAR(255) DEFAULT NULL,
-            data_nascimento VARCHAR(5) NOT NULL,
+            data_nascimento VARCHAR(5) DEFAULT NULL,
             token TEXT DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
             tipo_usuario_id VARCHAR(36) NOT NULL,

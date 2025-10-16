@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgb(18, 7, 108);
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 14px;
+    color: #000;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+    font-smooth: always;
+
+    background-image: url('../img/main_background.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+    background-color: #fff;
+}
+
+.custom-alert {
+    font-weight: 700;
+    font-size: 0.85em;
+}
+
+.custom-card-header {
+    font-size: 0.85em;
+    background-image: url('../img/blue-bg.jpeg');
+    background-size: cover;
+    font-weight: 700;
+}
+
+
+.custom-card-body {
+    font-size: 0.85em;
+}
+
+.barra_navegacao {
+    font-size: 0.85em;
+}
+
+.custom_menu {
+    font-size: 0.9em;
+}
+
+.form_custom {
+    font-size: 0.85em;
+}
+
+.form_custom input,
+.form_custom select,
+.form_custom button,
+.form_custom a,
+.form_custom textarea {
+    font-size: inherit !important;
+}
+
+.custom_navigation {
+    font-size: 0.75em;
+
+}
+
+.custom_navigation a,
+.custom_navigation li,
+custom_navigation ul {
+    font-size: inherit !important;
+}
+
+
+.card-profile{
+    background-image: url('../img/card_profile_background.jpg');
+    background-repeat: repeat;
+    background-size: cover;
+}

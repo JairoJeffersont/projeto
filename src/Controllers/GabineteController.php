@@ -90,7 +90,7 @@ class GabineteController {
                 return ['status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
             }
 
-            $camposObrigatorios = ['nome', 'email', 'estado', 'tipo_gabinete_id'];
+            $camposObrigatorios = ['nome', 'estado', 'tipo_gabinete_id'];
             $camposFaltando = array_filter($camposObrigatorios, fn($campo) => empty($dados[$campo]));
 
             if (!empty($camposFaltando)) {
