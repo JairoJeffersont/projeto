@@ -3,7 +3,20 @@
     use App\Controllers\LoginController;
     ?>
 
+    <style>
+        /* Diminui a fonte de todos os inputs, selects e botões do form */
+        #form_novo input,
+        #form_novo select,
+        #form_novo button {
+            font-size: 0.85rem;
+            /* você pode ajustar para o tamanho que quiser */
+        }
 
+        /* Opcional: diminuir também o placeholder */
+        #form_novo ::placeholder {
+            font-size: 0.85rem;
+        }
+    </style>
     <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="p-4" style="min-width: 300px; max-width: 430px; width: 100%; background: transparent; margin-top: -200px;">
             <img src="<?php BASE_URL ?>/img/logo_white.png" class="card-img-top mx-auto d-block mb-3" alt="Logo" style="width: 100px; height: auto;">
@@ -27,7 +40,7 @@
 
             ?>
 
-            <form method="post" class="mb-3" enctype="application/x-www-form-urlencoded">
+            <form method="post" class="mb-3" id="form_novo" enctype="application/x-www-form-urlencoded">
                 <div class="mb-2">
                     <input type="email" class="form-control rounded-pill px-4 py-2" name="email" value="jairojeffersont@gmail.com" placeholder="E-mail" required>
                 </div>

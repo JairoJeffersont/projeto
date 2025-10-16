@@ -5,6 +5,20 @@ use App\Controllers\GabineteController;
 
 ?>
 
+<style>
+    /* Diminui a fonte de todos os inputs, selects e botões do form */
+    #form_novo input,
+    #form_novo select,
+    #form_novo button {
+        font-size: 0.85rem; /* você pode ajustar para o tamanho que quiser */
+    }
+
+    /* Opcional: diminuir também o placeholder */
+    #form_novo ::placeholder {
+        font-size: 0.85rem;
+    }
+</style>
+
 
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="p-4" style="min-width: 300px; max-width: 480px; width: 100%; background: transparent; margin-top: -200px;">
