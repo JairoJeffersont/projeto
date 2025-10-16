@@ -2,7 +2,7 @@
     <div class="p-4" style="min-width: 300px; max-width: 430px; width: 100%; background: transparent; margin-top: -200px;">
         <img src="<?php BASE_URL ?>/img/logo_white.png" class="card-img-top mx-auto d-block mb-3" alt="Logo" style="width: 100px; height: auto;">
 
-        <h4 class="text-center mb-2 text-white">Mandato Digital</h4>
+        <h4 class="text-center mb-2 text-white"><?php echo $_ENV['APP_NAME'] ?></h4>
         <p class="card-text text-center text-white">Gestão de gabinete</p>
         <?php
 
