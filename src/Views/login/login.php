@@ -4,10 +4,8 @@
     #form_novo select,
     #form_novo button {
         font-size: 0.85rem;
-        /* você pode ajustar para o tamanho que quiser */
     }
-
-    /* Opcional: diminuir também o placeholder */
+    
     #form_novo ::placeholder {
         font-size: 0.85rem;
     }
@@ -52,7 +50,7 @@
                 <input type="text" class="form-control rounded-pill px-4 py-2" name="login" value="jairojeffersont@gmail.com" placeholder="E-mail ou telefone" required>
             </div>
             <div class="mb-3">
-                <input type="password" class="form-control rounded-pill px-4 py-2" name="senha" value="intell3103" placeholder="Senha" required>
+                <input type="password" class="form-control rounded-pill px-4 py-2" name="senha" value="intell01" placeholder="Senha" required>
             </div>
             <div class="d-grid">
                 <button type="submit" class="btn rounded-pill px-3 py-2" name="btn_logar" style="background-color: #00265eff; color: #fff; border: none;">

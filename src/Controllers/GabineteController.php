@@ -89,14 +89,7 @@ class GabineteController {
             if (empty($dados)) {
                 return ['status' => 'bad_request', 'message' => 'Nenhum dado foi enviado'];
             }
-
-            $camposObrigatorios = ['nome', 'estado', 'tipo_gabinete_id'];
-            $camposFaltando = array_filter($camposObrigatorios, fn($campo) => empty($dados[$campo]));
-
-            if (!empty($camposFaltando)) {
-                return ['status' => 'bad_request', 'message' => 'Campos obrigatórios não enviados: ' . implode(', ', $camposFaltando)];
-            }
-
+        
             $gabinete = GabineteModel::where('nome', $dados['nome'])->first();
             if ($gabinete) {
                 return ['status' => 'conflict', 'message' => 'Gabinete já cadastrado.'];

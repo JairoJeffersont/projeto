@@ -9,8 +9,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Configurações</a>
                     <div class="dropdown-menu dropdown-menu-end  custom_menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item loading-modal" href="?secao=tipo-orgaos">Tipos de órgões e entidades</a>
-                        <a class="dropdown-item loading-modal" href="?secao=tipo-pessoas">Tipos de pessoas</a>
+                        <a class="dropdown-item loading-modal" href="?secao=tipos-orgaos">Tipos de órgões e entidades</a>
+                        <a class="dropdown-item loading-modal" href="?secao=tipos-pessoas">Tipos de pessoas</a>
                         <a class="dropdown-item loading-modal" href="?secao=profissoes">Profissões</a>
                         <div class="dropdown-divider"></div>
 

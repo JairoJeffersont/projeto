@@ -79,8 +79,12 @@ custom_navigation ul {
 }
 
 
-.card-profile{
+.card-profile {
     background-image: url('../img/card_profile_background.jpg');
     background-repeat: repeat;
     background-size: cover;
+}
+
+.custom-table {
+    font-size: 0.9em;
 }
