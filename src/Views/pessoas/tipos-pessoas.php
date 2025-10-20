@@ -1,6 +1,6 @@
 <?php
 
-use App\Controllers\OrgaoController;
+use App\Controllers\PessoaController;
 use App\Controllers\UsuarioController;
 
 include('../src/Views/includes/verificaLogado.php');
@@ -15,10 +15,10 @@ include('../src/Views/includes/verificaLogado.php');
         <div class="container-fluid p-2">
             <div class="card mb-2">
                 <div class="card-header custom-card-header px-2 py-1 text-white">
-                    Tipos de órgãos/entidades
+                    Tipos de pessoas
                 </div>
                 <div class="card-body custom-card-body p-2">
-                    <p class="card-text mb-0">Nesta seção, é possível adicionar e editar os tipos de órgãos e entidades, garantindo a organização correta dessas informações no sistema.</p>
+                    <p class="card-text mb-0">Nesta seção, é possível adicionar e editar os tipos de pessoas, garantindo a organização correta dessas informações no sistema.</p>
                 </div>
             </div>
             <div class="card mb-2">
@@ -33,7 +33,7 @@ include('../src/Views/includes/verificaLogado.php');
                             'usuario_id' => $_SESSION['usuario']['id'],
                         ];
 
-                        $result = OrgaoController::novoTipodeOrgao($dados);
+                        $result = PessoaController::novoTipodePessoa($dados);
 
                         if ($result['status'] == 'conflict') {
                             echo '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
@@ -51,7 +51,7 @@ include('../src/Views/includes/verificaLogado.php');
                             <input type="text" class="form-control form-control-sm" name="nome" placeholder="Nome do Tipo" required>
                         </div>
                         <div class="col-md-1 col-12">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse tipo de órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse tipo de pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -70,7 +70,7 @@ include('../src/Views/includes/verificaLogado.php');
                             <tbody>
                                 <?php
 
-                                $buscaTipo = OrgaoController::listarTiposOrgaos($_SESSION['usuario']['gabinete_id']);
+                                $buscaTipo = PessoaController::listarTiposPessoas($_SESSION['usuario']['gabinete_id']);
 
                                 if ($buscaTipo['status'] == 'success') {
                                     foreach ($buscaTipo['data'] as $tipo) {
