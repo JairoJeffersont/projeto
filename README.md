@@ -26,7 +26,7 @@ Observação: O arquivo `composer.json` declara dependências como `illuminate/d
 
 1. Clone o repositório:
 
-   git clone <https://github.com/JairoJeffersont/projeto> projeto
+   git clone <https://github.com/JairoJeffersont/projeto.git> projeto
    cd projeto
 
 2. Instale as dependências via Composer:
@@ -66,8 +66,6 @@ MAIL_FROM_ADDRESS=nao-responda@exemplo.com
 MAIL_FROM_NAME="Nome da Aplicação"
 ```
 
-Observação: Não existe um arquivo `.env.example` no repositório; crie o `.env` manualmente seguindo o template acima.
-
 ## Banco de dados
 
 1. Crie um banco de dados vazio (MySQL/MariaDB). Exemplo:
@@ -77,8 +75,6 @@ Observação: Não existe um arquivo `.env.example` no repositório; crie o `.en
 2. Importe o dump SQL fornecido em `sql/DB.sql`:
 
    mysql -u usuario -p nome_do_banco < sql/DB.sql
-
-Se preferir SQLite, você precisará ajustar a camada de conexão no código (configuração do `illuminate/database`) e providenciar o arquivo `.sqlite` apropriado.
 
 ## Executando localmente
 
@@ -92,15 +88,6 @@ Abra no navegador: http://localhost:8000
 
 Opção com Apache/Nginx: aponte o DocumentRoot para a pasta `public/` do projeto. Garanta que as regras de rewrite (se houver) estejam configuradas para encaminhar requisições para `public/index.php`.
 
-## Resolução de problemas comuns
-
-- Erro de classes não encontradas (Class not found): execute `composer dump-autoload` e verifique se o `vendor/` está presente.  
-- Erros de conexão com o banco: confirme as variáveis no `.env` e se a extensão `pdo_mysql` está habilitada.  
-- Permissões: se a aplicação grava arquivos (uploads, logs), certifique-se de que o diretório correspondente em `public/` ou `storage/` seja gravável pelo usuário do servidor web.  
-- Mail não funciona: verifique as credenciais SMTP no `.env` e logs do servidor SMTP. A aplicação usa PHPMailer; se houver configuração adicional no código, ajuste conforme necessário.
-
-Dica de debug: defina `APP_DEBUG=true` no `.env` para habilitar mensagens de erro detalhadas em ambiente local.
-
 ## Estrutura principal do projeto
 
 - `public/` — raíz pública (index.php, assets, uploads).  
@@ -108,16 +95,6 @@ Dica de debug: defina `APP_DEBUG=true` no `.env` para habilitar mensagens de err
 - `vendor/` — dependências gerenciadas pelo Composer.  
 - `sql/DB.sql` — dump do banco para importar dados iniciais.  
 - `composer.json` — dependências do projeto.
-
-Arquivos importantes:
-- `public/index.php` — ponto de entrada.  
-- `src/Views/router.php` — roteamento de views dentro da aplicação.  
-- `src/Helpers/SessionHelper.php` — manipulação de sessão.  
-
-## Observações e suposições
-
-- Assumi PHP 8.1+ como requisito mínimo. Se sua infra exigir outra versão, ajuste as dependências ou informe-me para eu atualizar este README com a versão exata.  
-- Não foram encontradas migrations do framework; o banco é fornecido pelo arquivo `sql/DB.sql`.
 
 ## Contribuição
 
