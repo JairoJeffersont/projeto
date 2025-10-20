@@ -6,7 +6,7 @@
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" id="link" href="?secao=proposicoes"><i class="bi bi-file-earmark-text"></i> Proposições do gabinete</a>
 
          <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Gestão de pessoas</p>
-         <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=orgaos"><i class="bi bi-building"></i> Órgãos e instituições</a>
+         <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=orgaos"><i class="bi bi-building"></i> Órgãos e entidades</a>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=pessoas"><i class="bi bi-people-fill"></i> Pessoas</a>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=aniversariantes"><i class="bi bi-cake"></i> Aniversariantes</a>
 

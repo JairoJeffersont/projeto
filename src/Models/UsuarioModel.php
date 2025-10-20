@@ -19,6 +19,7 @@ class UsuarioModel extends Model
         'token',
         'data_nascimento',
         'foto',
+        'gestor',
         'ativo',
         'tipo_usuario_id',
         'gabinete_id'

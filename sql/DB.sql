@@ -59,6 +59,7 @@
             data_nascimento VARCHAR(5) DEFAULT NULL,
             token TEXT DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
+            gestor BOOLEAN NOT NULL DEFAULT TRUE,
             tipo_usuario_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             gabinete_id VARCHAR(36) NOT NULL,
@@ -95,7 +96,7 @@
             nome VARCHAR(100) NOT NULL UNIQUE,
             email VARCHAR(100) DEFAULT NULL,
             telefone VARCHAR(20) DEFAULT NULL,
-            endereco VARCHAR(255) DEFAULT NULL,
+            
             cidade VARCHAR(100) NOT NULL,
             estado VARCHAR(2) NOT NULL,
             site VARCHAR(100) DEFAULT NULL,

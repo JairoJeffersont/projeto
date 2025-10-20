@@ -45,20 +45,17 @@ $.fn.populatePartidos = function () {
     });
 };
 
-
 // Método para popular os estados no select
 $.fn.populateEstados = function () {
     const $selectEstado = $(this);
     const selectedUF = $selectEstado.attr('data-selected') || '';
     $selectEstado.empty().append('<option>Carregando...</option>');
 
-
     $.getJSON('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome', function (estados) {
         $selectEstado.empty().append('<option value="">Selecione o estado</option>');
 
         estados.forEach(estado => {
             const isSelected = estado.sigla === selectedUF ? 'selected' : '';
-            // value = sigla (SP), data-id = id do estado (API IBGE)
             $selectEstado.append(
                 `<option value="${estado.sigla}" data-id="${estado.id}" ${isSelected}>${estado.nome}</option>`
             );
@@ -75,7 +72,6 @@ $.fn.populateMunicipios = function (estadoId) {
     const selectedMunicipio = $selectMunicipio.attr('data-selected') || '';
     $selectMunicipio.empty().append('<option>Carregando...</option>');
 
-
     if (!estadoId) {
         $selectMunicipio.empty().append('<option value="">Selecione o município</option>');
         return;
@@ -86,7 +82,6 @@ $.fn.populateMunicipios = function (estadoId) {
 
         municipios.forEach(municipio => {
             const isSelected = municipio.nome === selectedMunicipio ? 'selected' : '';
-            // value = nome do município
             $selectMunicipio.append(`<option value="${municipio.nome}" ${isSelected}>${municipio.nome}</option>`);
         });
     });
@@ -141,10 +136,12 @@ function initEvents() {
         showLoadingModal();
     });
 
-    // Mudança do estado para popular municípios
-    $('#estado').on('change', function () {
-        const estadoId = $(this).find(':selected').data('id'); // pega o data-id (não o value)
-        $('#municipio').populateMunicipios(estadoId);
+    // Mudança do estado para popular municípios (para qualquer formulário)
+    $(document).on('change', '.estado', function () {
+        const $form = $(this).closest('form');
+        const estadoId = $(this).find(':selected').data('id');
+        const $municipioSelect = $form.find('.municipio');
+        $municipioSelect.populateMunicipios(estadoId);
     });
 
     // Inicializa confirmação em elementos com .confirm-action
@@ -168,15 +165,15 @@ function copyToClipboard(text) {
 $(document).ready(function () {
     $('.alert[data-timeout]').autoHideAlert();
 
-    const $estadoSelect = $('#estado');
-    if ($estadoSelect.length) {
-        $estadoSelect.populateEstados();
-    }
+    // Popula todos os selects de estado encontrados
+    $('.estado').each(function () {
+        $(this).populateEstados();
+    });
 
-    const $partidosSelect = $('#partidos');
-    if ($partidosSelect.length) {
-        $partidosSelect.populatePartidos();
-    }
+    // Popula todos os selects de partido (caso existam)
+    $('.partidos').each(function () {
+        $(this).populatePartidos();
+    });
 
     initEvents();
 
