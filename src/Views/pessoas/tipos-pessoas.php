@@ -44,7 +44,6 @@ include('../src/Views/includes/verificaLogado.php');
                         }
                     }
 
-
                     ?>
                     <form class="row g-2 form_custom" id="form_novo" method="POST">
                         <div class="col-md-2 col-12">
