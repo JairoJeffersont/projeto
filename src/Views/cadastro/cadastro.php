@@ -10,7 +10,8 @@ use App\Controllers\GabineteController;
     #form_novo input,
     #form_novo select,
     #form_novo button {
-        font-size: 0.85rem; /* você pode ajustar para o tamanho que quiser */
+        font-size: 0.85rem;
+        /* você pode ajustar para o tamanho que quiser */
     }
 
     /* Opcional: diminuir também o placeholder */
@@ -93,7 +94,7 @@ use App\Controllers\GabineteController;
                 </select>
             </div>
             <div class="col-md-6 col-6 mb-0">
-                <select class="form-select rounded-pill px-4 py-2 form-select-custom" id="estado" name="gabinete_estado">
+                <select class="form-select rounded-pill px-4 py-2 form-select-custom estado" name="gabinete_estado">
                     <option selected>Escolha o estado</option>
                 </select>
             </div>

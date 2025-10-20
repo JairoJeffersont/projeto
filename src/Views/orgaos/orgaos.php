@@ -89,16 +89,22 @@ $busca = $_GET['busca'] ?? '';
                         </div>
 
                         <div class="col-md-2 col-12">
-                            <select class="form-select form-select-sm" id="tipo" name="tipo" required>
-                                <option value="1">Sem tipo definido</option>
-                                <?php
-                                $buscaTipo = OrgaoController::listarTiposOrgaos($_SESSION['usuario']['gabinete_id']);
-                                foreach ($buscaTipo['data'] as $t) {
-                                    echo '<option value="' . $t['id'] . '">' . $t['nome'] . '</option>';
-                                }
-                                ?>
-                            </select>
+                            <div class="input-group input-group-sm">
+                                <select class="form-select" id="tipo" name="tipo" required>
+                                    <option value="1">Sem tipo definido</option>
+                                    <?php
+                                    $buscaTipo = OrgaoController::listarTiposOrgaos($_SESSION['usuario']['gabinete_id']);
+                                    foreach ($buscaTipo['data'] as $t) {
+                                        echo '<option value="' . $t['id'] . '">' . $t['nome'] . '</option>';
+                                    }
+                                    ?>
+                                </select>
+                                <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
+                                    <i class="bi bi-plus"></i>
+                                </a>
+                            </div>
                         </div>
+
                         <div class="col-md-2 col-12">
                             <input type="text" class="form-control form-control-sm" name="site" placeholder="Site">
                         </div>
