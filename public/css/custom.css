@@ -32,11 +32,11 @@ body {
 
 .custom-alert {
     font-weight: 700;
-    font-size: 0.85em;
+    font-size: 0.9em;
 }
 
 .custom-card-header {
-    font-size: 0.85em;
+    font-size: 0.95em;
     background-image: url('../img/blue-bg.jpeg');
     background-size: cover;
     font-weight: 700;
@@ -48,7 +48,7 @@ body {
 }
 
 .barra_navegacao {
-    font-size: 0.85em;
+    font-size: 1em;
 }
 
 .custom_menu {
@@ -56,7 +56,7 @@ body {
 }
 
 .form_custom {
-    font-size: 0.85em;
+    font-size: 1em;
 }
 
 .form_custom input,

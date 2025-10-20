@@ -3,7 +3,9 @@
 use App\Controllers\OrgaoController;
 use App\Controllers\UsuarioController;
 
-include('../src/Views/includes/verificaLogado.php'); ?>
+include('../src/Views/includes/verificaLogado.php');
+
+?>
 
 <div class="d-flex" id="wrapper">
     <?php include '../src/Views/base/sidebar.php'; ?>
@@ -12,8 +14,8 @@ include('../src/Views/includes/verificaLogado.php'); ?>
         <?php include '../src/Views/base/top_menu.php'  ?>
         <div class="container-fluid p-2">
             <div class="card mb-2">
-                <div class="card-header custom-card-header text-white">
-                    Tipos de órgãos
+                <div class="card-header custom-card-header px-2 py-1 text-white">
+                    Tipos de órgãos/entidades
                 </div>
                 <div class="card-body custom-card-body p-2">
                     <p class="card-text mb-0">Nesta seção, é possível adicionar e editar os tipos de órgãos e entidades, garantindo a organização correta dessas informações no sistema.</p>
@@ -74,7 +76,7 @@ include('../src/Views/includes/verificaLogado.php'); ?>
                                 if ($buscaTipo['status'] == 'success') {
                                     foreach ($buscaTipo['data'] as $tipo) {
                                         $usuario = UsuarioController::buscarUsuario($tipo['usuario_id'])['data']['nome'];
-                                        echo '<tr><td><a href="?secao=tipo-orgao&id='.$tipo['id'].'">' . $tipo['nome'] . '</a></td><td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($tipo['created_at'])) . '</td></tr>';
+                                        echo '<tr><td><a href="?secao=tipo-orgao&id=' . $tipo['id'] . '">' . $tipo['nome'] . '</a></td><td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($tipo['created_at'])) . '</td></tr>';
                                     }
                                 } else if ($buscaTipo['status'] == 'empty') {
                                     echo '<tr><td colspan="2">' . $buscaTipo['message'] . '</td></tr>';
