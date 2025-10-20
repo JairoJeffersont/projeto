@@ -1,17 +1,3 @@
-# Projeto
-
-Este repositório contém uma aplicação PHP simples estruturada com um diretório `public/` como raiz pública. Este README descreve como instalar, configurar e executar a aplicação em ambiente local.
-
-## Sumário
-
-- Requisitos
-- Instalação
-- Configuração (.env)
-- Banco de dados
-- Executando localmente
-- Resolução de problemas comuns
-- Estrutura principal do projeto
-- Contribuição
 
 ## Requisitos
 
