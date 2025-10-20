@@ -26,7 +26,7 @@ Observação: O arquivo `composer.json` declara dependências como `illuminate/d
 
 1. Clone o repositório:
 
-   git clone <url-do-repositorio> projeto
+   git clone <https://github.com/JairoJeffersont/projeto> projeto
    cd projeto
 
 2. Instale as dependências via Composer:
