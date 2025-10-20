@@ -27,7 +27,7 @@ $busca = $_GET['busca'] ?? '';
         <div class="container-fluid p-2">
             <div class="card mb-2">
                 <div class="card-header custom-card-header px-2 py-1 text-white">
-                    Tipos de órgãos/entidades
+                    Órgãos/entidades
                 </div>
                 <div class="card-body custom-card-body p-2">
                     <p class="card-text mb-0">Nesta seção, é possível adicionar e editar os tipos de órgãos e entidades, garantindo a organização correta dessas informações no sistema.</p>
@@ -49,7 +49,7 @@ $busca = $_GET['busca'] ?? '';
                             'site'        => $_POST['site'],
                             'instagram'   => $_POST['instagram'],
                             'facebook'    => $_POST['facebook'],
-                            'informacoes' => $_POST['informacoes'],
+                            'informacoes_adicionais' => $_POST['informacoes'],
                             'gabinete_id' => $_SESSION['usuario']['gabinete_id'],
                             'usuario_id' => $_SESSION['usuario']['id'],
                         ];
@@ -94,9 +94,12 @@ $busca = $_GET['busca'] ?? '';
                                     <option value="1">Sem tipo definido</option>
                                     <?php
                                     $buscaTipo = OrgaoController::listarTiposOrgaos($_SESSION['usuario']['gabinete_id']);
-                                    foreach ($buscaTipo['data'] as $t) {
-                                        echo '<option value="' . $t['id'] . '">' . $t['nome'] . '</option>';
+                                    if ($buscaTipo['status'] == 'success') {
+                                        foreach ($buscaTipo['data'] as $t) {
+                                            echo '<option value="' . $t['id'] . '">' . $t['nome'] . '</option>';
+                                        }
                                     }
+
                                     ?>
                                 </select>
                                 <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
@@ -169,10 +172,13 @@ $busca = $_GET['busca'] ?? '';
                                 <option value="1" <?= ($tipoGet == '1') ? 'selected' : '' ?>>Sem tipo definido</option>
                                 <?php
 
-                                foreach ($buscaTipo['data'] as $t) {
-                                    $sel = ($tipoGet == $t['id']) ? 'selected' : '';
-                                    echo '<option value="' . $t['id'] . '" ' . $sel . '>' . $t['nome'] . '</option>';
+                                if ($buscaTipo['status'] == 'success') {
+                                    foreach ($buscaTipo['data'] as $t) {
+                                        $sel = ($tipoGet == $t['id']) ? 'selected' : '';
+                                        echo '<option value="' . $t['id'] . '" ' . $sel . '>' . $t['nome'] . '</option>';
+                                    }
                                 }
+
                                 ?>
                             </select>
                         </div>
@@ -211,7 +217,7 @@ $busca = $_GET['busca'] ?? '';
                                         $nomeTipo = ($tipo['status'] === 'success') ? $tipo['data']['nome'] : 'Sem tipo definido';
 
                                         echo '<tr>
-                                                <td><a href="?secao=tipo-orgao&id=' . $orgao['id'] . '">' . $orgao['nome'] . '</a></td>
+                                                <td><a href="?secao=orgao&id=' . $orgao['id'] . '">' . $orgao['nome'] . '</a></td>
                                                 <td>' . $orgao['cidade'] . '/' . $orgao['estado'] . '</td>
                                                 <td>' . $nomeTipo . '</td>
                                                 <td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($orgao['created_at'])) . '</td>
