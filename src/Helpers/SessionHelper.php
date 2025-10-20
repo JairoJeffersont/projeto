@@ -5,7 +5,7 @@ namespace App\Helpers;
 class SessionHelper {
 
     public static function iniciarSessao(array $usuario): bool {
-        $expiracaoMinutos = 1440; // 1 dia
+        $expiracaoMinutos = $_ENV['SESSION_EXPIRATION'];
 
         // Evita warnings caso headers já tenham sido enviados
         if (headers_sent()) {
