@@ -121,7 +121,7 @@ $orgao = $_GET['orgao'] ?? '';
                         <div class="col-md-2 col-6">
                             <input type="text" class="form-control form-control-sm" name="facebook" placeholder="Facebook">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-2 col-6">
                             <select class="form-select form-select-sm" name="importancia" required>
                                 <option value="Não informado" selected>Selecione a importância</option>
                                 <option value="Baixa">🟢 Baixa</option>
@@ -287,11 +287,11 @@ $orgao = $_GET['orgao'] ?? '';
                                         $nomeOrgao = ($orgao['status'] === 'success') ? $orgao['data']['nome'] : 'Órgão não informado';
 
                                         echo '<tr>
-                                                <td><a href="?secao=pessoa&id=' . $pessoa['id'] . '" class="loading-modal">' . $pessoa['nome'] . '</a></td>
-                                                <td>' . $pessoa['cidade'] . '/' . $pessoa['estado'] . '</td>
-                                                <td>' . $nomeTipo . '</td>
-                                                <td>' . $nomeOrgao . '</td>
-                                                <td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($pessoa['created_at'])) . '</td>
+                                                <td nowrap><a href="?secao=pessoa&id=' . $pessoa['id'] . '" class="loading-modal">' . $pessoa['nome'] . '</a></td>
+                                                <td nowrap>' . $pessoa['cidade'] . '/' . $pessoa['estado'] . '</td>
+                                                <td nowrap>' . $nomeTipo . '</td>
+                                                <td nowrap>' . $nomeOrgao . '</td>
+                                                <td nowrap>' . $usuario . ' | ' . date('d/m - H:i', strtotime($pessoa['created_at'])) . '</td>
                                             </tr>';
                                     }
                                 } else if ($buscaPessoas['status'] == 'empty') {

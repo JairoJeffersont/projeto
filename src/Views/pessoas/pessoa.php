@@ -40,7 +40,7 @@ if ($buscaPessoa['status'] != 'success') {
 
                         <!-- INFORMAÇÕES -->
                         <div class="col">
-                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?></h3>
+                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?>e</h3>
                             <p class="mb-0"><strong>Email:</strong> <?php echo !empty($buscaPessoa['data']['email']) ? $buscaPessoa['data']['email'] : 'Não informado' ?></p>
                             <p class="mb-0"><strong>Telefone:</strong> <?php echo !empty($buscaPessoa['data']['telefone']) ? $buscaPessoa['data']['telefone'] : 'Não informado' ?></p>
                         </div>
@@ -130,6 +130,9 @@ if ($buscaPessoa['status'] != 'success') {
 
 
                     ?>
+
+                    <?= ($buscaPessoa['data']['data_nascimento'] == date('d/m')) ? '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="0" role="alert"><b>Feliz aniversário!</b></div>' : ''; ?>
+
                     <form class="row g-2 form_custom " id="form_novo" method="POST" enctype="multipart/form-data">
                         <div class="col-md-5 col-12">
                             <input type="text" class="form-control form-control-sm" name="nome" placeholder="Nome" value="<?php echo $buscaPessoa['data']['nome'] ?>" required>
