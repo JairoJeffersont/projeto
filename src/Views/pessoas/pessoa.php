@@ -27,13 +27,27 @@ if ($buscaPessoa['status'] != 'success') {
                 </div>
             </div>
             <div class="card mb-2">
-                <div class="card-header custom-card-header px-2 py-1 text-white">
-                    Pessoas
-                </div>
-                <div class="card-body custom-card-body p-2">
-                    <p class="card-text mb-0">Nesta seção, é possível adicionar e editar as pessoas de interesso do mandato, garantindo a organização correta dessas informações no sistema.</p>
+                <div class="card-body card-profile p-2">
+                    <div class="row align-items-center">
+
+                        <!-- FOTO -->
+                        <div class="col-auto">
+                            <div class="foto-perfil">
+                                <img src="<?php echo !empty($buscaPessoa['data']['foto']) ? $buscaPessoa['data']['foto'] : '/img/not_found.jpg' ?>" alt="Foto de Perfil" class="img-fluid rounded">
+                            </div>
+                        </div>
+
+                        <!-- INFORMAÇÕES -->
+                        <div class="col">
+                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?><?= isset($buscaPessoa['data']['partido']) ? ' | ' . $buscaPessoa['data']['partido'] : '' ?></h3>
+                            <p class="mb-0"><strong>Email:</strong> <?php echo !empty($buscaPessoa['data']['email']) ? $buscaPessoa['data']['email'] : 'Não informado' ?></p>
+                            <p class="mb-0"><strong>Telefone:</strong> <?php echo !empty($buscaPessoa['data']['telefone']) ? $buscaPessoa['data']['telefone'] : 'Não informado' ?></p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
+
 
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
@@ -66,8 +80,7 @@ if ($buscaPessoa['status'] != 'success') {
                         if ($result['status'] == 'conflict') {
                             echo '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
                         } else if ($result['status'] == 'success') {
-                            $buscaPessoa = PessoaController::buscarPessoa($id);
-                            echo '<div class="alert alert-success px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
+                            header('Location: ?secao=pessoa&id=' . $id);
                         } else if ($result['status'] == 'server_error') {
                             echo '<div class="alert alert-danger px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . ' | ' . $result['error_id'] . '</div>';
                         }
@@ -83,6 +96,8 @@ if ($buscaPessoa['status'] != 'success') {
                             header('location: ?secao=pessoas');
                         } else if ($result['status'] == 'server_error') {
                             echo '<div class="alert alert-danger px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . ' | ' . $result['error_id'] . '</div>';
+                        } else if ($result['status'] == 'tamanho_maximo_excedido' || $result['status'] == 'formato_nao_permitido') {
+                            echo '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">Tamanho da foto excedido ou formato não permitido.</div>';
                         }
                     }
 

@@ -81,9 +81,29 @@ custom_navigation ul {
 
 .card-profile {
     background-image: url('../img/card_profile_background.jpg');
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 10px;
 }
+
+/* Foto com proporção 4:3 e tamanho fixo */
+.foto-perfil {
+    width: 100px;
+    /* largura fixa */
+    aspect-ratio: 4 / 4;
+    /* mantém proporção */
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+}
+
+.foto-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* corta mantendo proporção */
+}
+
 
 .custom-table {
     font-size: 1em;

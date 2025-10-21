@@ -299,7 +299,7 @@ class PessoaController {
             //}
 
             if (isset($dados['foto'])) {
-                $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
+                $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 20);
                 if ($result['status'] == 'success') {
                     $dados['foto'] = $result['file_path'];
                 } else {
@@ -358,7 +358,9 @@ class PessoaController {
             if (isset($dados['foto'])) {
                 $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
                 if ($result['status'] == 'success') {
-                    FileUploader::deleteFile($profissao->foto);
+                    if (file_exists($profissao->foto)) {
+                        FileUploader::deleteFile($profissao->foto);
+                    }
                     $dados['foto'] = $result['file_path'];
                 } else {
                     return $result;
