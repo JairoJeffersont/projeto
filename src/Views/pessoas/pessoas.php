@@ -61,6 +61,9 @@ $orgao = $_GET['orgao'] ?? '';
                             'usuario_id'             => $_SESSION['usuario']['id'],
                         ];
 
+                        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+                            $dados['foto'] = $_FILES['foto'];
+                        }
 
                         $result = PessoaController::novaPessoa($dados);
 
@@ -75,7 +78,7 @@ $orgao = $_GET['orgao'] ?? '';
 
 
                     ?>
-                    <form class="row g-2 form_custom " id="form_novo" method="POST" enctype="application/x-www-form-urlencoded">
+                    <form class="row g-2 form_custom " id="form_novo" method="POST" enctype="multipart/form-data">
                         <div class="col-md-5 col-12">
                             <input type="text" class="form-control form-control-sm" name="nome" placeholder="Nome" required>
                         </div>
@@ -175,10 +178,13 @@ $orgao = $_GET['orgao'] ?? '';
                                 <option value="alta">🔴 Alta</option>
                             </select>
                         </div>
-
+                        <div class="col-md-3 col-12">
+                            <input type="file" class="form-control form-control-sm" name="foto">
+                        </div>
                         <div class="col-md-12 col-12">
                             <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes dessa pessoa"></textarea>
                         </div>
+
                         <div class="col-md-4 col-6">
                             <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>

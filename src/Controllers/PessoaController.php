@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 
 use JairoJeffersont\EasyLogger\Logger;
+use JairoJeffersont\FileUploader;
 use App\Models\TipoPessoaModel;
 use App\Models\ProfissaoModel;
 use App\Models\PessoaModel;
@@ -287,13 +288,22 @@ class PessoaController {
         }
     }
 
-     public static function novaPessoa(array $dados): array {
-        try {
+    public static function novaPessoa(array $dados): array {
+        try {          
 
             $tipo = PessoaModel::where('nome', $dados['nome'])->first();
 
             if ($tipo) {
                 return ['status' => 'conflict', 'message' => 'Pessoa já cadastrada.'];
+            }
+
+            if (isset($dados['foto'])) {
+                $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
+                if ($result['status'] == 'success') {
+                    $dados['foto'] = $result['file_path'];
+                } else {
+                    return $result;
+                }
             }
 
             $dados['id'] = Uuid::uuid4()->toString();
