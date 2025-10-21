@@ -130,8 +130,8 @@ if ($buscaOrgao['status'] != 'success') {
                             <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes desse órgão"><?php echo $buscaOrgao['data']['informacoes_adicionais']; ?></textarea>
                         </div>
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja atualizar esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
-                            <button type="submit" class="btn btn-danger btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja apagar esse órgão?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja atualizar esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar esse órgão?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
                         </div>
                     </form>
                 </div>

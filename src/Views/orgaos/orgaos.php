@@ -121,7 +121,7 @@ $busca = $_GET['busca'] ?? '';
                             <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes desse órgão"></textarea>
                         </div>
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja inserir esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -217,10 +217,10 @@ $busca = $_GET['busca'] ?? '';
                                         $nomeTipo = ($tipo['status'] === 'success') ? $tipo['data']['nome'] : 'Sem tipo definido';
 
                                         echo '<tr>
-                                                <td><a href="?secao=orgao&id=' . $orgao['id'] . '">' . $orgao['nome'] . '</a></td>
-                                                <td>' . $orgao['cidade'] . '/' . $orgao['estado'] . '</td>
-                                                <td>' . $nomeTipo . '</td>
-                                                <td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($orgao['created_at'])) . '</td>
+                                                <td nowrap><a href="?secao=orgao&id=' . $orgao['id'] . '">' . $orgao['nome'] . '</a></td>
+                                                <td nowrap>' . $orgao['cidade'] . '/' . $orgao['estado'] . '</td>
+                                                <td nowrap>' . $nomeTipo . '</td>
+                                                <td nowrap>' . $usuario . ' | ' . date('d/m - H:i', strtotime($orgao['created_at'])) . '</td>
                                             </tr>';
                                     }
                                 } else if ($buscaOrgao['status'] == 'empty') {

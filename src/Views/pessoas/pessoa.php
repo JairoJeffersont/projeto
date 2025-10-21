@@ -33,14 +33,22 @@ if ($buscaPessoa['status'] != 'success') {
 
                         <!-- FOTO -->
                         <div class="col-auto">
-                            <div class="foto-perfil">
-                                <img src="<?php echo !empty($buscaPessoa['data']['foto']) ? $buscaPessoa['data']['foto'] : '/img/not_found.jpg' ?>" alt="Foto de Perfil" class="img-fluid rounded">
-                            </div>
+                            <?php if (!empty($buscaPessoa['data']['foto'])): ?>
+                                <a href="<?php echo $buscaPessoa['data']['foto'] ?>" download>
+                                    <div class="foto-perfil">
+                                        <img src="<?php echo $buscaPessoa['data']['foto'] ?>" alt="Foto de Perfil">
+                                    </div>
+                                </a>
+                            <?php else: ?>
+                                <div class="foto-perfil">
+                                    <img src="/img/not_found.jpg" alt="Foto de Perfil">
+                                </div>
+                            <?php endif; ?>
                         </div>
 
                         <!-- INFORMAÇÕES -->
                         <div class="col">
-                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?>e</h3>
+                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?></h3>
                             <p class="mb-0"><strong>Email:</strong> <?php echo !empty($buscaPessoa['data']['email']) ? $buscaPessoa['data']['email'] : 'Não informado' ?></p>
                             <p class="mb-0"><strong>Telefone:</strong> <?php echo !empty($buscaPessoa['data']['telefone']) ? $buscaPessoa['data']['telefone'] : 'Não informado' ?></p>
                         </div>
@@ -70,8 +78,7 @@ if ($buscaPessoa['status'] != 'success') {
                         role="button">
                         <i class="bi bi-whatsapp"></i> Whatsapp
                     </a>
-                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=imprimir-pessoa" role="button"><i class="bi bi-printer"></i> Imprimir</a>
-
+                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=imprimir-pessoa&id=<?php echo $buscaPessoa['data']['id'] ?>" target="_blank" role="button"><i class="bi bi-printer"></i> Imprimir</a>
                 </div>
             </div>
 
@@ -258,8 +265,8 @@ if ($buscaPessoa['status'] != 'success') {
                         </div>
 
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja atualizar essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
-                            <button type="submit" class="btn btn-danger btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja apagar essa pessoa?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja atualizar essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar essa pessoa?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
                         </div>
                     </form>
                 </div>

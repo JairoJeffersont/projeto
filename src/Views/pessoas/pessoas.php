@@ -191,7 +191,7 @@ $orgao = $_GET['orgao'] ?? '';
                         </div>
 
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja inserir essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -253,7 +253,7 @@ $orgao = $_GET['orgao'] ?? '';
                             <input type="text" class="form-control form-control-sm" name="busca" placeholder="Buscar..." value="<?= htmlspecialchars($busca) ?>">
                         </div>
                         <div class="col-md-1 col-2">
-                            <button type="submit" class="btn btn-success btn-sm loading-modal"><i class="bi bi-search"></i></button>
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
                 </div>
