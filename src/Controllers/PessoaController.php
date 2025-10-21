@@ -356,7 +356,7 @@ class PessoaController {
             }*/
 
             if (isset($dados['foto'])) {
-                $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
+                $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 20);
                 if ($result['status'] == 'success') {
                     if (file_exists($profissao->foto)) {
                         FileUploader::deleteFile($profissao->foto);
