@@ -65,7 +65,6 @@ if ($buscaProfissao['status'] != 'success') {
                         <div class="col-md-10 col-12">
                             <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa profissão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                             <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar essa profissão?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
-
                         </div>
                     </form>
                 </div>
