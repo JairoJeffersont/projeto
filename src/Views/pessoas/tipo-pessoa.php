@@ -4,7 +4,7 @@ use App\Controllers\PessoaController;
 
 include('../src/Views/includes/verificaLogado.php');
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?: '';
 $buscaTipo = PessoaController::buscarTipoPessoa($id);
 
 if ($buscaTipo['status'] != 'success') {

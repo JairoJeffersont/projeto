@@ -4,7 +4,7 @@ use App\Controllers\OrgaoController;
 
 include('../src/Views/includes/verificaLogado.php');
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?: '';
 $buscaOrgao = OrgaoController::buscarTipoOrgao($id);
 
 if ($buscaOrgao['status'] != 'success') {
@@ -63,7 +63,7 @@ if ($buscaOrgao['status'] != 'success') {
                             echo '<div class="alert alert-danger px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . ' | ' . $result['error_id'] . '</div>';
                         }
                     }
-                    
+
                     ?>
                     <form class="row g-2 form_custom" id="form_novo" method="POST">
                         <div class="col-md-2 col-12">

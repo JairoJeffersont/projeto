@@ -87,7 +87,7 @@ $orgao = $_GET['orgao'] ?? '';
                             <input type="text" class="form-control form-control-sm" name="telefone" placeholder="Telefone (somente números)" data-mask="(00) 00000-0000" maxlength="15">
                         </div>
                         <div class="col-md-1 col-6">
-                            <input type="text" class="form-control form-control-sm" name="aniversario" placeholder="dd/mm" data-mask="00/00" maxlength="5" required>
+                            <input type="text" class="form-control form-control-sm" name="aniversario" placeholder="Aniversário (dd/mm)" data-mask="00/00" maxlength="5" required>
                         </div>
                         <div class="col-md-2 col-6">
                             <select class="form-select form-select-sm estado" name="estado" required>
@@ -104,13 +104,13 @@ $orgao = $_GET['orgao'] ?? '';
                                 <option value="" selected>Partido não informado</option>
                             </select>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-2 col-6">
                             <input type="text" class="form-control form-control-sm" name="instagram" placeholder="Instagram">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-2 col-6">
                             <input type="text" class="form-control form-control-sm" name="facebook" placeholder="Facebook">
                         </div>
-                        <div class="col-md-2 col-6">
+                        <div class="col-md-2 col-12">
                             <select class="form-select form-select-sm" name="importancia" required>
                                 <option value="Não informado" selected>Selecione a importância</option>
                                 <option value="Baixa">🟢 Baixa</option>

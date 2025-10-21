@@ -4,7 +4,7 @@ use App\Controllers\OrgaoController;
 
 include('../src/Views/includes/verificaLogado.php');
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?: '';
 
 $buscaOrgao = OrgaoController::buscarOrgao($id);
 

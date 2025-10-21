@@ -5,7 +5,7 @@ use App\Controllers\PessoaController;
 
 include('../src/Views/includes/verificaLogado.php');
 
-$id = $_GET['id'];
+$id = $_GET['id'] ?: '';
 $buscaPessoa = PessoaController::buscarPessoa($id);
 
 if ($buscaPessoa['status'] != 'success') {
@@ -99,7 +99,7 @@ if ($buscaPessoa['status'] != 'success') {
                             <input type="text" class="form-control form-control-sm" name="telefone" placeholder="Telefone (somente números)" value="<?php echo $buscaPessoa['data']['telefone'] ?>" data-mask="(00) 00000-0000" maxlength="15">
                         </div>
                         <div class="col-md-1 col-6">
-                            <input type="text" class="form-control form-control-sm" name="aniversario" placeholder="dd/mm" data-mask="00/00" maxlength="5" value="<?php echo $buscaPessoa['data']['data_nascimento'] ?>" required>
+                            <input type="text" class="form-control form-control-sm" name="aniversario" placeholder="Aniversário (dd/mm)" data-mask="00/00" maxlength="5" value="<?php echo $buscaPessoa['data']['data_nascimento'] ?>" required>
                         </div>
                         <div class="col-md-2 col-6">
                             <select class="form-select form-select-sm estado" name="estado" data-selected="<?php echo $buscaPessoa['data']['estado'] ?>" required>
@@ -116,10 +116,10 @@ if ($buscaPessoa['status'] != 'success') {
                                 <option value="" selected>Partido não informado</option>
                             </select>
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-2 col-6">
                             <input type="text" class="form-control form-control-sm" name="instagram" value="<?php echo $buscaPessoa['data']['instagram'] ?>" placeholder="Instagram">
                         </div>
-                        <div class="col-md-2 col-12">
+                        <div class="col-md-2 col-6">
                             <input type="text" class="form-control form-control-sm" name="facebook" value="<?php echo $buscaPessoa['data']['facebook'] ?>" placeholder="Facebook">
                         </div>
                         <div class="col-md-2 col-6">
