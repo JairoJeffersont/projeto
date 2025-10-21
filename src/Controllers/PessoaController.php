@@ -237,6 +237,7 @@ class PessoaController {
         }
     }
 
+    //CRUD PESSOAS
     public static function listarPessoas(string $gabinete_id = '', string $ordem = 'ASC', string $ordernarPor = 'nome', int $itens = 10, int $pagina = 1, string $estado = '', string $cidade = '', string $tipo = '', string $orgao = '',  string $busca = ''): array {
         try {
 
@@ -291,11 +292,11 @@ class PessoaController {
     public static function novaPessoa(array $dados): array {
         try {
 
-            $tipo = PessoaModel::where('nome', $dados['nome'])->first();
+            //$tipo = PessoaModel::where('nome', $dados['nome'])->first();
 
-            if ($tipo) {
-                return ['status' => 'conflict', 'message' => 'Pessoa já cadastrada.'];
-            }
+            //if ($tipo) {
+            //    return ['status' => 'conflict', 'message' => 'Pessoa já cadastrada.'];
+            //}
 
             if (isset($dados['foto'])) {
                 $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
@@ -344,7 +345,7 @@ class PessoaController {
                 return ['status' => 'not_found', 'message' => 'Pessoa não encontrada.'];
             }
 
-            if (isset($dados['nome'])) {
+            /*if (isset($dados['nome'])) {
                 $profissaoExistente = ProfissaoModel::where('nome', $dados['nome'])
                     ->where('id', '<>', $id)
                     ->first();
@@ -352,7 +353,7 @@ class PessoaController {
                 if ($profissaoExistente) {
                     return ['status' => 'conflict', 'message' => 'Pessoa já cadastrada.'];
                 }
-            }
+            }*/
 
             if (isset($dados['foto'])) {
                 $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
