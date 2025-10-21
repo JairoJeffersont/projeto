@@ -102,7 +102,7 @@ $busca = $_GET['busca'] ?? '';
 
                                     ?>
                                 </select>
-                                <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
+                                <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
                                     <i class="bi bi-plus"></i>
                                 </a>
                             </div>
@@ -121,7 +121,7 @@ $busca = $_GET['busca'] ?? '';
                             <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes desse órgão"></textarea>
                         </div>
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja inserir esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>
@@ -186,7 +186,7 @@ $busca = $_GET['busca'] ?? '';
                             <input type="text" class="form-control form-control-sm" name="busca" placeholder="Buscar..." value="<?= htmlspecialchars($busca) ?>">
                         </div>
                         <div class="col-md-1 col-2">
-                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
+                            <button type="submit" class="btn btn-success btn-sm loading-modal"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
                 </div>

@@ -22,8 +22,8 @@ if ($buscaOrgao['status'] != 'success') {
         <div class="container-fluid p-2">
             <div class="card mb-2 ">
                 <div class="card-body custom-card-body p-1">
-                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
-                    <a class="btn btn-success btn-sm custom-nav barra_navegacao" href="?secao=orgaos" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
+                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao loading-modal" href="?secao=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
+                    <a class="btn btn-success btn-sm custom-nav barra_navegacao loading-modal" href="?secao=orgaos" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
                 </div>
             </div>
             <div class="card mb-2">
@@ -112,7 +112,7 @@ if ($buscaOrgao['status'] != 'success') {
                                     }
                                     ?>
                                 </select>
-                                <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
+                                <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
                                     <i class="bi bi-plus"></i>
                                 </a>
                             </div>
@@ -130,8 +130,8 @@ if ($buscaOrgao['status'] != 'success') {
                             <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes desse órgão"><?php echo $buscaOrgao['data']['informacoes_adicionais']; ?></textarea>
                         </div>
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja atualizar esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
-                            <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar esse órgão?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja atualizar esse órgão?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-danger btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja apagar esse órgão?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
                         </div>
                     </form>
                 </div>

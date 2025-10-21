@@ -15,10 +15,15 @@ if ($buscaTipo['status'] != 'success') {
 
 <div class="d-flex" id="wrapper">
     <?php include '../src/Views/base/sidebar.php'; ?>
-
     <div id="page-content-wrapper">
         <?php include '../src/Views/base/top_menu.php'  ?>
         <div class="container-fluid p-2">
+            <div class="card mb-2 ">
+                <div class="card-body custom-card-body p-1">
+                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
+                    <a class="btn btn-success btn-sm custom-nav barra_navegacao" href="?secao=tipos-pessoas" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
+                </div>
+            </div>
             <div class="card mb-2">
                 <div class="card-header custom-card-header px-2 py-1 text-white">
                     Editar Tipos de pessoas

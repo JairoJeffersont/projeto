@@ -289,7 +289,7 @@ class PessoaController {
     }
 
     public static function novaPessoa(array $dados): array {
-        try {          
+        try {
 
             $tipo = PessoaModel::where('nome', $dados['nome'])->first();
 
@@ -311,6 +311,78 @@ class PessoaController {
 
             return ['status' => 'success', 'message' => 'Pessoa criada com sucesso.', 'data' => $result->toArray()];
         } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function buscarPessoa(string $valor = '', string $coluna = 'id'): array {
+        try {
+            if (empty($valor)) {
+                return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
+            }
+
+            $tipo = PessoaModel::where($coluna, $valor)->where('id', '<>', '1')->first();
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Pessoa não encontrada'];
+            }
+
+            return ['status' => 'success', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function atualizarPessoa(string $id, array $dados): array {
+        try {
+
+            $profissao = PessoaModel::find($id);
+
+            if (!$profissao) {
+                return ['status' => 'not_found', 'message' => 'Pessoa não encontrada.'];
+            }
+
+            if (isset($dados['nome'])) {
+                $profissaoExistente = ProfissaoModel::where('nome', $dados['nome'])
+                    ->where('id', '<>', $id)
+                    ->first();
+
+                if ($profissaoExistente) {
+                    return ['status' => 'conflict', 'message' => 'Pessoa já cadastrada.'];
+                }
+            }
+
+            $profissao->update($dados);
+
+            return ['status' => 'success', 'message' => 'Pessoa atualizada.', 'data' => $profissao->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function apagarPessoa(string $id = ''): array {
+        try {
+
+            if (empty($id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
+            }
+
+            $profissao = PessoaModel::find($id);
+
+            if (!$profissao) {
+                return ['status' => 'not_found', 'message' => 'Pessoa não encontrada'];
+            }
+
+            $profissao->delete();
+            return ['status' => 'success', 'message' => 'Pessoa apagada.'];
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'FOREIGN KEY') !== false) {
+                return ['status' => 'not_permitted', 'message' => 'Essa pessoa não pode ser apagada.'];
+            }
+
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }

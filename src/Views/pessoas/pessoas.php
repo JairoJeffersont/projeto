@@ -23,7 +23,6 @@ $orgao = $_GET['orgao'] ?? '';
 
 <div class="d-flex" id="wrapper">
     <?php include '../src/Views/base/sidebar.php'; ?>
-
     <div id="page-content-wrapper">
         <?php include '../src/Views/base/top_menu.php'  ?>
         <div class="container-fluid p-2">
@@ -53,7 +52,6 @@ $orgao = $_GET['orgao'] ?? '';
                             'orgao_id'               => $_POST['orgao'],
                             'partido'                => $_POST['partido'],
                             'importancia'            => $_POST['importancia'],
-                            'site'                   => $_POST['site'],
                             'instagram'              => $_POST['instagram'],
                             'facebook'               => $_POST['facebook'],
                             'informacoes_adicionais' => $_POST['informacoes'],
@@ -101,7 +99,25 @@ $orgao = $_GET['orgao'] ?? '';
                                 <option value="" selected>Município</option>
                             </select>
                         </div>
-
+                        <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm partidos" name="partido">
+                                <option value="" selected>Partido não informado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <input type="text" class="form-control form-control-sm" name="instagram" placeholder="Instagram">
+                        </div>
+                        <div class="col-md-2 col-12">
+                            <input type="text" class="form-control form-control-sm" name="facebook" placeholder="Facebook">
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm" name="importancia" required>
+                                <option value="Não informado" selected>Selecione a importância</option>
+                                <option value="Baixa">🟢 Baixa</option>
+                                <option value="Media">🟡 Média</option>
+                                <option value="Alta">🔴 Alta</option>
+                            </select>
+                        </div>
                         <div class="col-md-2 col-12">
                             <div class="input-group input-group-sm">
                                 <select class="form-select" id="tipo" name="tipo" required>
@@ -113,10 +129,9 @@ $orgao = $_GET['orgao'] ?? '';
                                             echo '<option value="' . $t['id'] . '">' . $t['nome'] . '</option>';
                                         }
                                     }
-
                                     ?>
                                 </select>
-                                <a href="?secao=tipos-orgaos" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
+                                <a href="?secao=tipos-pessoas" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir um novo tipo de órgão?" title="Gerenciar Tipos de Órgãos">
                                     <i class="bi bi-plus"></i>
                                 </a>
                             </div>
@@ -132,10 +147,9 @@ $orgao = $_GET['orgao'] ?? '';
                                             echo '<option value="' . $p['id'] . '">' . $p['nome'] . '</option>';
                                         }
                                     }
-
                                     ?>
                                 </select>
-                                <a href="?secao=profissoes" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir uma nova profissão?" title="Gerenciar Tipos de Órgãos">
+                                <a href="?secao=profissoes" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir uma nova profissão?" title="Gerenciar Tipos de Órgãos">
                                     <i class="bi bi-plus"></i>
                                 </a>
                             </div>
@@ -151,32 +165,12 @@ $orgao = $_GET['orgao'] ?? '';
                                             echo '<option value="' . $o['id'] . '">' . $o['nome'] . '</option>';
                                         }
                                     }
-
                                     ?>
                                 </select>
-                                <a href="?secao=orgaos" class="btn btn-primary confirm-action" data-message="Tem certeza que deseja inserir um novo órgão?" title="Gerenciar Tipos de Órgãos">
+                                <a href="?secao=orgaos" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir um novo órgão?" title="Gerenciar Tipos de Órgãos">
                                     <i class="bi bi-plus"></i>
                                 </a>
                             </div>
-                        </div>
-                        <div class="col-md-2 col-6">
-                            <select class="form-select form-select-sm partidos" name="partido">
-                                <option value="" selected>Partido não informado</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <input type="text" class="form-control form-control-sm" name="instagram" placeholder="Instagram">
-                        </div>
-                        <div class="col-md-2 col-12">
-                            <input type="text" class="form-control form-control-sm" name="facebook" placeholder="Facebook">
-                        </div>
-                        <div class="col-md-2 col-6">
-                            <select class="form-select form-select-sm" name="importancia" required>
-                                <option value="" selected>Selecione a importância</option>
-                                <option value="baixa">🟢 Baixa</option>
-                                <option value="media">🟡 Média</option>
-                                <option value="alta">🔴 Alta</option>
-                            </select>
                         </div>
                         <div class="col-md-3 col-12">
                             <input type="file" class="form-control form-control-sm" name="foto">
@@ -186,13 +180,11 @@ $orgao = $_GET['orgao'] ?? '';
                         </div>
 
                         <div class="col-md-4 col-6">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action loading-modal" data-message="Tem certeza que deseja inserir essa pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
                     <form class="row g-2 form_custom mb-0" id="form_busca" method="GET" enctype="application/x-www-form-urlencoded">
@@ -237,14 +229,12 @@ $orgao = $_GET['orgao'] ?? '';
                                 <option value="" <?= ($tipoGet == '') ? 'selected' : '' ?>>Todos os tipos</option>
                                 <option value="1" <?= ($tipoGet == '1') ? 'selected' : '' ?>>Sem tipo definido</option>
                                 <?php
-
                                 if ($buscaTipo['status'] == 'success') {
                                     foreach ($buscaTipo['data'] as $t) {
                                         $sel = ($tipoGet == $t['id']) ? 'selected' : '';
                                         echo '<option value="' . $t['id'] . '" ' . $sel . '>' . $t['nome'] . '</option>';
                                     }
                                 }
-
                                 ?>
                             </select>
                         </div>
@@ -252,7 +242,7 @@ $orgao = $_GET['orgao'] ?? '';
                             <input type="text" class="form-control form-control-sm" name="busca" placeholder="Buscar..." value="<?= htmlspecialchars($busca) ?>">
                         </div>
                         <div class="col-md-1 col-2">
-                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
+                            <button type="submit" class="btn btn-success btn-sm loading-modal"><i class="bi bi-search"></i></button>
                         </div>
                     </form>
                 </div>
@@ -285,9 +275,8 @@ $orgao = $_GET['orgao'] ?? '';
                                         $orgao = OrgaoController::buscarOrgao($pessoa['orgao_id']);
                                         $nomeOrgao = ($orgao['status'] === 'success') ? $orgao['data']['nome'] : 'Órgão não informado';
 
-
                                         echo '<tr>
-                                                <td><a href="?secao=orgao&id=' . $pessoa['id'] . '">' . $pessoa['nome'] . '</a></td>
+                                                <td><a href="?secao=pessoa&id=' . $pessoa['id'] . '" class="loading-modal">' . $pessoa['nome'] . '</a></td>
                                                 <td>' . $pessoa['cidade'] . '/' . $pessoa['estado'] . '</td>
                                                 <td>' . $nomeTipo . '</td>
                                                 <td>' . $nomeOrgao . '</td>
@@ -316,12 +305,11 @@ $orgao = $_GET['orgao'] ?? '';
 
                     ?>
                     <ul class="pagination mb-0 custom-pagination">
-                        <!-- Primeiro -->
+
                         <li class="page-item <?php if ($pagina == 1) echo 'disabled'; ?>">
                             <a class="page-link loading-modal" href="?secao=pessoas&pagina=1&itens=<?= $itens ?>&ordem=<?= $ordem ?>&ordenarPor=<?= $ordenarPor ?>&estado=<?= $estado ?>&cidade=<?= $cidade ?>&tipo=<?= $tipoGet ?>&busca=<?= urlencode($busca) ?>">Primeiro</a>
                         </li>
 
-                        <!-- Números de página -->
                         <?php for ($i = $start; $i <= $end; $i++): ?>
                             <li class="page-item <?php if ($pagina == $i) echo 'active'; ?>">
                                 <a class="page-link loading-modal" href="?secao=pessoas&pagina=<?= $i ?>&itens=<?= $itens ?>&ordem=<?= $ordem ?>&ordenarPor=<?= $ordenarPor ?>&estado=<?= $estado ?>&cidade=<?= $cidade ?>&tipo=<?= $tipoGet ?>&busca=<?= urlencode($busca) ?>">
@@ -330,7 +318,6 @@ $orgao = $_GET['orgao'] ?? '';
                             </li>
                         <?php endfor; ?>
 
-                        <!-- Último -->
                         <li class="page-item <?php if ($pagina == $total_paginas) echo 'disabled'; ?>">
                             <a class="page-link loading-modal" href="?secao=pessoas&pagina=<?= $total_paginas ?>&itens=<?= $itens ?>&ordem=<?= $ordem ?>&ordenarPor=<?= $ordenarPor ?>&estado=<?= $estado ?>&cidade=<?= $cidade ?>&tipo=<?= $tipoGet ?>&busca=<?= urlencode($busca) ?>">Último</a>
                         </li>
