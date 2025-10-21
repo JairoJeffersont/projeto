@@ -15,7 +15,6 @@ class PessoaModel extends Model {
         'nome',
         'email',
         'telefone',
-        'endereco',
         'cidade',
         'estado',
         'data_nascimento',

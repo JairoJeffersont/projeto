@@ -36,7 +36,7 @@ $.fn.populatePartidos = function () {
     // Requisição para buscar os partidos
     $.getJSON(url, function (data) {
         const partidos = data.dados || [];
-        $selectPartido.empty().append('<option value="">Partido</option>');
+        $selectPartido.empty().append('<option value="">Partido não informado</option>');
 
         partidos.forEach(partido => {
             const isSelected = partido.sigla === selectedPartido ? 'selected' : '';

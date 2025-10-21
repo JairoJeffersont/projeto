@@ -6,6 +6,7 @@ namespace App\Controllers;
 use JairoJeffersont\EasyLogger\Logger;
 use App\Models\TipoPessoaModel;
 use App\Models\ProfissaoModel;
+use App\Models\PessoaModel;
 
 use Ramsey\Uuid\Uuid;
 
@@ -235,4 +236,73 @@ class PessoaController {
         }
     }
 
+    public static function listarPessoas(string $gabinete_id = '', string $ordem = 'ASC', string $ordernarPor = 'nome', int $itens = 10, int $pagina = 1, string $estado = '', string $cidade = '', string $tipo = '', string $orgao = '',  string $busca = ''): array {
+        try {
+
+            if (empty($gabinete_id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $offset = ($pagina - 1) * $itens;
+
+            $query = PessoaModel::where('gabinete_id', $gabinete_id);
+
+            if (!empty($estado)) {
+                $query->where('estado', $estado);
+            }
+
+            if (!empty($cidade)) {
+                $query->where('cidade', $cidade);
+            }
+
+            if (!empty($tipo)) {
+                $query->where('tipo_id', $tipo);
+            }
+
+            if (!empty($orgao)) {
+                $query->where('orgao_id', $orgao);
+            }
+
+            if (!empty($busca)) {
+                $query->where('nome', 'like', '%' . $busca . '%');
+            }
+
+            $total = $query->count();
+
+            $orgaos = $query->orderBy($ordernarPor, $ordem)
+                ->offset($offset)
+                ->limit($itens)
+                ->get();
+
+            if ($orgaos->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhuma pessoa registrada.'];
+            }
+
+            $totalPaginas = ceil($total / $itens);
+
+            return ['status' => 'success', 'total_registros' => $total, 'total_pagina' => $totalPaginas, 'data' => $orgaos->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+     public static function novaPessoa(array $dados): array {
+        try {
+
+            $tipo = PessoaModel::where('nome', $dados['nome'])->first();
+
+            if ($tipo) {
+                return ['status' => 'conflict', 'message' => 'Pessoa já cadastrada.'];
+            }
+
+            $dados['id'] = Uuid::uuid4()->toString();
+            $result = PessoaModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Pessoa criada com sucesso.', 'data' => $result->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
 }

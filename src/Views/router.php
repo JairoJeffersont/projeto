@@ -14,6 +14,7 @@ $rotas = [
     'tipo-pessoa' => '../src/Views/pessoas/tipo-pessoa.php',
     'profissoes' => '../src/Views/pessoas/profissoes.php',
     'profissao' => '../src/Views/pessoas/profissao.php',
+    'pessoas' => '../src/Views/pessoas/pessoas.php',
     'sair' => '../src/Views/includes/sair.php',
     'home' => '../src/Views/home/home.php',
 ];
