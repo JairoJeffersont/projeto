@@ -354,6 +354,16 @@ class PessoaController {
                 }
             }
 
+            if (isset($dados['foto'])) {
+                $result = FileUploader::uploadFile('arquivos/pessoas', $dados['foto'], ['image/jpeg', 'image/png'], 5);
+                if ($result['status'] == 'success') {
+                    FileUploader::deleteFile($profissao->foto);
+                    $dados['foto'] = $result['file_path'];
+                } else {
+                    return $result;
+                }
+            }
+
             $profissao->update($dados);
 
             return ['status' => 'success', 'message' => 'Pessoa atualizada.', 'data' => $profissao->toArray()];
@@ -375,6 +385,8 @@ class PessoaController {
             if (!$profissao) {
                 return ['status' => 'not_found', 'message' => 'Pessoa não encontrada'];
             }
+
+            FileUploader::deleteFile($profissao->foto);
 
             $profissao->delete();
             return ['status' => 'success', 'message' => 'Pessoa apagada.'];
