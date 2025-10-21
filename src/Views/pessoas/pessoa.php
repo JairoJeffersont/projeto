@@ -2,6 +2,7 @@
 
 use App\Controllers\OrgaoController;
 use App\Controllers\PessoaController;
+use App\Helpers\Slugfy;
 
 include('../src/Views/includes/verificaLogado.php');
 
@@ -39,7 +40,7 @@ if ($buscaPessoa['status'] != 'success') {
 
                         <!-- INFORMAÇÕES -->
                         <div class="col">
-                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?><?= isset($buscaPessoa['data']['partido']) ? ' | ' . $buscaPessoa['data']['partido'] : '' ?></h3>
+                            <h3 class="card-title mb-1"> <?= $buscaPessoa['data']['nome'] ?></h3>
                             <p class="mb-0"><strong>Email:</strong> <?php echo !empty($buscaPessoa['data']['email']) ? $buscaPessoa['data']['email'] : 'Não informado' ?></p>
                             <p class="mb-0"><strong>Telefone:</strong> <?php echo !empty($buscaPessoa['data']['telefone']) ? $buscaPessoa['data']['telefone'] : 'Não informado' ?></p>
                         </div>
@@ -47,7 +48,32 @@ if ($buscaPessoa['status'] != 'success') {
                     </div>
                 </div>
             </div>
+            <div class="card mb-2">
+                <div class="card-body custom-card-body p-1">
+                    <a class="btn btn-danger btn-sm custom-nav barra_navegacao"
+                        href="<?php echo !empty($buscaPessoa['data']['instagram']) ? 'https://www.instagram.com/' . Slugfy::slug($buscaPessoa['data']['instagram']) . '/' : '#' ?>"
+                        <?php echo !empty($buscaPessoa['data']['instagram']) ? 'target="_blank"' : '' ?>
+                        role="button">
+                        <i class="bi bi-instagram"></i> Instagram
+                    </a>
 
+                    <a class="btn btn-info text-white btn-sm custom-nav barra_navegacao"
+                        href="<?php echo !empty($buscaPessoa['data']['facebook']) ? 'https://www.facebook.com/' . Slugfy::slug($buscaPessoa['data']['facebook']) . '/' : '#' ?>"
+                        <?php echo !empty($buscaPessoa['data']['facebook']) ? 'target="_blank"' : '' ?>
+                        role="button">
+                        <i class="bi bi-facebook"></i> Facebook
+                    </a>
+
+                    <a class="btn btn-success btn-sm custom-nav barra_navegacao"
+                        href="<?php echo !empty($buscaPessoa['data']['telefone']) ? 'https://wa.me/' . preg_replace('/\D/', '', $buscaPessoa['data']['telefone']) : '#' ?>"
+                        <?php echo !empty($buscaPessoa['data']['telefone']) ? 'target="_blank"' : '' ?>
+                        role="button">
+                        <i class="bi bi-whatsapp"></i> Whatsapp
+                    </a>
+                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=imprimir-pessoa" role="button"><i class="bi bi-printer"></i> Imprimir</a>
+
+                </div>
+            </div>
 
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
@@ -68,6 +94,7 @@ if ($buscaPessoa['status'] != 'success') {
                             'importancia'            => $_POST['importancia'],
                             'instagram'              => $_POST['instagram'],
                             'facebook'               => $_POST['facebook'],
+                            'sexo'                   => $_POST['sexo'],
                             'informacoes_adicionais' => $_POST['informacoes']
                         ];
 
@@ -117,6 +144,14 @@ if ($buscaPessoa['status'] != 'success') {
                             <input type="text" class="form-control form-control-sm" name="aniversario" placeholder="Aniversário (dd/mm)" data-mask="00/00" maxlength="5" value="<?php echo $buscaPessoa['data']['data_nascimento'] ?>" required>
                         </div>
                         <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm" name="sexo" data-selected="<?php echo $buscaPessoa['data']['sexo'] ?>" required>
+                                <option value="Não informado" <?= ($buscaPessoa['data']['sexo'] == 'Não informado') ? 'selected' : '' ?>>Gênero não informado</option>
+                                <option value="Masculino" <?= ($buscaPessoa['data']['sexo'] == 'Masculino') ? 'selected' : '' ?>>Masculino</option>
+                                <option value="Feminino" <?= ($buscaPessoa['data']['sexo'] == 'Feminino') ? 'selected' : '' ?>>Feminino</option>
+                                <option value="Outro" <?= ($buscaPessoa['data']['sexo'] == 'Outro') ? 'selected' : '' ?>>Outro</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
                             <select class="form-select form-select-sm estado" name="estado" data-selected="<?php echo $buscaPessoa['data']['estado'] ?>" required>
                                 <option value="" selected>UF</option>
                             </select>
@@ -131,6 +166,7 @@ if ($buscaPessoa['status'] != 'success') {
                                 <option value="" selected>Partido não informado</option>
                             </select>
                         </div>
+
                         <div class="col-md-2 col-6">
                             <input type="text" class="form-control form-control-sm" name="instagram" value="<?php echo $buscaPessoa['data']['instagram'] ?>" placeholder="Instagram">
                         </div>

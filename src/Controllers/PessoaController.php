@@ -389,7 +389,9 @@ class PessoaController {
                 return ['status' => 'not_found', 'message' => 'Pessoa não encontrada'];
             }
 
-            FileUploader::deleteFile($profissao->foto);
+            if (file_exists($profissao->foto)) {
+                FileUploader::deleteFile($profissao->foto);
+            }
 
             $profissao->delete();
             return ['status' => 'success', 'message' => 'Pessoa apagada.'];

@@ -21,6 +21,7 @@ class PessoaModel extends Model {
         'profissao',
         'partido',
         'instagram',
+        'sexo',
         'facebook',
         'importancia',
         'foto',

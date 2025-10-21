@@ -54,6 +54,7 @@ $orgao = $_GET['orgao'] ?? '';
                             'importancia'            => $_POST['importancia'],
                             'instagram'              => $_POST['instagram'],
                             'facebook'               => $_POST['facebook'],
+                            'sexo'                   => $_POST['sexo'],
                             'informacoes_adicionais' => $_POST['informacoes'],
                             'gabinete_id'            => $_SESSION['usuario']['gabinete_id'],
                             'usuario_id'             => $_SESSION['usuario']['id'],
@@ -90,6 +91,14 @@ $orgao = $_GET['orgao'] ?? '';
                         </div>
                         <div class="col-md-1 col-6">
                             <input type="text" class="form-control form-control-sm" name="aniversario" placeholder="Aniversário (dd/mm)" data-mask="00/00" maxlength="5" required>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm" name="sexo" data-selected="<?php echo $buscaPessoa['data']['sexo'] ?>" required>
+                                <option value="Não informado">Gênero não informado</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Outro">Outro</option>
+                            </select>
                         </div>
                         <div class="col-md-2 col-6">
                             <select class="form-select form-select-sm estado" name="estado" required>

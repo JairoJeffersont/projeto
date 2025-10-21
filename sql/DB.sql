@@ -168,6 +168,7 @@
             partido VARCHAR(100) DEFAULT NULL,
             instagram VARCHAR(100) DEFAULT NULL,
             facebook VARCHAR(100) DEFAULT NULL,
+            sexo VARCHAR(10) DEFAULT NULL,
             importancia VARCHAR(20) DEFAULT NULL,
             foto VARCHAR(255) DEFAULT NULL,
             informacoes_adicionais TEXT DEFAULT NULL,
