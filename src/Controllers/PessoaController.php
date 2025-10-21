@@ -5,11 +5,13 @@ namespace App\Controllers;
 
 use JairoJeffersont\EasyLogger\Logger;
 use App\Models\TipoPessoaModel;
+use App\Models\ProfissaoModel;
 
 use Ramsey\Uuid\Uuid;
 
 class PessoaController {
 
+    //CRUD TIPOS
     public static function listarTiposPessoas(string $gabinete_id = ''): array {
         try {
 
@@ -115,6 +117,118 @@ class PessoaController {
             $tipo->update($dados);
 
             return ['status' => 'success', 'message' => 'Tipo atualizado.', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    //CRUD PROFISSOES
+    public static function listarProfissoes(string $gabinete_id = ''): array {
+        try {
+
+            if (empty($gabinete_id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $profissoes = ProfissaoModel::where('gabinete_id', $gabinete_id)->get();
+
+            if ($profissoes->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhuma profissão registrada.'];
+            }
+
+            return ['status' => 'success', 'data' => $profissoes->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function buscarProfissao(string $valor = '', string $coluna = 'id'): array {
+        try {
+            if (empty($valor)) {
+                return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
+            }
+
+            $profissao = ProfissaoModel::where($coluna, $valor)->where('id', '<>', '1')->first();
+
+            if (!$profissao) {
+                return ['status' => 'not_found', 'message' => 'Profissão não encontrada'];
+            }
+
+            return ['status' => 'success', 'data' => $profissao->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function apagarProfissao(string $id = ''): array {
+        try {
+
+            if (empty($id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
+            }
+
+            $profissao = ProfissaoModel::find($id);
+
+            if (!$profissao) {
+                return ['status' => 'not_found', 'message' => 'Profissão não encontrada'];
+            }
+
+            $profissao->delete();
+            return ['status' => 'success', 'message' => 'Profissão apagada.'];
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'FOREIGN KEY') !== false) {
+                return ['status' => 'not_permitted', 'message' => 'Essa profissão não pode ser apagada.'];
+            }
+
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function novaProfissao(array $dados): array {
+        try {
+
+            $profissao = ProfissaoModel::where('nome', $dados['nome'])->first();
+
+            if ($profissao) {
+                return ['status' => 'conflict', 'message' => 'Profissão já cadastrada.'];
+            }
+
+            $dados['id'] = Uuid::uuid4()->toString();
+            $result = ProfissaoModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Profissão criada com sucesso.', 'data' => $result->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function atualizarProfissao(string $id, array $dados): array {
+        try {
+
+            $profissao = ProfissaoModel::find($id);
+
+            if (!$profissao) {
+                return ['status' => 'not_found', 'message' => 'Profissão não encontrada.'];
+            }
+
+            if (isset($dados['nome'])) {
+                $profissaoExistente = ProfissaoModel::where('nome', $dados['nome'])
+                    ->where('id', '<>', $id)
+                    ->first();
+
+                if ($profissaoExistente) {
+                    return ['status' => 'conflict', 'message' => 'Profissão já cadastrada.'];
+                }
+            }
+
+            $profissao->update($dados);
+
+            return ['status' => 'success', 'message' => 'Profissão atualizada.', 'data' => $profissao->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];

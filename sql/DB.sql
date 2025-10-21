@@ -135,6 +135,25 @@
     VALUES
         ('1', 'Sem tipo definido', '1');
 
+
+    CREATE TABLE
+        profissao (
+            id VARCHAR(36) PRIMARY KEY,
+            nome VARCHAR(50) NOT NULL UNIQUE,
+            gabinete_id VARCHAR(36) NOT NULL,
+            FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+            usuario_id VARCHAR(36) DEFAULT NULL,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+
+    INSERT INTO
+        profissao (id, nome, gabinete_id)
+    VALUES
+        ('1', 'Profissão não informada', '1');
+
+
     CREATE TABLE
         pessoa (
             id VARCHAR(36) PRIMARY KEY,
