@@ -27,7 +27,7 @@ $buscaTipoGet = $_GET['tipo'] ?? '';
                 </div>
                 <div class="card-body custom-card-body p-2">
                     <p class="card-text mb-2">Aqui você pode adicionar e editar os documentos, mantendo a organização das informações no sistema.</p>
-                    <p class="card-text mb-0">Todos os campos são obrigatórios. São permitidos arquivos <b>PDF</b>, <b>Word</b> e <b>Excel</b>. Tamanho máximo de <b>20MB</b></p>
+                    <p class="card-text mb-0">Todos os campos são obrigatórios. São permitidos arquivos <b>PDF</b>, <b>Word</b>, <b>Excel</b>, <b>JPG</b> e <b>PNG</b>. Tamanho máximo de <b>20MB</b></p>
                 </div>
             </div>
             <div class="card mb-2">
