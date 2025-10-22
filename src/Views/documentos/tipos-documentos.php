@@ -50,7 +50,7 @@ include('../src/Views/includes/verificaLogado.php');
                             <input type="text" class="form-control form-control-sm" name="nome" placeholder="Nome do Tipo" required>
                         </div>
                         <div class="col-md-1 col-12">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse tipo de pessoa?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse tipo de documento?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>
