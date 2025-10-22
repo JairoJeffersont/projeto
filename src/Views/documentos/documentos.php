@@ -112,7 +112,7 @@ $buscaTipoGet = $_GET['tipo'] ?? '';
                             <textarea class="form-control form-control-sm" name="resumo" rows="10" placeholder="Resumo do documento"></textarea>
                         </div>
                         <div class="col-md-3 col-12">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse documento?" name="btn_salvar"><i class="fa-regular fa-floppy-disk"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse documento?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>

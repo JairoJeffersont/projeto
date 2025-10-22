@@ -135,9 +135,8 @@ if ($buscaDocumento['status'] != 'success') {
                             <textarea class="form-control form-control-sm" name="resumo" rows="10" placeholder="Resumo do documento"><?php echo $buscaDocumento['data']['resumo'] ?></textarea>
                         </div>
                         <div class="col-md-3 col-12">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse documento?" name="btn_salvar"><i class="fa-regular fa-floppy-disk"></i> Salvar</button>
-                            <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar esse documento?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
-
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse documento?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar esse documento?" name="btn_apagar"><i class="bi bi-trash-fill"></i> Apagar</button>
                         </div>
                     </form>
                 </div>
