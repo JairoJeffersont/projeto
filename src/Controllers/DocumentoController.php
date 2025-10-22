@@ -220,7 +220,7 @@ class DocumentoController {
 
             $tiposPermitidos = ['image/jpeg', 'image/png', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'];
 
-            $result = FileUploader::uploadFile('arquivos/documentos/' . $dados['id'], $dados['arquivo'], $tiposPermitidos, 20);
+            $result = FileUploader::uploadFile('arquivos/documentos/', $dados['arquivo'], $tiposPermitidos, 20);
             if ($result['status'] == 'success') {
                 $dados['arquivo'] = $result['file_path'];
             } else {
@@ -239,7 +239,7 @@ class DocumentoController {
     public static function atualizarDocumento(string $id, array $dados): array {
         try {
 
-        
+
             $documento = DocumentoModel::find($id);
 
             if (!$documento) {
@@ -258,9 +258,8 @@ class DocumentoController {
 
             $tiposPermitidos = ['image/jpeg', 'image/png', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'];
 
-
             if (!empty($dados['arquivo'])) {
-                $result = FileUploader::uploadFile('arquivos/documentos/' . $documento->id, $dados['arquivo'], $tiposPermitidos, 20);
+                $result = FileUploader::uploadFile('arquivos/documentos/', $dados['arquivo'], $tiposPermitidos, 20);
                 if ($result['status'] == 'success') {
                     if (file_exists($documento->arquivo)) {
                         FileUploader::deleteFile($documento->arquivo);
@@ -269,7 +268,7 @@ class DocumentoController {
                 } else {
                     return $result;
                 }
-            }else{
+            } else {
                 $dados['arquivo'] = $documento->arquivo;
             }
 
