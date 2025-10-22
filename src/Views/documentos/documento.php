@@ -143,6 +143,28 @@ if ($buscaDocumento['status'] != 'success') {
                 </div>
             </div>
 
+            <div class="card mb-2">
+                <div class="card-body custom-card-body p-2">
+                    <?php
+                    $arquivo = $buscaDocumento['data']['arquivo'];
+                    $extensao = strtolower(pathinfo($arquivo, PATHINFO_EXTENSION));
+
+                    $caminho = "arquivos/documentos/" . basename($arquivo);
+
+                    if (in_array($extensao, ['jpg', 'jpeg', 'png'])) {
+                        echo '<a href="' . $caminho . '" class="btn btn-sm btn-primary mb-2" download>Baixar arquivo</a>';
+                        echo '<div class="d-flex "><img src="' . $caminho . '" class="img-fluid rounded border shadow-sm" style="max-width:400px; height:auto;"></div>';
+                    } elseif ($extensao === 'pdf') {
+                        echo '<a href="' . $caminho . '" class="btn btn-sm btn-primary mb-2" download>Baixar arquivo</a>';
+                        echo '<embed src="' . $caminho . '" type="application/pdf" width="100%" height="600px">';
+                    } elseif (in_array($extensao, ['doc', 'docx', 'xls', 'xlsx'])) {
+                        echo '<a href="' . $caminho . '" class="btn btn-sm btn-primary" download>Baixar arquivo</a>';
+                    } else {
+                        echo '<p>Tipo de arquivo não suportado.</p>';
+                    }
+                    ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>
