@@ -31,7 +31,9 @@ $orgao = $_GET['orgao'] ?? '';
                     Pessoas
                 </div>
                 <div class="card-body custom-card-body p-2">
-                    <p class="card-text mb-0">Nesta seção, é possível adicionar e editar as pessoas de interesso do mandato, garantindo a organização correta dessas informações no sistema.</p>
+                    <p class="card-text mb-2">Nesta seção, é possível adicionar e editar as pessoas de interesso do mandato, garantindo a organização correta dessas informações no sistema.</p>
+                    <p class="card-text mb-0">Os campos <b>nome, aniversário, estado e muncípio</b> são <b>obrigatórios</b>. A foto deve ser em <b>JPG ou PNG</b></p>
+
                 </div>
             </div>
 
