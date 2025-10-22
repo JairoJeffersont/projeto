@@ -80,7 +80,7 @@
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -108,7 +108,7 @@
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP        
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -125,7 +125,7 @@
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -143,7 +143,7 @@
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -164,22 +164,22 @@
             estado VARCHAR(2) NOT NULL,
             data_nascimento VARCHAR(5) DEFAULT NULL,
             profissao VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (profissao) REFERENCES profissao (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (profissao) REFERENCES profissao (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             partido VARCHAR(100) DEFAULT NULL,
             instagram VARCHAR(100) DEFAULT NULL,
             facebook VARCHAR(100) DEFAULT NULL,
-            sexo VARCHAR(10) DEFAULT NULL,
+            sexo VARCHAR(20) DEFAULT NULL,
             importancia VARCHAR(20) DEFAULT NULL,
             foto VARCHAR(255) DEFAULT NULL,
             informacoes_adicionais TEXT DEFAULT NULL,
             orgao_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (orgao_id) REFERENCES orgao (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (orgao_id) REFERENCES orgao (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             tipo_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_id) REFERENCES tipo_pessoa (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP        
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -192,7 +192,7 @@
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
@@ -210,11 +210,11 @@
             arquivo VARCHAR(255) NOT NULL,
             resumo TEXT DEFAULT NULL,
             orgao_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (orgao_id) REFERENCES orgao (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (orgao_id) REFERENCES orgao (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             tipo_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_id) REFERENCES tipo_documento (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             usuario_id VARCHAR(36) DEFAULT NULL,
-            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -243,7 +243,7 @@ if ($buscaPessoa['status'] != 'success') {
                                     $buscaOrgao = OrgaoController::listarOrgaos($_SESSION['usuario']['gabinete_id'], 'ASC', 'nome', 1000);
                                     if ($buscaOrgao['status'] == 'success') {
                                         foreach ($buscaOrgao['data'] as $o) {
-                                            if ($buscaPessoa['data']['profissao'] == $o['id']) {
+                                            if ($buscaPessoa['data']['orgao_id'] == $o['id']) {
                                                 echo '<option value="' . $o['id'] . '" selected>' . $o['nome'] . '</option>';
                                             } else {
                                                 echo '<option value="' . $o['id'] . '">' . $o['nome'] . '</option>';

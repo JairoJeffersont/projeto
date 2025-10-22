@@ -1,6 +1,7 @@
 <?php
 
 use App\Controllers\OrgaoController;
+use App\Controllers\PessoaController;
 
 include('../src/Views/includes/verificaLogado.php');
 
@@ -134,6 +135,47 @@ if ($buscaOrgao['status'] != 'success') {
                             <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar esse órgão?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div class="card mb-2 ">
+                <div class="card-header custom-card-header-no-bg  bg-primary px-2 py-1 text-white">
+                    Pessoas desse órgão/entidade
+                </div>
+                <div class="card-body custom-card-body p-1">
+                    <div class="table-responsive mb-0">
+                        <table class="table table-hover custom-table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">UF/Município</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $buscaPessoas = PessoaController::listarPessoas($_SESSION['usuario']['gabinete_id'], 'asc', 'nome', 1000, 1, '', '', '', $buscaOrgao['data']['id']);
+                                if ($buscaPessoas['status'] == 'success') {
+                                    foreach ($buscaPessoas['data'] as $pessoa) {
+                                        $tipo = PessoaController::buscarTipoPessoa($pessoa['tipo_id']);
+                                        $nomeTipo = ($tipo['status'] === 'success') ? $tipo['data']['nome'] : 'Sem tipo definido';
+                                        echo '<tr>
+                                                    <td><a href="?secao=pessoa&id=' . $pessoa['id'] . '">' . $pessoa['nome'] . '</a></td>
+                                                    <td>' . $nomeTipo . '</td>
+                                                    <td>' . $pessoa['cidade'] . '/' . $pessoa['estado'] . '</td>
+                                                  <tr>
+                                            ';
+                                    }
+                                } else if ($buscaPessoas['status'] == 'empty') {
+                                    echo '<tr><td colspan="4">' . $buscaPessoas['message'] . '</td></tr>';
+                                } else if ($buscaPessoas['status'] == 'server_error') {
+                                    echo '<tr><td colspan="4">' . $buscaPessoas['message'] . ' | ' . $buscaPessoas['error_id'] . '</td></tr>';
+                                }
+
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
