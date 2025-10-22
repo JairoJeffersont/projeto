@@ -419,7 +419,7 @@ class PessoaController {
             if (!empty($estado)) {
                 $query->where('estado', strtoupper($estado));
             }
-
+            
             if (!empty($tipoPessoa)) {
                 $query->where('tipo_id', $tipoPessoa);
             }

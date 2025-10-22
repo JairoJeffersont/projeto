@@ -3,7 +3,6 @@
 use App\Controllers\PessoaController;
 use App\Controllers\GabineteController;
 
-
 $estadoGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabinete_id'])['data']['estado'];
 
 $flag = $_GET['flag'] ?? 'dia';
@@ -50,7 +49,7 @@ $estado = $_GET['estado'] ?? $estadoGabinete;
                 <div class="card-body custom-card-body p-2">
                     <ul class="list-group">
                         <?php
-                        
+
                         $buscaAniversariantes = PessoaController::aniversariantes($flag, $estado);
 
                         if ($buscaAniversariantes['status'] == 'success') {
