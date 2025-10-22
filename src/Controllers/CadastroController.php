@@ -41,6 +41,7 @@ class CadastroController {
             $dadosUsuario['gabinete_id'] = $idGabinete;
             $dadosUsuario['senha'] = password_hash($dadosUsuario['senha'], PASSWORD_DEFAULT);
             $dadosUsuario['tipo_usuario_id'] = '1';
+            $dadosUsuario['telefone'] = preg_replace('/\D/', '', $dadosUsuario['telefone']);
 
             UsuarioModel::create($dadosUsuario);
 

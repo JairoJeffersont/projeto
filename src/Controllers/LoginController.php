@@ -17,7 +17,7 @@ class LoginController {
             if (filter_var($dados['login'], FILTER_VALIDATE_EMAIL)) {
                 $usuario = UsuarioModel::where('email', $dados['login'])->first();
             } else {
-                $usuario = UsuarioModel::where('telefone', Slugfy::slug($dados['login']))->first();
+                $usuario = UsuarioModel::where('telefone', preg_replace('/\D/', '', $dados['login']))->first();
             }
 
            

@@ -183,4 +183,29 @@ $(document).ready(function () {
         const link = $('#link-cadastro').text().trim();
         copyToClipboard(link);
     });
+
+    // =======================
+    // SALVAR DADOS NO LOGIN
+    // =======================
+    const $loginInput = $('#login');
+    const $lembrarEmail = $('#lembrar_email');
+
+    if ($loginInput.length && $lembrarEmail.length) {
+        // Se existir dados salvo, preencher automaticamente
+        const emailSalvo = localStorage.getItem('email_salvo');
+        if (emailSalvo) {
+            $loginInput.val(emailSalvo);
+            $lembrarEmail.prop('checked', true);
+        }
+
+        // Ao enviar o formulário, salvar ou remover os dados
+        $('#form_novo').on('submit', function () {
+            if ($lembrarEmail.is(':checked')) {
+                localStorage.setItem('email_salvo', $loginInput.val());
+            } else {
+                localStorage.removeItem('email_salvo');
+            }
+        });
+    }
+
 });
