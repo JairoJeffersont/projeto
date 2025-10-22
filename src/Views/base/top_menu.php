@@ -13,7 +13,7 @@
                         <a class="dropdown-item loading-modal" href="?secao=tipos-pessoas">Tipos de pessoas</a>
                         <a class="dropdown-item loading-modal" href="?secao=profissoes">Profissões</a>
                         <div class="dropdown-divider"></div>
-
+                        <a class="dropdown-item loading-modal" href="?secao=tipos-documentos">Tipos de documentos</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

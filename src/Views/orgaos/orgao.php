@@ -32,14 +32,11 @@ if ($buscaOrgao['status'] != 'success') {
             <div class="card mb-2">
                 <div class="card-body card-profile py-1 px-3">
                     <div class="row align-items-center">
-
-                        <!-- INFORMAÇÕES -->
                         <div class="col">
                             <h3 class="card-title mb-1"> <?= $buscaOrgao['data']['nome'] ?></h3>
                             <p class="mb-0"><strong>Email:</strong> <?php echo !empty($buscaOrgao['data']['email']) ? $buscaOrgao['data']['email'] : 'Não informado' ?></p>
                             <p class="mb-2"><strong>Telefone:</strong> <?php echo !empty($buscaOrgao['data']['telefone']) ? $buscaOrgao['data']['telefone'] : 'Não informado' ?></p>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -151,8 +148,6 @@ if ($buscaOrgao['status'] != 'success') {
                     </form>
                 </div>
             </div>
-
-
 
             <div class="card mb-2 ">
                 <div class="card-header custom-card-header-no-bg  bg-primary px-2 py-1 text-white">
