@@ -405,7 +405,7 @@ class PessoaController {
         }
     }
 
-    public static function aniversariantes(string $tipo = 'dia', ?string $estado = null, ?string $tipoPessoa = null): array {
+    public static function aniversariantes(string $gabinete, string $tipo = 'dia', ?string $estado = null, ?string $tipoPessoa = null): array {
         try {
 
             if ($tipo === 'mes') {
@@ -419,12 +419,12 @@ class PessoaController {
             if (!empty($estado)) {
                 $query->where('estado', strtoupper($estado));
             }
-            
+
             if (!empty($tipoPessoa)) {
                 $query->where('tipo_id', $tipoPessoa);
             }
 
-            $pessoas = $query->get();
+            $pessoas = $query->where('gabinete_id', $gabinete)->get();
 
             if ($pessoas->isEmpty()) {
                 return ['status' => 'empty', 'message' => 'Nenhum aniversariante encontrado.'];

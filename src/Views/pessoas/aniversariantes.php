@@ -50,18 +50,18 @@ $estado = $_GET['estado'] ?? $estadoGabinete;
                     <ul class="list-group">
                         <?php
 
-                        $buscaAniversariantes = PessoaController::aniversariantes($flag, $estado);
+                        $buscaAniversariantes = PessoaController::aniversariantes($_SESSION['usuario']['gabinete_id'], $flag, $estado);
 
                         if ($buscaAniversariantes['status'] == 'success') {
                             foreach ($buscaAniversariantes['data'] as $aniversario) {
                                 echo '<li class="list-group-item d-flex align-items-center">
-                                                <img src="' . (!empty($aniversario['foto']) ? $aniversario['foto'] : '/img/not_found.jpg') . '" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
-                                                <div>
-                                                <strong><a href="?secao=pessoa&id=' . $aniversario['id'] . '">' . $aniversario['nome'] . ' - ' . $aniversario['data_nascimento'] . '</a></strong><br>
-                                                <span class="text-muted">' . $aniversario['email'] . '</span><br>
-                                                <span>' . $aniversario['telefone'] . '</span>
-                                            </div>
-                                        </li>';
+                                         <img src="' . (!empty($aniversario['foto']) ? $aniversario['foto'] : '/img/not_found.jpg') . '" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                         <div>
+                                             <strong><a href="?secao=pessoa&id=' . $aniversario['id'] . '">' . $aniversario['nome'] . ' - ' . $aniversario['data_nascimento'] . '</a></strong><br>
+                                             <span class="text-muted">' . $aniversario['email'] . '</span><br>
+                                             <span>' . $aniversario['telefone'] . '</span>
+                                         </div>
+                                     </li>';
                             }
                         } else {
                             echo '<li class="list-group-item text-start text-muted">Nenhum aniversariante encontrado.</li>';
