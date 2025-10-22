@@ -404,4 +404,36 @@ class PessoaController {
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
         }
     }
+
+    public static function aniversariantes(string $tipo = 'dia', ?string $estado = null, ?string $tipoPessoa = null): array {
+        try {
+
+            if ($tipo === 'mes') {
+                $mes = date('m');
+                $query = PessoaModel::where('data_nascimento', 'LIKE', '%/' . $mes);
+            } else {
+                $hoje = date('d/m');
+                $query = PessoaModel::where('data_nascimento', $hoje);
+            }
+
+            if (!empty($estado)) {
+                $query->where('estado', strtoupper($estado));
+            }
+
+            if (!empty($tipoPessoa)) {
+                $query->where('tipo_id', $tipoPessoa);
+            }
+
+            $pessoas = $query->get();
+
+            if ($pessoas->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhum aniversariante encontrado.'];
+            }
+
+            return ['status' => 'success', 'data' => $pessoas->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
 }
