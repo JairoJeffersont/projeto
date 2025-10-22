@@ -27,11 +27,23 @@ if ($buscaOrgao['status'] != 'success') {
                     <a class="btn btn-success btn-sm custom-nav barra_navegacao loading-modal" href="?secao=orgaos" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
                 </div>
             </div>
-            <div class="card mb-2">
-                <div class="card-header custom-card-header px-2 py-1 text-white">
-                    Editar órgão/entidade
-                </div>
 
+            <div class="card mb-2">
+                <div class="card-body card-profile py-1 px-3">
+                    <div class="row align-items-center">
+
+                        <!-- INFORMAÇÕES -->
+                        <div class="col">
+                            <h3 class="card-title mb-1"> <?= $buscaOrgao['data']['nome'] ?></h3>
+                            <p class="mb-0"><strong>Email:</strong> <?php echo !empty($buscaOrgao['data']['email']) ? $buscaOrgao['data']['email'] : 'Não informado' ?></p>
+                            <p class="mb-2"><strong>Telefone:</strong> <?php echo !empty($buscaOrgao['data']['telefone']) ? $buscaOrgao['data']['telefone'] : 'Não informado' ?></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
                     <?php
                     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_salvar'])) {
@@ -55,6 +67,7 @@ if ($buscaOrgao['status'] != 'success') {
                             echo '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
                         } else if ($result['status'] == 'success') {
                             $buscaOrgao = OrgaoController::buscarOrgao($id);
+                            header('Location: ?secao=orgao&id=' . $id);
 
                             echo '<div class="alert alert-success px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
                         } else if ($result['status'] == 'server_error') {
@@ -137,6 +150,8 @@ if ($buscaOrgao['status'] != 'success') {
                     </form>
                 </div>
             </div>
+
+
 
             <div class="card mb-2 ">
                 <div class="card-header custom-card-header-no-bg  bg-primary px-2 py-1 text-white">

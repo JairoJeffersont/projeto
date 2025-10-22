@@ -30,10 +30,13 @@ $busca = $_GET['busca'] ?? '';
                     Órgãos/entidades
                 </div>
                 <div class="card-body custom-card-body p-2">
-                    <p class="card-text mb-0">Nesta seção, é possível adicionar e editar os tipos de órgãos e entidades, garantindo a organização correta dessas informações no sistema.</p>
+                    <p class="card-text mb-2">Nesta seção, é possível adicionar e editar os tipos de órgãos e entidades, garantindo a organização correta dessas informações no sistema.</p>
+
+                    <p class="card-text mb-0">Os campos <b>nome, estado e muncípio</b> são <b>obrigatórios</b>.</p>
                 </div>
             </div>
 
+            
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
                     <?php
