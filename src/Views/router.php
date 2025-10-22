@@ -23,6 +23,8 @@ $rotas = [
     'documento' => '../src/Views/documentos/documento.php',
     'tipos-emendas' => '../src/Views/emendas/tipos-emendas.php',
     'tipo-emenda' => '../src/Views/emendas/tipo-emenda.php',
+    'situacoes-emendas' => '../src/Views/emendas/situacoes-emendas.php',
+    'situacao-emenda' => '../src/Views/emendas/situacao-emenda.php',
     'sair' => '../src/Views/includes/sair.php',
     'home' => '../src/Views/home/home.php',
 ];

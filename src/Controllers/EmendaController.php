@@ -2,9 +2,8 @@
 
 namespace App\Controllers;
 
-
+use App\Models\SituacaoEmendaModel;
 use JairoJeffersont\EasyLogger\Logger;
-use JairoJeffersont\FileUploader;
 use App\Models\TipoEmendaModel;
 
 use Ramsey\Uuid\Uuid;
@@ -116,6 +115,118 @@ class EmendaController {
             $tipo->update($dados);
 
             return ['status' => 'success', 'message' => 'Tipo atualizado.', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    //CRUD SITUACOES
+    public static function listarSituacoesdeEmendas(string $gabinete_id = ''): array {
+        try {
+
+            if (empty($gabinete_id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $tiposPessoas = SituacaoEmendaModel::where('gabinete_id', $gabinete_id)->get();
+
+            if ($tiposPessoas->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhuma situacao de emenda registrado.'];
+            }
+
+            return ['status' => 'success', 'data' => $tiposPessoas->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function buscarSituacaodeEmenda(string $valor = '', string $coluna = 'id'): array {
+        try {
+            if (empty($valor)) {
+                return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
+            }
+
+            $tipo = SituacaoEmendaModel::where($coluna, $valor)->where('id', '<>', '1')->first();
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Situação não encontrada'];
+            }
+
+            return ['status' => 'success', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function apagarSituacaodeEmenda(string $id = ''): array {
+        try {
+
+            if (empty($id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
+            }
+
+            $tipo = SituacaoEmendaModel::find($id);
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Situação não encontrada'];
+            }
+
+            $tipo->delete();
+            return ['status' => 'success', 'message' => 'Situaç˜zo apagado.'];
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'FOREIGN KEY') !== false) {
+                return ['status' => 'not_permitted', 'message' => 'Esta situação não pode ser apagado.'];
+            }
+
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function novaSituacaodeEmenda(array $dados): array {
+        try {
+
+            $tipo = SituacaoEmendaModel::where('nome', $dados['nome'])->first();
+
+            if ($tipo) {
+                return ['status' => 'conflict', 'message' => 'Situacao já cadastrado.'];
+            }
+
+            $dados['id'] = Uuid::uuid4()->toString();
+            $result = SituacaoEmendaModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Situacao criada com sucesso.', 'data' => $result->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function atualizarSituacaodeEmenda(string $id, array $dados): array {
+        try {
+
+            $tipo = SituacaoEmendaModel::find($id);
+
+            if (!$tipo) {
+                return ['status' => 'not_found', 'message' => 'Situação não encontrada.'];
+            }
+
+            if (isset($dados['nome'])) {
+                $tipoExistente = TipoEmendaModel::where('nome', $dados['nome'])
+                    ->where('id', '<>', $id)
+                    ->first();
+
+                if ($tipoExistente) {
+                    return ['status' => 'conflict', 'message' => 'Situação já cadastrada.'];
+                }
+            }
+
+            $tipo->update($dados);
+
+            return ['status' => 'success', 'message' => 'Situação atualizado.', 'data' => $tipo->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
