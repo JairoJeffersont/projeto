@@ -126,7 +126,7 @@ class DocumentoController {
 
 
     //OPERACOES COM DOCUMENTOS
-    public static function listarDocumentos(string $gabinete_id = '', ?string $ano = null, ?string $tipo = null, ?string $busca = null): array {
+    public static function listarDocumentos(string $gabinete_id = '', ?string $ano = null, ?string $tipo = null, ?string $busca = null, ?string $orgao = null): array {
         try {
             if (empty($gabinete_id)) {
                 return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
@@ -143,6 +143,10 @@ class DocumentoController {
 
                 if (!empty($tipo)) {
                     $query->where('tipo_id', $tipo);
+                }
+
+                if (!empty($orgao)) {
+                    $query->where('orgao_id', $tipo);
                 }
             }
 

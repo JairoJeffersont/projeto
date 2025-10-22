@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\DocumentoController;
 use App\Controllers\OrgaoController;
 use App\Controllers\PessoaController;
 
@@ -185,6 +186,41 @@ if ($buscaOrgao['status'] != 'success') {
                                     echo '<tr><td colspan="4">' . $buscaPessoas['message'] . '</td></tr>';
                                 } else if ($buscaPessoas['status'] == 'server_error') {
                                     echo '<tr><td colspan="4">' . $buscaPessoas['message'] . ' | ' . $buscaPessoas['error_id'] . '</td></tr>';
+                                }
+
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-2 ">
+                <div class="card-header custom-card-header-no-bg  bg-secondary px-2 py-1 text-white">
+                    Documentos desse órgão/entidade
+                </div>
+                <div class="card-body custom-card-body p-1">
+                    <div class="table-responsive mb-0">
+                        <table class="table table-hover custom-table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $buscarDoc = DocumentoController::listarDocumentos($_SESSION['usuario']['gabinete_id'], null, null, null, $buscaOrgao['data']['id']);
+                                if ($buscarDoc['status'] == 'success') {
+                                    foreach ($buscarDoc['data'] as $doc) {
+                                        echo '<tr>
+                                                <td><a href="?secao=documento&id=' . $doc['id'] . '">' . $doc['titulo'] . '</a></td>
+                                              <tr>
+                                            ';
+                                    }
+                                } else if ($buscarDoc['status'] == 'empty') {
+                                    echo '<tr><td colspan="4">' . $buscarDoc['message'] . '</td></tr>';
+                                } else if ($buscarDoc['status'] == 'server_error') {
+                                    echo '<tr><td colspan="4">' . $buscarDoc['message'] . ' | ' . $buscarDoc['error_id'] . '</td></tr>';
                                 }
 
                                 ?>
