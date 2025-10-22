@@ -9,6 +9,10 @@ include('../src/Views/includes/verificaLogado.php');
 $buscaOrgao = OrgaoController::listarOrgaos($_SESSION['usuario']['gabinete_id'], 'ASC', 'nome', 1000);
 $buscaTipo = DocumentoController::listarTiposDocumentos($_SESSION['usuario']['gabinete_id']);
 
+$anoGet = $_GET['ano'] ?? date('Y');
+$buscaGet = $_GET['busca'] ?? '';
+$buscaTipoGet = $_GET['tipo'] ?? '';
+
 ?>
 
 
@@ -26,9 +30,41 @@ $buscaTipo = DocumentoController::listarTiposDocumentos($_SESSION['usuario']['ga
                     <p class="card-text mb-0">Nesta seção, é possível arquivar e pesquisar documentos do gabinete, garantindo a organização correta dessas informações no sistema.</p>
                 </div>
             </div>
-            <div class="card shadow-sm mb-2">
+            <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
+                    <?php
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_salvar'])) {
 
+                        $dados = [
+                            'titulo' => $_POST['titulo'],
+                            'ano' => $_POST['ano'],
+                            'orgao' => $_POST['orgao'],
+                            'tipo_id' => $_POST['tipo'],
+                            'arquivo' => $_FILES['arquivo']['name'],
+                            'resumo' => $_POST['resumo'],
+                            'gabinete_id' => $_SESSION['usuario']['gabinete_id'],
+                            'usuario_id' => $_SESSION['usuario']['id'],
+                        ];
+
+                        if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] === UPLOAD_ERR_OK) {
+                            $dados['arquivo'] = $_FILES['arquivo'];
+                        }
+
+
+                        $result = DocumentoController::novoDocumento($dados);
+
+                        if ($result['status'] == 'conflict') {
+                            echo '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
+                        } else if ($result['status'] == 'success') {
+                            echo '<div class="alert alert-success px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
+                        } else if ($result['status'] == 'server_error') {
+                            echo '<div class="alert alert-danger px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . ' | ' . $result['error_id'] . '</div>';
+                        } else if ($result['status'] == 'tamanho_maximo_excedido' || $result['status'] == 'formato_nao_permitido') {
+                            echo '<div class="alert alert-info px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">Tamanho da foto excedido ou formato não permitido.</div>';
+                        }
+                    }
+
+                    ?>
                     <form class="row g-2 form_custom" id="form_novo" method="POST" enctype="multipart/form-data">
                         <div class="col-md-2 col-12">
                             <input type="text" class="form-control form-control-sm" name="titulo" placeholder="Titulo" required>
@@ -78,9 +114,82 @@ $buscaTipo = DocumentoController::listarTiposDocumentos($_SESSION['usuario']['ga
                             <textarea class="form-control form-control-sm" name="resumo" rows="10" placeholder="Resumo do documento"></textarea>
                         </div>
                         <div class="col-md-3 col-12">
-                            <button type="submit" class="btn btn-success btn-sm" name="btn_salvar"><i class="fa-regular fa-floppy-disk"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse documento?" name="btn_salvar"><i class="fa-regular fa-floppy-disk"></i> Salvar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card mb-2">
+                    <div class="card-body custom-card-body p-2">
+                        <form class="row g-2 form_custom mb-0" method="GET" enctype="application/x-www-form-urlencoded">
+                            <div class="col-md-1 col-6">
+                                <input type="hidden" name="secao" value="documentos" />
+                                <input type="text" class="form-control form-control-sm" name="ano" data-mask=0000 value="<?php echo $anoGet ?>">
+                            </div>
+                            <div class="col-md-2 col-6">
+                                <select class="form-select form-select-sm" name="tipo" id="tipo">
+                                    <option value="">Todos os documentos</option>
+                                    <?php
+                                    if ($buscaTipo['status'] == 'success') {
+                                        foreach ($buscaTipo['data'] as $t) {
+                                            if ($buscaTipoGet == $t['id']) {
+                                                echo '<option value="' . $t['id'] . '" selected>' . $t['nome'] . '</option>';
+                                            } else {
+                                                echo '<option value="' . $t['id'] . '">' . $t['nome'] . '</option>';
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="col-md-3 col-10">
+                                <input type="text" class="form-control form-control-sm" name="busca" value="<?php echo $buscaGet ?>" placeholder="Buscar...">
+                            </div>
+                            <div class="col-md-1 col-2">
+                                <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body custom-card-body p-2">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered table-striped mb-0 custom-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nome</th>
+                                    <th scope="col">Resumo</th>
+                                    <th scope="col">Data</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+
+                                $buscaDocumentos = DocumentoController::listarDocumentos($_SESSION['usuario']['gabinete_id'], $anoGet, $buscaTipoGet, $buscaGet);
+
+                                if ($buscaDocumentos['status'] == 'success') {
+                                    foreach ($buscaDocumentos['data'] as $documento) {
+                                        $usuario = UsuarioController::buscarUsuario($documento['usuario_id'])['data']['nome'];
+                                        echo '
+                                            <tr>
+                                                <td><a href="?secao=documento&id=' . $documento['id'] . '">' . $documento['titulo'] . '</a></td>
+                                                <td>' . $documento['resumo'] . '</td>
+                                                <td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($documento['created_at'])) . '</td>
+                                            </tr>
+                                        ';
+                                    }
+                                } else if ($buscaDocumentos['status'] == 'empty') {
+                                    echo '<tr><td colspan="5">' . $buscaDocumentos['message'] . '</td></tr>';
+                                } else if ($buscaDocumentos['status'] == 'server_error') {
+                                    echo '<tr><td colspan="5">' . $buscaDocumentos['message'] . ' | ' . $buscaDocumentos['error_id'] . '</td></tr>';
+                                }
+
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

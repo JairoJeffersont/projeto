@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use JairoJeffersont\EasyLogger\Logger;
+use JairoJeffersont\FileUploader;
 use App\Models\TipoDocumentoModel;
+use App\Models\DocumentoModel;
 
 use Ramsey\Uuid\Uuid;
 
@@ -116,6 +118,68 @@ class DocumentoController {
             $tipo->update($dados);
 
             return ['status' => 'success', 'message' => 'Tipo atualizado.', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function listarDocumentos(string $gabinete_id = '', ?string $ano = null, ?string $tipo = null, ?string $busca = null): array {
+        try {
+            if (empty($gabinete_id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $query = DocumentoModel::where('gabinete_id', $gabinete_id);
+
+            if (!empty($busca)) {
+                $query->where('titulo', 'LIKE', '%' . $busca . '%');
+            } else {
+                if (!empty($ano)) {
+                    $query->where('ano', $ano);
+                }
+
+                if (!empty($tipo)) {
+                    $query->where('tipo_id', $tipo);
+                }
+            }
+
+            $documentos = $query->get();
+
+            if ($documentos->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhum documento encontrado.'];
+            }
+
+            return ['status' => 'success', 'data' => $documentos->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function novoDocumento(array $dados): array {
+        try {
+
+            $tipo = DocumentoModel::where('titulo', $dados['titulo'])->first();
+
+            if ($tipo) {
+                return ['status' => 'conflict', 'message' => 'Documento já cadastrado.'];
+            }
+
+            $dados['id'] = Uuid::uuid4()->toString();
+
+            $tiposPermitidos = ['image/jpeg', 'image/png', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf'];
+
+            $result = FileUploader::uploadFile('arquivos/documentos/' . $dados['id'], $dados['arquivo'], $tiposPermitidos, 20);
+            if ($result['status'] == 'success') {
+                $dados['arquivo'] = $result['file_path'];
+            } else {
+                return $result;
+            }
+
+            $result = DocumentoModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Documento criado com sucesso.', 'data' => $result->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
