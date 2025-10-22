@@ -1,5 +1,6 @@
 <?php
 ob_start();
+
 define('LOG_FOLDER', dirname(__DIR__, 1) . '/logs');
 define('PUBLIC_FOLDER', dirname(__DIR__) . '/public');
 define('BASE_URL', '/');
