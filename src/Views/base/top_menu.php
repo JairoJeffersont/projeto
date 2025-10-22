@@ -16,6 +16,8 @@
                         <a class="dropdown-item loading-modal" href="?secao=tipos-documentos">Tipos de documentos</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item loading-modal" href="?secao=tipos-emendas">Tipos de emendas</a>
+                        <a class="dropdown-item loading-modal" href="?secao=situacoes-emendas">Situações de emendas</a>
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
