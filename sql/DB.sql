@@ -202,3 +202,22 @@
         VALUES
             ('1', 'Sem tipo definido', '1', '1');
 
+    CREATE TABLE
+        documento (
+            id VARCHAR(36) PRIMARY KEY,
+            titulo VARCHAR(100) NOT NULL,
+            ano VARCHAR(4) DEFAULT NULL,
+            arquivo VARCHAR(255) NOT NULL,
+            resumo TEXT DEFAULT NULL,
+            orgao_id VARCHAR(36) DEFAULT NULL,
+            FOREIGN KEY (orgao_id) REFERENCES orgao (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            tipo_id VARCHAR(36) NOT NULL,
+            FOREIGN KEY (tipo_id) REFERENCES tipo_documento (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+            usuario_id VARCHAR(36) DEFAULT NULL,
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id) ON DELETE SET NULL ON UPDATE CASCADE,
+            gabinete_id VARCHAR(36) NOT NULL,
+            FOREIGN KEY (gabinete_id) REFERENCES gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
+            created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP        
+        ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_general_ci;
+

@@ -19,6 +19,7 @@ $rotas = [
     'aniversariantes' => '../src/Views/pessoas/aniversariantes.php',
     'tipos-documentos' => '../src/Views/documentos/tipos-documentos.php',
     'tipo-documento' => '../src/Views/documentos/tipo-documento.php',
+    'documentos' => '../src/Views/documentos/documentos.php',
     'sair' => '../src/Views/includes/sair.php',
     'home' => '../src/Views/home/home.php',
 ];
