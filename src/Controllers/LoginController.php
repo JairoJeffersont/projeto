@@ -20,8 +20,6 @@ class LoginController {
                 $usuario = UsuarioModel::where('telefone', preg_replace('/\D/', '', $dados['login']))->first();
             }
 
-           
-
             if (!$usuario) {
                 return ['status' => 'not_found', 'message' => 'Usuário não encontrado'];
             }
