@@ -348,6 +348,66 @@ class EmendaController {
     }
 
     //CRUD EMENDAS
+    public static function listarEmendas(string $gabinete_id = '', string $ordem = 'ASC', string $ordenarPor = 'nome', int $itens = 10, int $pagina = 1, string $ano = '',  string $estado = '', string $cidade = '', string $tipo = '', string $ares = '', string $situacao = '',  string $busca = ''): array {
+        try {
+
+            if (empty($gabinete_id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $query = EmendaModel::where('gabinete_id', $gabinete_id);
+
+            // Filtros opcionais
+            if (!empty($ano)) {
+                $query->where('ano', $ano);
+            }
+
+            if (!empty($estado)) {
+                $query->where('estado', $estado);
+            }
+
+            if (!empty($cidade)) {
+                $query->where('cidade', $cidade);
+            }
+
+            if (!empty($tipo)) {
+                $query->where('tipo_id', $tipo);
+            }
+
+            if (!empty($area)) {
+                $query->where('area_id', $area);
+            }
+
+            if (!empty($situacao)) {
+                $query->where('situacao_id', $situacao);
+            }
+
+            if (!empty($busca)) {
+                $query->where(function ($q) use ($busca) {
+                    $q->where('descricao', 'like', "%{$busca}%");
+                });
+            }
+
+            // Ordenação
+            $query->orderBy($ordenarPor, $ordem);
+
+            // Paginação manual (caso não use paginate do Laravel)
+            $offset = ($pagina - 1) * $itens;
+            $emendas = $query->skip($offset)->take($itens)->get();
+
+            if ($emendas->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhuma emenda encontrada.'];
+            }
+
+            // Total para controle de páginas
+            $total = $query->count();
+
+            return ['status' => 'success', 'total' => $total, 'total_pagina' => ceil($total / $itens), 'data' => $emendas->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
 
     public static function buscarEmenda(string $valor = '', string $coluna = 'id'): array {
         try {
@@ -410,7 +470,7 @@ class EmendaController {
             $emenda = AreaEmendaModel::find($id);
 
             if (!$emenda) {
-                return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada.'];
+                return ['status' => 'not_found', 'message' => 'Emenda não encontrada.'];
             }
 
             $emenda->update($dados);
