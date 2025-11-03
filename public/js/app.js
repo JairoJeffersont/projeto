@@ -164,6 +164,7 @@ function copyToClipboard(text) {
 // =======================
 $(document).ready(function () {
     $('.alert[data-timeout]').autoHideAlert();
+    $('[name="valor"]').mask('R$ 000.000.000.000.000,00', {reverse: true});
 
     // Popula todos os selects de estado encontrados
     $('.estado').each(function () {
