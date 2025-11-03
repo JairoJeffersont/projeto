@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\SituacaoEmendaModel;
 use App\Models\TipoEmendaModel;
 use App\Models\AreaEmendaModel;
+use App\Models\EmendaModel;
 use JairoJeffersont\EasyLogger\Logger;
 
 
@@ -340,6 +341,81 @@ class EmendaController {
             $area->update($dados);
 
             return ['status' => 'success', 'message' => 'Área de emenda atualizada com sucesso.', 'data' => $area->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    //CRUD EMENDAS
+
+    public static function buscarEmenda(string $valor = '', string $coluna = 'id'): array {
+        try {
+            if (empty($valor)) {
+                return ['status' => 'bad_request', 'message' => 'ID da emenda não enviado'];
+            }
+
+            $emenda = EmendaModel::where($coluna, $valor)->where('id', '<>', '1')->first();
+
+            if (!$emenda) {
+                return ['status' => 'not_found', 'message' => 'Emenda não encontrada'];
+            }
+
+            return ['status' => 'success', 'data' => $emenda->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function apagarEmenda(string $id = ''): array {
+        try {
+            if (empty($id)) {
+                return ['status' => 'bad_request', 'message' => 'ID não informado'];
+            }
+
+            $emenda = EmendaModel::find($id);
+
+            if (!$emenda) {
+                return ['status' => 'not_found', 'message' => 'Emenda não encontrada'];
+            }
+
+            $emenda->delete();
+            return ['status' => 'success', 'message' => 'Emenda apagada com sucesso.'];
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'FOREIGN KEY') !== false) {
+                return ['status' => 'not_permitted', 'message' => 'Esta emenda não pode ser apagada pois está vinculada a outros registros.'];
+            }
+
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function novaEmenda(array $dados): array {
+        try {
+
+            $dados['id'] = \Ramsey\Uuid\Uuid::uuid4()->toString();
+            $novaEmenda = EmendaModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Emenda inserida com sucesso.', 'data' => $novaEmenda->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function atualizarEmenda(string $id, array $dados): array {
+        try {
+            $emenda = AreaEmendaModel::find($id);
+
+            if (!$emenda) {
+                return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada.'];
+            }
+
+            $emenda->update($dados);
+
+            return ['status' => 'success', 'message' => 'Emenda atualizada com sucesso.', 'data' => $emenda->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
