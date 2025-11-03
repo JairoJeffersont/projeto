@@ -17,6 +17,7 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item loading-modal" href="?secao=tipos-emendas">Tipos de emendas</a>
                         <a class="dropdown-item loading-modal" href="?secao=situacoes-emendas">Situações de emendas</a>
+                        <a class="dropdown-item loading-modal" href="?secao=areas-emendas">Áreas de emendas</a>
 
                     </div>
                 </li>

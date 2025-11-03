@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\SituacaoEmendaModel;
-use JairoJeffersont\EasyLogger\Logger;
 use App\Models\TipoEmendaModel;
+use App\Models\AreaEmendaModel;
+use JairoJeffersont\EasyLogger\Logger;
+
 
 use Ramsey\Uuid\Uuid;
 
@@ -227,6 +229,117 @@ class EmendaController {
             $tipo->update($dados);
 
             return ['status' => 'success', 'message' => 'Situação atualizado.', 'data' => $tipo->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    // CRUD ÁREAS DE EMENDAS
+    public static function listarAreasDeEmendas(string $gabinete_id = ''): array {
+        try {
+            if (empty($gabinete_id)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $areas = AreaEmendaModel::where('gabinete_id', $gabinete_id)->get();
+
+            if ($areas->isEmpty()) {
+                return ['status' => 'empty', 'message' => 'Nenhuma área de emenda registrada.'];
+            }
+
+            return ['status' => 'success', 'data' => $areas->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function buscarAreaDeEmenda(string $valor = '', string $coluna = 'id'): array {
+        try {
+            if (empty($valor)) {
+                return ['status' => 'bad_request', 'message' => 'Valor de busca não informado'];
+            }
+
+            $area = AreaEmendaModel::where($coluna, $valor)->first();
+
+            if (!$area) {
+                return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada'];
+            }
+
+            return ['status' => 'success', 'data' => $area->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function apagarAreaDeEmenda(string $id = ''): array {
+        try {
+            if (empty($id)) {
+                return ['status' => 'bad_request', 'message' => 'ID não informado'];
+            }
+
+            $area = AreaEmendaModel::find($id);
+
+            if (!$area) {
+                return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada'];
+            }
+
+            $area->delete();
+            return ['status' => 'success', 'message' => 'Área de emenda apagada com sucesso.'];
+        } catch (\Exception $e) {
+            if (strpos($e->getMessage(), 'FOREIGN KEY') !== false) {
+                return ['status' => 'not_permitted', 'message' => 'Esta área não pode ser apagada pois está vinculada a outros registros.'];
+            }
+
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function novaAreaDeEmenda(array $dados): array {
+        try {
+            $areaExistente = AreaEmendaModel::where('nome', $dados['nome'])
+                ->where('gabinete_id', $dados['gabinete_id'])
+                ->first();
+
+            if ($areaExistente) {
+                return ['status' => 'conflict', 'message' => 'Área de emenda já cadastrada para este gabinete.'];
+            }
+
+            $dados['id'] = \Ramsey\Uuid\Uuid::uuid4()->toString();
+            $novaArea = AreaEmendaModel::create($dados);
+
+            return ['status' => 'success', 'message' => 'Área de emenda criada com sucesso.', 'data' => $novaArea->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
+    public static function atualizarAreaDeEmenda(string $id, array $dados): array {
+        try {
+            $area = AreaEmendaModel::find($id);
+
+            if (!$area) {
+                return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada.'];
+            }
+
+            if (isset($dados['nome'])) {
+                $areaExistente = AreaEmendaModel::where('nome', $dados['nome'])
+                    ->where('gabinete_id', $area->gabinete_id)
+                    ->where('id', '<>', $id)
+                    ->first();
+
+                if ($areaExistente) {
+                    return ['status' => 'conflict', 'message' => 'Já existe uma área de emenda com esse nome neste gabinete.'];
+                }
+            }
+
+            $area->update($dados);
+
+            return ['status' => 'success', 'message' => 'Área de emenda atualizada com sucesso.', 'data' => $area->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
             return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];

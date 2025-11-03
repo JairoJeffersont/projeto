@@ -25,6 +25,9 @@ $rotas = [
     'tipo-emenda' => '../src/Views/emendas/tipo-emenda.php',
     'situacoes-emendas' => '../src/Views/emendas/situacoes-emendas.php',
     'situacao-emenda' => '../src/Views/emendas/situacao-emenda.php',
+    'areas-emendas' => '../src/Views/emendas/areas-emendas.php',
+    'area-emenda' => '../src/Views/emendas/area-emenda.php',
+
     'sair' => '../src/Views/includes/sair.php',
     'home' => '../src/Views/home/home.php',
 ];
