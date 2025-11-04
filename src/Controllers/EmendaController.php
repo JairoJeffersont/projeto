@@ -20,7 +20,10 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
             }
 
-            $tiposPessoas = TipoEmendaModel::where('gabinete_id', $gabinete_id)->get();
+            $tiposPessoas = TipoEmendaModel::where('gabinete_id', $gabinete_id)
+                ->orWhere('gabinete_id', '1')
+                ->get();
+
 
             if ($tiposPessoas->isEmpty()) {
                 return ['status' => 'empty', 'message' => 'Nenhum tipo de emenda registrado.'];
@@ -263,6 +266,7 @@ class EmendaController {
             }
 
             $area = AreaEmendaModel::where($coluna, $valor)->first();
+            
 
             if (!$area) {
                 return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada'];

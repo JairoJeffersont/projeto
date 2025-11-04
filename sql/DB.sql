@@ -272,7 +272,8 @@
     INSERT INTO
         tipo_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Sem tipo definido', '1', '1');
+        ('1', 'Emenda individual', '1', '1'),
+        ('2', 'Emenda de bancada', '1', '1')
 
     CREATE TABLE
         emenda (

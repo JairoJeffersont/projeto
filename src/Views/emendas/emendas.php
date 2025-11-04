@@ -47,6 +47,42 @@ include('../src/Views/includes/verificaLogado.php');
                                 <option value="" <?= ($cidade == '') ? 'selected' : '' ?>>Todas as cidades</option>
                             </select>
                         </div>
+                        <div class="col-md-2 col-6">
+                            <div class="input-group input-group-sm">
+                                <select class="form-select form-select-sm" name="tipo">
+                                    <option>Escolha o tipo</option>
+                                    <?php
+                                    $buscaTipo = EmendaController::listarTiposdeEmendas($_SESSION['usuario']['gabinete_id']);
+                                    if ($buscaTipo['status'] == 'success') {
+                                        foreach ($buscaTipo['data'] as $tipo) {
+                                            echo '<option value="' . $tipo['id'] . '">' . $tipo['nome'] . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <a href="?secao=tipos-emendas" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir um novo tipo de emenda??" title="Gerenciar Tipos de Emendas">
+                                    <i class="bi bi-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <div class="input-group input-group-sm">
+                                <select class="form-select form-select-sm" name="area">
+                                    <option>Escolha a área</option>
+                                    <?php
+                                    $buscaTipo = EmendaController::listarAreasDeEmendas($_SESSION['usuario']['gabinete_id']);
+                                    if ($buscaTipo['status'] == 'success') {
+                                        foreach ($buscaTipo['data'] as $tipo) {
+                                            echo '<option value="' . $tipo['id'] . '">' . $tipo['nome'] . '</option>';
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <a href="?secao=areas-emendas" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir uma nova área de emenda??" title="Gerenciar Áreas de Emendas">
+                                    <i class="bi bi-plus"></i>
+                                </a>
+                            </div>
+                        </div>
                         <div class="col-md-1 col-12">
                             <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse tipo de emenda?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>

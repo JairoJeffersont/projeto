@@ -73,7 +73,7 @@ include('../src/Views/includes/verificaLogado.php');
 
                                 if ($buscaTipo['status'] == 'success') {
                                     foreach ($buscaTipo['data'] as $tipo) {
-                                        $usuario = UsuarioController::buscarUsuario($tipo['usuario_id'])['data']['nome'];
+                                        $usuario = isset(UsuarioController::buscarUsuario($tipo['usuario_id'])['data']['nome']) ? UsuarioController::buscarUsuario($tipo['usuario_id'])['data']['nome'] : 'Sistema';
                                         echo '<tr><td><a href="?secao=tipo-emenda&id=' . $tipo['id'] . '">' . $tipo['nome'] . '</a></td><td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($tipo['created_at'])) . '</td></tr>';
                                     }
                                 } else if ($buscaTipo['status'] == 'empty') {
