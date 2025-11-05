@@ -393,6 +393,9 @@ class EmendaController {
             // Ordenação
             $query->orderBy($ordenarPor, $ordem);
 
+              // Total para controle de páginas
+            $total = $query->count();
+
             // Paginação manual (caso não use paginate do Laravel)
             $offset = ($pagina - 1) * $itens;
             $emendas = $query->skip($offset)->take($itens)->get();
@@ -401,8 +404,7 @@ class EmendaController {
                 return ['status' => 'empty', 'message' => 'Nenhuma emenda encontrada.'];
             }
 
-            // Total para controle de páginas
-            $total = $query->count();
+          
 
             return ['status' => 'success', 'total' => $total, 'total_pagina' => ceil($total / $itens), 'data' => $emendas->toArray()];
         } catch (\Exception $e) {

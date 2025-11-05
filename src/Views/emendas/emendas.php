@@ -16,10 +16,7 @@ $pagina = $_GET['pagina'] ?? 1;
 $estado = $_GET['estado'] ?? $buscaGabinete;
 $cidade = $_GET['cidade'] ?? '';
 $tipoGet = $_GET['tipo'] ?? '1';
-
-
-
-
+$situacaoGet = $_GET['situacao'] ?? '';
 
 ?>
 
@@ -174,8 +171,6 @@ $tipoGet = $_GET['tipo'] ?? '1';
                             <select class="form-select form-select-sm" name="ordenarPor" required>
                                 <option value="numero" <?= ($ordenarPor == 'numero') ? 'selected' : '' ?>>Ordenar por | Número</option>
                                 <option value="valor" <?= ($ordenarPor == 'valor') ? 'selected' : '' ?>>Ordenar por | Valor</option>
-                                <option value="area" <?= ($ordenarPor == 'area') ? 'selected' : '' ?>>Ordenar por | Área</option>
-                                <option value="tipo" <?= ($ordenarPor == 'tipo') ? 'selected' : '' ?>>Ordenar por | Tipo</option>
                                 <option value="created_at" <?= ($ordenarPor == 'created_at') ? 'selected' : '' ?>>Ordenar por | Criação</option>
                             </select>
                         </div>
@@ -205,7 +200,7 @@ $tipoGet = $_GET['tipo'] ?? '1';
                             </select>
                         </div>
 
-                        <div class="col-md-2 col-6">
+                        <div class="col-md-1 col-6">
                             <select class="form-select form-select-sm" name="tipo" required>
                                 <option value="1" <?= ($tipoGet == 1 ? 'selected' : '') ?>>Emenda individual</option>
                                 <option value="2" <?= ($tipoGet == 2 ? 'selected' : '') ?>>Emenda de bancada</option>
@@ -221,7 +216,23 @@ $tipoGet = $_GET['tipo'] ?? '1';
                                 }
                                 ?>
                             </select>
+                        </div>
 
+                        <div class="col-md-2 col-12">
+                            <select class="form-select form-select-sm" name="situacao" required>
+                                <option value="0" <?= ($situacaoGet == 0 ? 'selected' : '') ?>>Situação não definida</option>
+                                <?php
+                                if ($buscaSituacao['status'] == 'success') {
+                                    foreach ($buscaSituacao['data'] as $situacao) {
+                                        if ($situacaoGet == $situacao['id']) {
+                                            echo '<option value="' . $situacao['id'] . '" selected>' . $situacao['nome'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $situacao['id'] . '">' . $situacao['nome'] . '</option>';
+                                        }
+                                    }
+                                }
+                                ?>
+                            </select>
                         </div>
 
                         <div class="col-md-1 col-2">
@@ -234,18 +245,19 @@ $tipoGet = $_GET['tipo'] ?? '1';
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
                     <div class="table-responsive">
-                        <table class="table table-hover custom-table table-bordered table-striped mb-0">
+                        <table class="table table-hover custom-table table-bordered table-striped mb-2">
                             <thead>
                                 <tr>
                                     <th scope="col">N°</th>
                                     <th scope="col">Descrição</th>
                                     <th scope="col">Valor</th>
+                                    <th scope="col">Municipio/UF</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], $ordem, $ordenarPor, $itens, $pagina, $anoGet, $estado, $cidade, $tipoGet);
-                                $soma = 0;
+                                $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], $ordem, $ordenarPor, $itens, $pagina, $anoGet, $estado, $cidade, $tipoGet, '', $situacaoGet);
+                                                                
                                 if ($buscaEmendas['status'] == 'success') {
                                     foreach ($buscaEmendas['data'] as $emenda) {
                                         $valorFormatado = 'R$ ' . number_format($emenda['valor'], 2, ',', '.');
@@ -254,20 +266,53 @@ $tipoGet = $_GET['tipo'] ?? '1';
                                                 <td>' . $emenda['numero'] . '</td>
                                                 <td><a href="?secao=emenda&id=' . $emenda['id'] . '" class="loading-modal">' . $emenda['descricao'] . '</a></td>
                                                 <td>' . $valorFormatado . '</td>
+                                                <td>' . (
+                                            isset($emenda['cidade'], $emenda['estado']) && $emenda['cidade'] && $emenda['estado']
+                                            ? $emenda['cidade'] . '/' . $emenda['estado']
+                                            : ($emenda['estado'] ?? '')
+                                        ) . '</td>
+
                                             </tr>';
                                     }
                                 } else if ($buscaEmendas['status'] == 'empty') {
-                                    echo '<tr><td colspan="3">' . $buscaEmendas['message'] . '</td></tr>';
+                                    echo '<tr><td colspan="4">' . $buscaEmendas['message'] . '</td></tr>';
                                 } else if ($buscaEmendas['status'] == 'server_error') {
-                                    echo '<tr><td colspan="3">' . $buscaEmendas['message'] . ' | ' . $buscaEmendas['error_id'] . '</td></tr>';
+                                    echo '<tr><td colspan="4">' . $buscaEmendas['message'] . ' | ' . $buscaEmendas['error_id'] . '</td></tr>';
                                 }
                                 ?>
-                                <tr>
-                                    <td colspan="3"><b>Total: <?php echo 'R$ ' . number_format($soma, 2, ',', '.'); ?></b></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
+                    <?php
+                    $total_paginas = $buscaEmendas['total_pagina'] ?? 0;
+
+                    $max_links = 5;
+
+                    $start = max(1, $pagina - floor($max_links / 2));
+                    $end = min($total_paginas, $start + $max_links - 1);
+
+                    $start = max(1, $end - $max_links + 1);
+
+                    ?>
+                    <ul class="pagination mb-0 custom-pagination">
+
+                        <li class="page-item <?php if ($pagina == 1) echo 'disabled'; ?>">
+                            <a class="page-link loading-modal" href="?secao=emendas&pagina=1&itens=<?= $itens ?>&ano=<?= $anoGet ?>&ordem=<?= $ordem ?>&ordenarPor=<?= $ordenarPor ?>&estado=<?= $estado ?>&cidade=<?= $cidade ?>&tipo=<?= $tipoGet ?>&situacao=<?= $situacaoGet ?>">Primeiro</a>
+                        </li>
+
+                        <?php for ($i = $start; $i <= $end; $i++): ?>
+                            <li class="page-item <?php if ($pagina == $i) echo 'active'; ?>">
+                                <a class="page-link loading-modal" href="?secao=emendas&pagina=<?= $i ?>&itens=<?= $itens ?>&ano=<?= $anoGet ?>&ordem=<?= $ordem ?>&ordenarPor=<?= $ordenarPor ?>&estado=<?= $estado ?>&cidade=<?= $cidade ?>&tipo=<?= $tipoGet ?>&situacao=<?= $situacaoGet ?>">
+                                    <?= $i ?>
+                                </a>
+                            </li>
+                        <?php endfor; ?>
+
+                        <li class="page-item <?php if ($pagina == $total_paginas) echo 'disabled'; ?>">
+                            <a class="page-link loading-modal" href="?secao=emendas&pagina=<?= $total_paginas ?>&itens=<?= $itens ?>&ano=<?= $anoGet ?>&ordem=<?= $ordem ?>&ordenarPor=<?= $ordenarPor ?>&estado=<?= $estado ?>&cidade=<?= $cidade ?>&tipo=<?= $tipoGet ?>&situacao=<?= $situacaoGet ?>">Último</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

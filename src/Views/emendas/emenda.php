@@ -26,6 +26,8 @@ if ($buscaEmenda['status'] != 'success') {
             <div class="card mb-2 ">
                 <div class="card-body custom-card-body p-1">
                     <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
+                    <a class="btn btn-success btn-sm custom-nav barra_navegacao" href="?secao=emendas" role="button"><i class="bi bi-arrow-left"></i> Voltar</a>
+
                 </div>
             </div>
             <div class="card mb-2">
@@ -39,7 +41,7 @@ if ($buscaEmenda['status'] != 'success') {
 
                     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_salvar'])) {
                         $dadosEmenda = [
-                            
+
                             'descricao' => $_POST['descricao'],
                             'valor' => str_replace(['R$', '.', ','], ['', '', '.'], $_POST['valor']),
                             'estado' => $_POST['estado'],
@@ -64,7 +66,7 @@ if ($buscaEmenda['status'] != 'success') {
 
                         $result = EmendaController::apagarEmenda($id);
 
-                       
+
 
                         if ($result['status'] == 'success') {
                             header('location: ?secao=emendas');
