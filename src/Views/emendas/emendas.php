@@ -66,7 +66,7 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                             <input type="text" class="form-control form-control-sm" name="numero" data-mask="000000000" placeholder="Número da emenda" required>
                         </div>
                         <div class="col-md-10 col-12">
-                            <input type="text" class="form-control form-control-sm" name="descricao" placeholder="Descricao simplificada" required>
+                            <input type="text" class="form-control form-control-sm" name="descricao" placeholder="Descricao simplificada (objeto, projeto...)" required>
                         </div>
                         <div class="col-md-2 col-12">
                             <input type="text" class="form-control form-control-sm" name="valor" placeholder="Valor (R$)" required>
@@ -83,7 +83,8 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                         <div class="col-md-2 col-6">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="tipo" required>
-                                    <option>Escolha o tipo</option>
+                                    <option value="1" selected>Emenda individual</option>
+                                    <option value="2">Emenda de bancada</option>
                                     <?php
                                     $buscaTipo = EmendaController::listarTiposdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaTipo['status'] == 'success') {
@@ -101,7 +102,7 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                         <div class="col-md-2 col-6">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="area" required>
-                                    <option>Escolha a área</option>
+                                    <option value="1" selected>Área não definida</option>
                                     <?php
                                     $buscaArea = EmendaController::listarAreasDeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaArea['status'] == 'success') {
@@ -119,7 +120,7 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                         <div class="col-md-2 col-12">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="situacao" required>
-                                    <option>Escolha a situação</option>
+                                    <option value="1" selected>Situação não definida</option>
                                     <?php
                                     $buscaSituacao = EmendaController::listarSituacoesdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaSituacao['status'] == 'success') {
@@ -135,7 +136,7 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                             </div>
                         </div>
                         <div class="col-md-12 col-12">
-                            <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes dessa emenda"></textarea>
+                            <textarea class="form-control form-control-sm" id="tinymce" name="informacoes" rows="5" placeholder="Informações importantes dessa emenda"></textarea>
                         </div>
                         <div class="col-md-1 col-12">
                             <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa emenda?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>

@@ -254,7 +254,7 @@
     INSERT INTO
         area_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Sem tema definido', '1', '1');
+        ('1', 'Sem área definido', '1', '1');
 
 
     CREATE TABLE
@@ -273,7 +273,7 @@
         tipo_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
         ('1', 'Emenda individual', '1', '1'),
-        ('2', 'Emenda de bancada', '1', '1')
+        ('2', 'Emenda de bancada', '1', '1');
 
     CREATE TABLE
         emenda (

@@ -147,3 +147,9 @@ custom_navigation ul {
     font-size: 0.9em;
 }
 
+.tox .tox-toolbar,
+.tox .tox-menubar,
+.tox .tox-tbtn,
+.tox .tox-mbtn {
+  font-size: 12px !important;
+}

@@ -20,9 +20,7 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
             }
 
-            $tiposPessoas = TipoEmendaModel::where('gabinete_id', $gabinete_id)
-                ->orWhere('gabinete_id', '1')
-                ->get();
+            $tiposPessoas = TipoEmendaModel::where('gabinete_id', $gabinete_id)->get();
 
 
             if ($tiposPessoas->isEmpty()) {
@@ -135,7 +133,7 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
             }
 
-            $tiposPessoas = SituacaoEmendaModel::where('gabinete_id', $gabinete_id)->orWhere('gabinete_id', '1')->get();
+            $tiposPessoas = SituacaoEmendaModel::where('gabinete_id', $gabinete_id)->get();
 
             if ($tiposPessoas->isEmpty()) {
                 return ['status' => 'empty', 'message' => 'Nenhuma situacao de emenda registrado.'];
@@ -246,7 +244,7 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
             }
 
-            $areas = AreaEmendaModel::where('gabinete_id', $gabinete_id)->orWhere('gabinete_id', '1')->get();
+            $areas = AreaEmendaModel::where('gabinete_id', $gabinete_id)->orWhere('gabinete_id', '')->get();
 
             if ($areas->isEmpty()) {
                 return ['status' => 'empty', 'message' => 'Nenhuma área de emenda registrada.'];
