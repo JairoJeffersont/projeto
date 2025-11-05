@@ -85,6 +85,7 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                                 <select class="form-select form-select-sm" name="tipo" required>
                                     <option value="1" selected>Emenda individual</option>
                                     <option value="2">Emenda de bancada</option>
+                                    <option value="3">Emenda extra</option>
                                     <?php
                                     $buscaTipo = EmendaController::listarTiposdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaTipo['status'] == 'success') {

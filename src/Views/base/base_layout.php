@@ -18,8 +18,8 @@
             license_key: 'gpl',
             language: 'pt_BR',
             content_style: "body { font-size:13px; }",
-            plugins: 'lists link image table code',
-            toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code',
+            plugins: 'lists link table',
+            toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist',
         });
     </script>
 </head>
