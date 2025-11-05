@@ -40,7 +40,7 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
             }
 
-            $tipo = TipoEmendaModel::where($coluna, $valor)->where('gabinete_id', '<>', '1')->first();
+            $tipo = TipoEmendaModel::where($coluna, $valor)->first();
 
             if (!$tipo) {
                 return ['status' => 'not_found', 'message' => 'Tipo não encontrado'];
@@ -152,7 +152,7 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'ID do tipo não enviado'];
             }
 
-            $tipo = SituacaoEmendaModel::where($coluna, $valor)->where('gabinete_id', '<>', '1')->first();
+            $tipo = SituacaoEmendaModel::where($coluna, $valor)->first();
 
             if (!$tipo) {
                 return ['status' => 'not_found', 'message' => 'Situação não encontrada'];
@@ -263,7 +263,7 @@ class EmendaController {
                 return ['status' => 'bad_request', 'message' => 'Valor de busca não informado'];
             }
 
-            $area = AreaEmendaModel::where($coluna, $valor)->where('gabinete_id', '<>', '1')->first();
+            $area = AreaEmendaModel::where($coluna, $valor)->first();
 
 
             if (!$area) {
