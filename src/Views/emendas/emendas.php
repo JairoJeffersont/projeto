@@ -197,8 +197,6 @@ $situacaoGet = $_GET['situacao'] ?? '';
                         </div>
                         <div class="col-md-1 col-12">
                             <select class="form-select form-select-sm" name="tipo" required>
-                                <option value="1" <?= ($tipoGet == 1 ? 'selected' : '') ?>>Emenda individual</option>
-                                <option value="2" <?= ($tipoGet == 2 ? 'selected' : '') ?>>Emenda de bancada</option>
                                 <?php
                                 if ($buscaTipo['status'] == 'success') {
                                     foreach ($buscaTipo['data'] as $tipo) {

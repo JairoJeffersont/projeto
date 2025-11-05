@@ -50,7 +50,7 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                             Total de emendas <b><?php echo $anoGet ?></b>
                         </div>
                         <div class="card-body custom-card-body text-center p-4">
-                            <h2>
+                            <h3>
                                 <?php
                                 $somaTodas = 0;
                                 if ($buscaEmendas['status'] === 'success') {
@@ -60,7 +60,7 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                                 }
                                 echo 'R$ ' . number_format($somaTodas, 2, ',', '.');
                                 ?>
-                            </h2>
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                             Total de emendas pagas <b><?php echo $anoGet ?></b>
                         </div>
                         <div class="card-body custom-card-body text-center p-4">
-                            <h2>
+                            <h3>
                                 <?php
                                 $somaPagas = 0;
                                 if ($buscaEmendas['status'] === 'success') {
@@ -82,7 +82,7 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                                 }
                                 echo 'R$ ' . number_format($somaPagas, 2, ',', '.');
                                 ?>
-                            </h2>
+                            </h3>
                         </div>
                     </div>
                 </div>
