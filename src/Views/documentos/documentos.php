@@ -21,6 +21,11 @@ $buscaTipoGet = $_GET['tipo'] ?? '';
     <div id="page-content-wrapper">
         <?php include '../src/Views/base/top_menu.php'  ?>
         <div class="container-fluid p-2">
+            <div class="card mb-2 ">
+                <div class="card-body custom-card-body p-1">
+                    <a class="btn btn-primary btn-sm custom-nav barra_navegacao" href="?secao=home" role="button"><i class="bi bi-house-door-fill"></i> Início</a>
+                </div>
+            </div>
             <div class="card mb-2">
                 <div class="card-header custom-card-header px-2 py-1 text-white">
                     Documentos
