@@ -13,8 +13,6 @@ if ($buscaEmenda['status'] != 'success') {
     exit;
 }
 
-
-
 ?>
 
 <div class="d-flex" id="wrapper">
@@ -112,7 +110,6 @@ if ($buscaEmenda['status'] != 'success') {
                                     }
                                     ?>
                                 </select>
-
                                 <a href="?secao=tipos-emendas" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir um novo tipo de emenda??" title="Gerenciar Tipos de Emendas">
                                     <i class="bi bi-plus"></i>
                                 </a>
@@ -132,7 +129,6 @@ if ($buscaEmenda['status'] != 'success') {
                                     }
                                     ?>
                                 </select>
-
                                 <a href="?secao=areas-emendas" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir uma nova área de emenda??" title="Gerenciar Áreas de Emendas">
                                     <i class="bi bi-plus"></i>
                                 </a>
@@ -151,7 +147,6 @@ if ($buscaEmenda['status'] != 'success') {
                                     }
                                     ?>
                                 </select>
-
                                 <a href="?secao=situacoes-emendas" class="btn btn-primary confirm-action loading-modal" data-message="Tem certeza que deseja inserir uma nova área de emenda??" title="Gerenciar Áreas de Emendas">
                                     <i class="bi bi-plus"></i>
                                 </a>
