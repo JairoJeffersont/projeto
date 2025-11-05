@@ -78,7 +78,7 @@ include('../src/Views/includes/verificaLogado.php');
 
                                 if ($buscaSituacao['status'] == 'success') {
                                     foreach ($buscaSituacao['data'] as $situacao) {
-                                        $usuario = UsuarioController::buscarUsuario($situacao['usuario_id'])['data']['nome'];
+                                        $usuario = UsuarioController::buscarUsuario($situacao['usuario_id'])['data']['nome'] ?? 'Sistema';
                                         echo '<tr><td><a href="?secao=situacao-emenda&id=' . $situacao['id'] . '" class="loading-modal">' . $situacao['nome'] . '</a></td><td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($situacao['created_at'])) . '</td></tr>';
                                     }
                                 } else if ($buscaSituacao['status'] == 'empty') {

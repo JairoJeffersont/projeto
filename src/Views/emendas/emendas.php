@@ -97,8 +97,6 @@ $situacaoGet = $_GET['situacao'] ?? '';
                         <div class="col-md-2 col-6">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="tipo" required>
-                                    <option value="1" selected>Emenda individual</option>
-                                    <option value="2">Emenda de bancada</option>
                                     <?php
                                     $buscaTipo = EmendaController::listarTiposdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaTipo['status'] == 'success') {
@@ -134,7 +132,6 @@ $situacaoGet = $_GET['situacao'] ?? '';
                         <div class="col-md-2 col-12">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="situacao" required>
-                                    <option value="1" selected>Situação não definida</option>
                                     <?php
                                     $buscaSituacao = EmendaController::listarSituacoesdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaSituacao['status'] == 'success') {
@@ -259,7 +256,7 @@ $situacaoGet = $_GET['situacao'] ?? '';
                                 if ($buscaEmendas['status'] == 'success') {
                                     foreach ($buscaEmendas['data'] as $emenda) {
                                         $valorFormatado = 'R$ ' . number_format($emenda['valor'], 2, ',', '.');
-                                        $soma += $emenda['valor'];
+                                        
                                         echo '<tr>
                                                 <td>' . $emenda['numero'] . '</td>
                                                 <td><a href="?secao=emenda&id=' . $emenda['id'] . '" class="loading-modal">' . $emenda['descricao'] . '</a></td>

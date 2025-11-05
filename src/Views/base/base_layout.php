@@ -12,6 +12,8 @@
     <link href="<?php BASE_URL ?>/css/custom.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="<?php BASE_URL ?>/js/tinymce/js/tinymce/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
         tinymce.init({
             selector: '#tinymce',

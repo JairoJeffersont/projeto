@@ -25,6 +25,8 @@
 
          <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Orçamento</p>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=emendas"><i class="bi bi-cash-stack"></i> Emendas parlamentares</a>
+         <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=relatorio-emendas"><i class="bi bi-file-text"></i> Relatório</a>
+
 
 
          <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Comunicação do gabinete</p>

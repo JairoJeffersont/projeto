@@ -237,7 +237,9 @@
     INSERT INTO
         situacao_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Situação não definida', '1', '1');
+        ('1', 'Situação não definida', '1', '1'),
+        ('2', 'Paga', '1', '1'),
+        ('3', 'Empenhada', '1', '1');
 
     CREATE TABLE
         area_emenda (
@@ -254,7 +256,16 @@
     INSERT INTO
         area_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Sem área definido', '1', '1');
+        ('1', 'Sem área definido', '1', '1'),
+        ('2', 'Saúde', '1', '1'),
+        ('3', 'Educação', '1', '1'),
+        ('4', 'Segurança Pública', '1', '1'),
+        ('5', 'Infraestrutura', '1', '1'),
+        ('6', 'Meio Ambiente', '1', '1'),
+        ('7', 'Assistência Social', '1', '1'),
+        ('8', 'Cultura', '1', '1'),
+        ('9', 'Esporte e Lazer', '1', '1'),
+        ('10', 'Transferência especial', '1', '1');
 
 
     CREATE TABLE

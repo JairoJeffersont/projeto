@@ -8,7 +8,7 @@ $id = $_GET['id'] ?: '';
 $buscaTipo = EmendaController::buscarTipodeEmenda($id);
 
 if ($buscaTipo['status'] != 'success') {
-    header('location: ?secao=tipos-pessoas');
+    header('location: ?secao=tipos-emendas');
 }
 
 ?>

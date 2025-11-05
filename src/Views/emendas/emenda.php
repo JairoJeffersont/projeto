@@ -102,8 +102,6 @@ if ($buscaEmenda['status'] != 'success') {
                         <div class="col-md-2 col-6">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="tipo" required>
-                                    <option value="1" <?= ($buscaEmenda['data']['tipo_id'] == 1 ? 'selected' : '') ?>>Emenda individual</option>
-                                    <option value="2" <?= ($buscaEmenda['data']['tipo_id'] == 2 ? 'selected' : '') ?>>Emenda de bancada</option>
                                     <?php
                                     $buscaTipo = EmendaController::listarTiposdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaTipo['status'] == 'success') {
@@ -143,7 +141,6 @@ if ($buscaEmenda['status'] != 'success') {
                         <div class="col-md-2 col-12">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="situacao" required>
-                                    <option value="1" <?= ($buscaEmenda['data']['situacao_id'] == 1 ? 'selected' : '') ?>>Situação não definida</option>
                                     <?php
                                     $buscaSituacao = EmendaController::listarSituacoesdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaSituacao['status'] == 'success') {
