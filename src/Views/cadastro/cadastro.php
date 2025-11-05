@@ -9,7 +9,8 @@ use App\Controllers\GabineteController;
     /* Diminui a fonte de todos os inputs, selects e botões do form */
     #form_novo input,
     #form_novo select,
-    #form_novo button {
+    #form_novo button,
+    #form_novo a {
         font-size: 0.85rem;
         /* você pode ajustar para o tamanho que quiser */
     }
