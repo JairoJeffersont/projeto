@@ -199,8 +199,7 @@ $situacaoGet = $_GET['situacao'] ?? '';
                                 <option value="" <?= ($cidade == '') ? 'selected' : '' ?>>Todas as cidades</option>
                             </select>
                         </div>
-
-                        <div class="col-md-1 col-6">
+                        <div class="col-md-1 col-12">
                             <select class="form-select form-select-sm" name="tipo" required>
                                 <option value="1" <?= ($tipoGet == 1 ? 'selected' : '') ?>>Emenda individual</option>
                                 <option value="2" <?= ($tipoGet == 2 ? 'selected' : '') ?>>Emenda de bancada</option>
@@ -257,7 +256,7 @@ $situacaoGet = $_GET['situacao'] ?? '';
                             <tbody>
                                 <?php
                                 $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], $ordem, $ordenarPor, $itens, $pagina, $anoGet, $estado, $cidade, $tipoGet, '', $situacaoGet);
-                                                                
+
                                 if ($buscaEmendas['status'] == 'success') {
                                     foreach ($buscaEmendas['data'] as $emenda) {
                                         $valorFormatado = 'R$ ' . number_format($emenda['valor'], 2, ',', '.');
@@ -280,7 +279,7 @@ $situacaoGet = $_GET['situacao'] ?? '';
                                     echo '<tr><td colspan="4">' . $buscaEmendas['message'] . ' | ' . $buscaEmendas['error_id'] . '</td></tr>';
                                 }
                                 ?>
-                                
+
                             </tbody>
                         </table>
                     </div>
