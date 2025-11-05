@@ -8,6 +8,10 @@ $anoGet = $_GET['ano'] ?? date('Y');
 
 $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], 'asc', 'valor', 100000, 1, $anoGet);
 
+if ($buscaEmendas['status'] != 'success') {
+    $buscaEmendas['data'] = [];
+}
+
 ?>
 
 
@@ -53,10 +57,8 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                             <h3>
                                 <?php
                                 $somaTodas = 0;
-                                if ($buscaEmendas['status'] === 'success') {
-                                    foreach ($buscaEmendas['data'] as $emenda) {
-                                        $somaTodas += (float) $emenda['valor'];
-                                    }
+                                foreach ($buscaEmendas['data'] as $emenda) {
+                                    $somaTodas += (float) $emenda['valor'];
                                 }
                                 echo 'R$ ' . number_format($somaTodas, 2, ',', '.');
                                 ?>
@@ -73,11 +75,9 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                             <h3>
                                 <?php
                                 $somaPagas = 0;
-                                if ($buscaEmendas['status'] === 'success') {
-                                    foreach ($buscaEmendas['data'] as $emenda) {
-                                        if ($emenda['situacao_id'] == '2') {
-                                            $somaPagas += (float) $emenda['valor'];
-                                        }
+                                foreach ($buscaEmendas['data'] as $emenda) {
+                                    if ($emenda['situacao_id'] == '2') {
+                                        $somaPagas += (float) $emenda['valor'];
                                     }
                                 }
                                 echo 'R$ ' . number_format($somaPagas, 2, ',', '.');
@@ -85,6 +85,14 @@ $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_i
                             </h3>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-header custom-card-header-no-bg bg-secondary px-2 py-1 text-white">
+                    Distribuição por área
+                </div>
+                <div class="card-body custom-card-body p-2">
+
                 </div>
             </div>
         </div>
