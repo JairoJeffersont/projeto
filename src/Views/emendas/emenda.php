@@ -100,7 +100,6 @@ if ($buscaEmenda['status'] != 'success') {
                                 <select class="form-select form-select-sm" name="tipo" required>
                                     <option value="1" <?= ($buscaEmenda['data']['tipo_id'] == 1 ? 'selected' : '') ?>>Emenda individual</option>
                                     <option value="2" <?= ($buscaEmenda['data']['tipo_id'] == 2 ? 'selected' : '') ?>>Emenda de bancada</option>
-                                    <option value="3" <?= ($buscaEmenda['data']['tipo_id'] == 3 ? 'selected' : '') ?>>Emenda extra</option>
                                     <?php
                                     $buscaTipo = EmendaController::listarTiposdeEmendas($_SESSION['usuario']['gabinete_id']);
                                     if ($buscaTipo['status'] == 'success') {
