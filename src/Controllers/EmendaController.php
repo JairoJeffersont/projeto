@@ -264,7 +264,7 @@ class EmendaController {
             }
 
             $area = AreaEmendaModel::where($coluna, $valor)->first();
-            
+
 
             if (!$area) {
                 return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada'];
@@ -350,7 +350,7 @@ class EmendaController {
     }
 
     //CRUD EMENDAS
-    public static function listarEmendas(string $gabinete_id = '', string $ordem = 'ASC', string $ordenarPor = 'nome', int $itens = 10, int $pagina = 1, string $ano = '',  string $estado = '', string $cidade = '', string $tipo = '', string $ares = '', string $situacao = '',  string $busca = ''): array {
+    public static function listarEmendas(string $gabinete_id = '', string $ordem = 'ASC', string $ordenarPor = 'numero', int $itens = 10, int $pagina = 1, string $ano = '',  string $estado = '', string $cidade = '', string $tipo = '', string $ares = '', string $situacao = '',  string $busca = ''): array {
         try {
 
             if (empty($gabinete_id)) {

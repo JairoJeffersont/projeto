@@ -8,6 +8,15 @@ include('../src/Views/includes/verificaLogado.php');
 
 $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabinete_id'])['data']['estado'];
 
+$anoGet = $_GET['ano'] ?? date('Y');
+$ordenarPor = $_GET['ordenarPor'] ?? 'numero';
+$ordem = $_GET['ordem'] ?? 'ASC';
+$itens = $_GET['itens'] ?? 10;
+$pagina = $_GET['pagina'] ?? 1;
+
+
+
+
 ?>
 
 <div class="d-flex" id="wrapper">
@@ -147,6 +156,83 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
 
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-body custom-card-body p-2">
+                    <form class="row g-2 form_custom mb-0" id="form_busca" method="GET" enctype="application/x-www-form-urlencoded">
+                        <div class="col-md-1 col-2">
+                            <input type="hidden" name="secao" value="emendas" />
+                            <input type="number" class="form-control form-control-sm" name="ano" value="<?php echo $anoGet ?>">
+                        </div>
+
+                        <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm" name="ordenarPor" required>
+                                <option value="numero" <?= ($ordenarPor == 'numero') ? 'selected' : '' ?>>Ordenar por | Número</option>
+                                <option value="valor" <?= ($ordenarPor == 'valor') ? 'selected' : '' ?>>Ordenar por | Valor</option>
+                                <option value="area" <?= ($ordenarPor == 'area') ? 'selected' : '' ?>>Ordenar por | Área</option>
+                                <option value="tipo" <?= ($ordenarPor == 'tipo') ? 'selected' : '' ?>>Ordenar por | Tipo</option>
+                                <option value="created_at" <?= ($ordenarPor == 'created_at') ? 'selected' : '' ?>>Ordenar por | Criação</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 col-6">
+                            <select class="form-select form-select-sm" name="ordem" required>
+                                <option value="ASC" <?= ($ordem == 'ASC') ? 'selected' : '' ?>>Ordem Crescente</option>
+                                <option value="DESC" <?= ($ordem == 'DESC') ? 'selected' : '' ?>>Ordem Decrescente</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 col-6">
+                            <select class="form-select form-select-sm" name="itens" required>
+                                <option value="5" <?= ($itens == 5) ? 'selected' : '' ?>>5 itens</option>
+                                <option value="10" <?= ($itens == 10) ? 'selected' : '' ?>>10 itens</option>
+                                <option value="25" <?= ($itens == 25) ? 'selected' : '' ?>>25 itens</option>
+                                <option value="50" <?= ($itens == 50) ? 'selected' : '' ?>>50 itens</option>
+                                <option value="100" <?= ($itens == 100) ? 'selected' : '' ?>>100 itens</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-1 col-2">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-body custom-card-body p-2">
+                    <div class="table-responsive">
+                        <table class="table table-hover custom-table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">N°</th>
+                                    <th scope="col">Descrição</th>
+                                    <th scope="col">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], $ordem, $ordenarPor, $itens, $pagina, $anoGet);
+
+                                if ($buscaEmendas['status'] == 'success') {
+                                    foreach ($buscaEmendas['data'] as $emenda) {
+                                        $valorFormatado = 'R$ ' . number_format($emenda['valor'], 2, ',', '.');
+
+                                        echo '<tr>
+                                                <td>' . $emenda['numero'] . '</td>
+                                                <td>' . $emenda['descricao'] . '</td>
+                                                <td>' . $valorFormatado . '</td>
+                                            </tr>';
+                                    }
+                                } else if ($buscaEmendas['status'] == 'empty') {
+                                    echo '<tr><td colspan="3">' . $buscaEmendas['message'] . '</td></tr>';
+                                } else if ($buscaEmendas['status'] == 'server_error') {
+                                    echo '<tr><td colspan="3">' . $buscaEmendas['message'] . ' | ' . $buscaEmendas['error_id'] . '</td></tr>';
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
