@@ -79,7 +79,7 @@ include('../src/Views/includes/verificaLogado.php');
                                 if ($buscaTipo['status'] == 'success') {
                                     foreach ($buscaTipo['data'] as $tipo) {
                                         $usuario = UsuarioController::buscarUsuario($tipo['usuario_id'])['data']['nome'];
-                                        echo '<tr><td><a href="?secao=tipo-emenda&id=' . $tipo['id'] . '">' . $tipo['nome'] . '</a></td><td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($tipo['created_at'])) . '</td></tr>';
+                                        echo '<tr><td><a href="?secao=tipo-emenda&id=' . $tipo['id'] . '" class="loading-modal">' . $tipo['nome'] . '</a></td><td>' . $usuario . ' | ' . date('d/m - H:i', strtotime($tipo['created_at'])) . '</td></tr>';
                                     }
                                 } else if ($buscaTipo['status'] == 'empty') {
                                     echo '<tr><td colspan="2">' . $buscaTipo['message'] . '</td></tr>';

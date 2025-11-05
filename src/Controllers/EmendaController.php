@@ -467,7 +467,7 @@ class EmendaController {
 
     public static function atualizarEmenda(string $id, array $dados): array {
         try {
-            $emenda = AreaEmendaModel::find($id);
+            $emenda = EmendaModel::find($id);
 
             if (!$emenda) {
                 return ['status' => 'not_found', 'message' => 'Emenda não encontrada.'];

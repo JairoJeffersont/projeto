@@ -13,6 +13,10 @@ $ordenarPor = $_GET['ordenarPor'] ?? 'numero';
 $ordem = $_GET['ordem'] ?? 'ASC';
 $itens = $_GET['itens'] ?? 10;
 $pagina = $_GET['pagina'] ?? 1;
+$estado = $_GET['estado'] ?? $buscaGabinete;
+$cidade = $_GET['cidade'] ?? '';
+$tipoGet = $_GET['tipo'] ?? '1';
+
 
 
 
@@ -166,8 +170,7 @@ $pagina = $_GET['pagina'] ?? 1;
                             <input type="hidden" name="secao" value="emendas" />
                             <input type="number" class="form-control form-control-sm" name="ano" value="<?php echo $anoGet ?>">
                         </div>
-
-                        <div class="col-md-2 col-6">
+                        <div class="col-md-2 col-10">
                             <select class="form-select form-select-sm" name="ordenarPor" required>
                                 <option value="numero" <?= ($ordenarPor == 'numero') ? 'selected' : '' ?>>Ordenar por | Número</option>
                                 <option value="valor" <?= ($ordenarPor == 'valor') ? 'selected' : '' ?>>Ordenar por | Valor</option>
@@ -191,6 +194,35 @@ $pagina = $_GET['pagina'] ?? 1;
                                 <option value="100" <?= ($itens == 100) ? 'selected' : '' ?>>100 itens</option>
                             </select>
                         </div>
+                        <div class="col-md-1 col-6">
+                            <select class="form-select form-select-sm estado" name="estado" data-selected="<?= $estado ?>">
+                                <option value="" <?= ($estado == '') ? 'selected' : '' ?>>Todos os estados</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm municipio" name="cidade" data-selected="<?= $cidade ?>">
+                                <option value="" <?= ($cidade == '') ? 'selected' : '' ?>>Todas as cidades</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2 col-6">
+                            <select class="form-select form-select-sm" name="tipo" required>
+                                <option value="1" <?= ($tipoGet == 1 ? 'selected' : '') ?>>Emenda individual</option>
+                                <option value="2" <?= ($tipoGet == 2 ? 'selected' : '') ?>>Emenda de bancada</option>
+                                <?php
+                                if ($buscaTipo['status'] == 'success') {
+                                    foreach ($buscaTipo['data'] as $tipo) {
+                                        if ($tipoGet == $tipo['id']) {
+                                            echo '<option value="' . $tipo['id'] . '" selected >' . $tipo['nome'] . '</option>';
+                                        } else {
+                                            echo '<option value="' . $tipo['id'] . '">' . $tipo['nome'] . '</option>';
+                                        }
+                                    }
+                                }
+                                ?>
+                            </select>
+
+                        </div>
 
                         <div class="col-md-1 col-2">
                             <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
@@ -212,15 +244,15 @@ $pagina = $_GET['pagina'] ?? 1;
                             </thead>
                             <tbody>
                                 <?php
-                                $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], $ordem, $ordenarPor, $itens, $pagina, $anoGet);
-
+                                $buscaEmendas = EmendaController::listarEmendas($_SESSION['usuario']['gabinete_id'], $ordem, $ordenarPor, $itens, $pagina, $anoGet, $estado, $cidade, $tipoGet);
+                                $soma = 0;
                                 if ($buscaEmendas['status'] == 'success') {
                                     foreach ($buscaEmendas['data'] as $emenda) {
                                         $valorFormatado = 'R$ ' . number_format($emenda['valor'], 2, ',', '.');
-
+                                        $soma += $emenda['valor'];
                                         echo '<tr>
                                                 <td>' . $emenda['numero'] . '</td>
-                                                <td>' . $emenda['descricao'] . '</td>
+                                                <td><a href="?secao=emenda&id=' . $emenda['id'] . '" class="loading-modal">' . $emenda['descricao'] . '</a></td>
                                                 <td>' . $valorFormatado . '</td>
                                             </tr>';
                                     }
@@ -230,6 +262,9 @@ $pagina = $_GET['pagina'] ?? 1;
                                     echo '<tr><td colspan="3">' . $buscaEmendas['message'] . ' | ' . $buscaEmendas['error_id'] . '</td></tr>';
                                 }
                                 ?>
+                                <tr>
+                                    <td colspan="3"><b>Total: <?php echo 'R$ ' . number_format($soma, 2, ',', '.'); ?></b></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

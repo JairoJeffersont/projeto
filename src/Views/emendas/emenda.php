@@ -39,8 +39,7 @@ if ($buscaEmenda['status'] != 'success') {
 
                     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_salvar'])) {
                         $dadosEmenda = [
-                            'ano' => $_POST['ano'],
-                            'numero' => $_POST['numero'],
+                            
                             'descricao' => $_POST['descricao'],
                             'valor' => str_replace(['R$', '.', ','], ['', '', '.'], $_POST['valor']),
                             'estado' => $_POST['estado'],
@@ -54,6 +53,7 @@ if ($buscaEmenda['status'] != 'success') {
                         $result = EmendaController::atualizarEmenda($id, $dadosEmenda);
 
                         if ($result['status'] == 'success') {
+                            $buscaEmenda = EmendaController::buscarEmenda($id);
                             echo '<div class="alert alert-success px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . '</div>';
                         } else if ($result['status'] == 'server_error') {
                             echo '<div class="alert alert-danger px-2 py-1 custom-alert mb-2" data-timeout="3" role="alert">' . $result['message'] . ' | ' . $result['error_id'] . '</div>';
@@ -63,6 +63,8 @@ if ($buscaEmenda['status'] != 'success') {
                     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['btn_apagar'])) {
 
                         $result = EmendaController::apagarEmenda($id);
+
+                       
 
                         if ($result['status'] == 'success') {
                             header('location: ?secao=emendas');
@@ -160,7 +162,7 @@ if ($buscaEmenda['status'] != 'success') {
                             <textarea class="form-control form-control-sm" id="tinymce" name="informacoes" rows="5" placeholder="Informações importantes dessa emenda"><?php echo $buscaEmenda['data']['informacoes'] ?></textarea>
                         </div>
                         <div class="col-md-1 col-12">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa emenda?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja atualizar essa emenda?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                             <button type="submit" class="btn btn-danger btn-sm confirm-action" data-message="Tem certeza que deseja apagar essa emenda?" name="btn_apagar"><i class="bi bi-floppy-fill"></i> Apagar</button>
                         </div>
                     </form>

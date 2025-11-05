@@ -88,7 +88,7 @@ include('../src/Views/includes/verificaLogado.php');
                                     foreach ($buscaAreas['data'] as $area) {
                                         $usuario = UsuarioController::buscarUsuario($area['usuario_id'])['data']['nome'];
                                         echo '<tr>
-                                                <td><a href="?secao=area-emenda&id=' . $area['id'] . '">' . htmlspecialchars($area['nome']) . '</a></td>
+                                                <td><a href="?secao=area-emenda&id=' . $area['id'] . '" class="loading-modal">' . htmlspecialchars($area['nome']) . '</a></td>
                                                 <td>' . htmlspecialchars($usuario) . ' | ' . date('d/m - H:i', strtotime($area['created_at'])) . '</td>
                                               </tr>';
                                     }
