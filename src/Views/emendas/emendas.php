@@ -138,7 +138,7 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
                             <textarea class="form-control form-control-sm" name="informacoes" rows="5" placeholder="Informações importantes dessa emenda"></textarea>
                         </div>
                         <div class="col-md-1 col-12">
-                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse tipo de emenda?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
+                            <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir essa emenda?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
                         </div>
                     </form>
                 </div>

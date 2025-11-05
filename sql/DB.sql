@@ -237,7 +237,7 @@
     INSERT INTO
         situacao_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Sem tipo definido', '1', '1');
+        ('1', 'Situação não definida', '1', '1');
 
     CREATE TABLE
         area_emenda (

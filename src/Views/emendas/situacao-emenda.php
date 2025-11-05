@@ -54,7 +54,6 @@ if ($buscaSituacao['status'] != 'success') {
 
                         $result = EmendaController::apagarSituacaodeEmenda($id);
 
-                        print_r($result);
 
                         if ($result['status'] == 'not_permitted') {
                             echo '<div class="alert alert-danger px-2 py-1 custom-alert mb-2" data-timeout="0" role="alert">' . $result['message'] . '</div>';
