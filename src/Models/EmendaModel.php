@@ -16,6 +16,7 @@ class EmendaModel extends Model {
         'ano',
         'valor',
         'descricao',
+        'informacoes',
         'estado',
         'cidade',
         'situacao_id',
