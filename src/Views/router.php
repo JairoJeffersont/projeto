@@ -28,6 +28,7 @@ $rotas = [
     'areas-emendas' => '../src/Views/emendas/areas-emendas.php',
     'area-emenda' => '../src/Views/emendas/area-emenda.php',
     'emendas' => '../src/Views/emendas/emendas.php',
+    'emenda' => '../src/Views/emendas/emenda.php',
     'sair' => '../src/Views/includes/sair.php',
     'home' => '../src/Views/home/home.php',
 ];
