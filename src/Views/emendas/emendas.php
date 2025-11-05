@@ -171,7 +171,6 @@ $situacaoGet = $_GET['situacao'] ?? '';
                             <select class="form-select form-select-sm" name="ordenarPor" required>
                                 <option value="numero" <?= ($ordenarPor == 'numero') ? 'selected' : '' ?>>Ordenar por | Número</option>
                                 <option value="valor" <?= ($ordenarPor == 'valor') ? 'selected' : '' ?>>Ordenar por | Valor</option>
-                                <option value="created_at" <?= ($ordenarPor == 'created_at') ? 'selected' : '' ?>>Ordenar por | Criação</option>
                             </select>
                         </div>
                         <div class="col-md-1 col-6">
