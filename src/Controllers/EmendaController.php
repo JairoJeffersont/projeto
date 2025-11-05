@@ -458,10 +458,8 @@ class EmendaController {
 
     public static function novaEmenda(array $dados): array {
         try {
-
             $dados['id'] = \Ramsey\Uuid\Uuid::uuid4()->toString();
             $novaEmenda = EmendaModel::create($dados);
-
             return ['status' => 'success', 'message' => 'Emenda inserida com sucesso.', 'data' => $novaEmenda->toArray()];
         } catch (\Exception $e) {
             $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');

@@ -2,8 +2,12 @@
 
 use App\Controllers\EmendaController;
 use App\Controllers\UsuarioController;
+use App\Controllers\GabineteController;
 
 include('../src/Views/includes/verificaLogado.php');
+
+$buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabinete_id'])['data']['estado'];
+
 
 ?>
 
@@ -68,7 +72,7 @@ include('../src/Views/includes/verificaLogado.php');
                             <input type="text" class="form-control form-control-sm" name="valor" placeholder="Valor (R$)" required>
                         </div>
                         <div class="col-md-1 col-6">
-                            <select class="form-select form-select-sm estado" name="estado" required>
+                            <select class="form-select form-select-sm estado" name="estado" data-selected="<?php echo $buscaGabinete ?>" required>
                             </select>
                         </div>
                         <div class="col-md-2 col-6">
@@ -112,7 +116,7 @@ include('../src/Views/includes/verificaLogado.php');
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-2 col-6">
+                        <div class="col-md-2 col-12">
                             <div class="input-group input-group-sm">
                                 <select class="form-select form-select-sm" name="situacao" required>
                                     <option>Escolha a situação</option>
