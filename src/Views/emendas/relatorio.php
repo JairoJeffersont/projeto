@@ -159,7 +159,6 @@ if ($buscaEmendas['status'] != 'success') {
                                 ?>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
