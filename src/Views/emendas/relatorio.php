@@ -146,7 +146,7 @@ if ($buscaEmendas['status'] != 'success') {
                                 // Exibe os totais por área
                                 foreach ($totaisPorArea as $area => $valores) {
                                     echo '<tr>
-                                            <td>' . htmlspecialchars($area) . '</td>
+                                            <td>' . htmlspecialchars($area) . '</a></td>
                                             <td>R$ ' . number_format($valores['total'], 2, ',', '.') . '</td>
                                             <td>R$ ' . number_format($valores['pago'], 2, ',', '.') . '</td>
                                         </tr>';
@@ -157,6 +157,27 @@ if ($buscaEmendas['status'] != 'success') {
                                     echo '<tr><td colspan="3" class="text-center">Nenhuma emenda encontrada.</td></tr>';
                                 }
                                 ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-header custom-card-header-no-bg px-2 py-1 bg-primary text-center text-white">
+                    Distribuição por município
+                </div>
+                <div class="card-body custom-card-body text-center p-2">
+                    <div class="table-responsive">
+                        <table class="table table-hover custom-table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Município</th>
+                                    <th scope="col">Valor Total</th>
+                                    <th scope="col">Valor Pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
                             </tbody>
                         </table>
                     </div>
