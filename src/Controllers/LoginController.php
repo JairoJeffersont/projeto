@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Helpers\EmailService;
 use App\Helpers\SessionHelper;
-use App\Helpers\Slugfy;
 use App\Models\UsuarioModel;
 use JairoJeffersont\EasyLogger\Logger;
 use Ramsey\Uuid\Uuid;
