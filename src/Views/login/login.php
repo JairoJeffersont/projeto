@@ -41,7 +41,7 @@
             } else if ($result['status'] == 'server_error') {
                 echo '<div class="alert alert-danger rounded-pill px-4 py-2 custom-alert mb-2" data-timeout="3" role="alert">Erro interno do servidor | ' . $result['error_id'] . '</div>';
             } else if ($result['status'] == 'success') {
-                header('location: ?secao=home');
+                header('location: ?secao=home_admin');
             }
         }
         ?>

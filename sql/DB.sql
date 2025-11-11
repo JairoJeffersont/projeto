@@ -23,6 +23,7 @@
             estado VARCHAR(2) NOT NULL,
             cidade VARCHAR(100) DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
+            assinaturas INT NOT NULL DEFAULT 1,
             tipo_gabinete_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_gabinete_id) REFERENCES tipo_gabinete (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -46,7 +47,11 @@
         tipo_usuario (id, nome)
     VALUES
         ('1', 'Administrador'),
-        ('2', 'Usuário Comum');
+        ('2', 'Gestor'),
+        ('3', 'Orçamento'),
+        ('4', 'Comunicação'),
+        ('5', 'Legislativo'),
+        ('6', 'Secretaria');
 
     CREATE TABLE
         usuario (
@@ -59,7 +64,6 @@
             data_nascimento VARCHAR(5) DEFAULT NULL,
             token TEXT DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
-            gestor BOOLEAN NOT NULL DEFAULT TRUE,
             tipo_usuario_id VARCHAR(36) NOT NULL,
             FOREIGN KEY (tipo_usuario_id) REFERENCES tipo_usuario (id) ON DELETE RESTRICT ON UPDATE CASCADE,
             gabinete_id VARCHAR(36) NOT NULL,
@@ -284,7 +288,8 @@
         tipo_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
         ('1', 'Emenda individual', '1', '1'),
-        ('2', 'Emenda de bancada', '1', '1');
+        ('2', 'Emenda de bancada', '1', '1'),
+        ('3', 'Emenda extra', '1', '1');
 
     CREATE TABLE
         emenda (

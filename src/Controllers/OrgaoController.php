@@ -64,6 +64,10 @@ class OrgaoController {
                 return ['status' => 'not_found', 'message' => 'Tipo não encontrado'];
             }
 
+            if ($_SESSION['usuario']['tipo_usuario_id'] != '2' || $_SESSION['usuario']['tipo_usuario_id'] != '6') {
+                return ['status' => 'forbidden', 'message' => 'Você não tem autorização para apagar esse registro'];
+            }
+
             $tipo->delete();
             return ['status' => 'success', 'message' => 'Tipo apagado.'];
         } catch (\Exception $e) {
@@ -85,6 +89,10 @@ class OrgaoController {
                 return ['status' => 'conflict', 'message' => 'Tipo já cadastrado.'];
             }
 
+            if ($_SESSION['usuario']['tipo_usuario_id'] != '2' && $_SESSION['usuario']['tipo_usuario_id'] != '6') {
+                return ['status' => 'forbidden', 'message' => 'Você não tem autorização para inserir novos registros'];
+            }
+
             $dados['id'] = Uuid::uuid4()->toString();
             $result = TipoOrgaoModel::create($dados);
 
@@ -102,6 +110,10 @@ class OrgaoController {
 
             if (!$tipo) {
                 return ['status' => 'not_found', 'message' => 'Tipo não encontrado.'];
+            }
+
+            if ($_SESSION['usuario']['tipo_usuario_id'] != '2' && $_SESSION['usuario']['tipo_usuario_id'] != '6') {
+                return ['status' => 'forbidden', 'message' => 'Você não tem autorização para atualizar esse registro'];
             }
 
             if (isset($dados['nome'])) {
@@ -204,6 +216,10 @@ class OrgaoController {
                 return ['status' => 'not_found', 'message' => 'Órgão não encontrado'];
             }
 
+            if ($_SESSION['usuario']['tipo_usuario_id'] != '2' && $_SESSION['usuario']['tipo_usuario_id'] != '6') {
+                return ['status' => 'forbidden', 'message' => 'Você não tem autorização para apagar esse órgão'];
+            }
+
             $orgao->delete();
             return ['status' => 'success', 'message' => 'Órgão apagado.'];
         } catch (\Exception $e) {
@@ -220,6 +236,10 @@ class OrgaoController {
         try {
 
             $tipo = OrgaoModel::where('nome', $dados['nome'])->first();
+
+            if ($_SESSION['usuario']['tipo_usuario_id'] != '2' && $_SESSION['usuario']['tipo_usuario_id'] != '6') {
+                return ['status' => 'forbidden', 'message' => 'Você não tem autorização para inserir novos órgão'];
+            }
 
             if ($tipo) {
                 return ['status' => 'conflict', 'message' => 'Órgão já cadastrado.'];
@@ -242,6 +262,10 @@ class OrgaoController {
 
             if (!$orgao) {
                 return ['status' => 'not_found', 'message' => 'Órgão não encontrado.'];
+            }
+
+            if ($_SESSION['usuario']['tipo_usuario_id'] != '2' && $_SESSION['usuario']['tipo_usuario_id'] != '6') {
+                return ['status' => 'forbidden', 'message' => 'Você não tem autorização para atualizar esse órgão'];
             }
 
             if (isset($dados['nome'])) {
