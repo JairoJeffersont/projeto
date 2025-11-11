@@ -22,6 +22,25 @@ class GabineteController {
         }
     }
 
+    public static function buscarTipoGabinete(string $valor): array {
+        try {
+            if (empty($valor)) {
+                return ['status' => 'bad_request', 'message' => 'ID do gabinete não enviado'];
+            }
+
+            $gabinete = TipoGabineteModel::where('id', $valor)->first();
+
+            if (!$gabinete) {
+                return ['status' => 'not_found', 'message' => 'Tipo de gabinete não encontrado'];
+            }
+
+            return ['status' => 'success', 'data' => $gabinete->toArray()];
+        } catch (\Exception $e) {
+            $errorId = Logger::newLog(LOG_FOLDER, 'error', $e->getMessage(), 'ERROR');
+            return ['status' => 'server_error', 'message' => 'Erro interno do servidor.', 'error_id' => $errorId];
+        }
+    }
+
     public static function listarGabinetes(): array {
         try {
             $gabinetes = GabineteModel::where('id', '!=', '1')->get();

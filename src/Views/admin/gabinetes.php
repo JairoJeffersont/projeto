@@ -40,7 +40,9 @@ $buscaGabinetes = GabineteController::listarGabinetes();
                             <thead>
                                 <tr>
                                     <th scope="col">Nome</th>
+                                    <th scope="col">TIpo</th>
                                     <th scope="col">Município/UF</th>
+                                    <th scope="col">Ativo?</th>
                                     <th scope="col">Criado em</th>
                                 </tr>
                             </thead>
@@ -49,7 +51,12 @@ $buscaGabinetes = GabineteController::listarGabinetes();
                                 if ($buscaGabinetes['status'] == 'success') {
                                     foreach ($buscaGabinetes['data'] as $gabinete) {
                                         $dataFormatada = date('d/m - H:i', strtotime($gabinete['created_at']));
-                                        $ativo = $gabinete['ativo'] == 1 ? '<b>Ativo</b>' : 'Desativado';
+                                        $ativo = $gabinete['ativo'] == 1 ? '<b>Sim</b>' : 'Não';
+                                        $tipoNome = GabineteController::buscarTipoGabinete($gabinete['tipo_gabinete_id'])['data']['nome'];
+
+                                        $local = !empty($gabinete['cidade'])
+                                            ? "{$gabinete['cidade']}/{$gabinete['estado']}"
+                                            : "{$gabinete['estado']}";
 
                                         echo "
                                                 <tr>
@@ -58,18 +65,17 @@ $buscaGabinetes = GabineteController::listarGabinetes();
                                                             {$gabinete['nome']}
                                                         </a>
                                                     </td>
-                                                    <td>
-                                                        {$gabinete['cidade']}/{$gabinete['estado']}
-                                                    </td>
+                                                    <td>{$tipoNome}</td>
+                                                    <td>{$local}</td>
                                                     <td>{$ativo}</td>
                                                     <td>{$dataFormatada}</td>
                                                 </tr>
                                             ";
                                     }
                                 } else if ($buscaGabinetes['status'] == 'empty') {
-                                    echo '<tr><td colspan="2">' . $buscaGabinetes['message'] . '</td></tr>';
+                                    echo '<tr><td colspan="4">' . $buscaGabinetes['message'] . '</td></tr>';
                                 } else if ($buscaGabinetes['status'] == 'server_error') {
-                                    echo '<tr><td colspan="2">' . $buscaGabinetes['message'] . ' | ' . $buscaGabinetes['error_id'] . '</td></tr>';
+                                    echo '<tr><td colspan="4">' . $buscaGabinetes['message'] . ' | ' . $buscaGabinetes['error_id'] . '</td></tr>';
                                 }
                                 ?>
                             </tbody>
