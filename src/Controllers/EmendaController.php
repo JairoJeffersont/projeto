@@ -62,6 +62,10 @@ class EmendaController {
 
             $tipo = TipoEmendaModel::find($id);
 
+            if ($tipo->gabinete_id == '1') {
+                return ['status' => 'not_permitted', 'message' => 'Não é possível apagar esse registro.'];
+            }
+
             if (!$tipo) {
                 return ['status' => 'not_found', 'message' => 'Tipo não encontrado'];
             }
@@ -174,6 +178,10 @@ class EmendaController {
 
             $tipo = SituacaoEmendaModel::find($id);
 
+            if ($tipo->gabinete_id == '1') {
+                return ['status' => 'not_permitted', 'message' => 'Não é possível apagar esse registro.'];
+            }
+
             if (!$tipo) {
                 return ['status' => 'not_found', 'message' => 'Situação não encontrada'];
             }
@@ -285,6 +293,10 @@ class EmendaController {
 
             $area = AreaEmendaModel::find($id);
 
+            if ($area->gabinete_id == '1') {
+                return ['status' => 'not_permitted', 'message' => 'Não é possível apagar esse registro.'];
+            }
+
             if (!$area) {
                 return ['status' => 'not_found', 'message' => 'Área de emenda não encontrada'];
             }
@@ -393,7 +405,7 @@ class EmendaController {
             // Ordenação
             $query->orderBy($ordenarPor, $ordem);
 
-              // Total para controle de páginas
+            // Total para controle de páginas
             $total = $query->count();
 
             // Paginação manual (caso não use paginate do Laravel)
@@ -404,7 +416,7 @@ class EmendaController {
                 return ['status' => 'empty', 'message' => 'Nenhuma emenda encontrada.'];
             }
 
-          
+
 
             return ['status' => 'success', 'total' => $total, 'total_pagina' => ceil($total / $itens), 'data' => $emendas->toArray()];
         } catch (\Exception $e) {

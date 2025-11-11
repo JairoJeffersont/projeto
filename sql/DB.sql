@@ -237,7 +237,7 @@
     INSERT INTO
         situacao_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Situação não definida', '1', '1'),
+        ('1', 'Criada', '1', '1'),
         ('2', 'Paga', '1', '1'),
         ('3', 'Empenhada', '1', '1');
 
@@ -256,7 +256,7 @@
     INSERT INTO
         area_emenda (id, nome, gabinete_id, usuario_id)
     VALUES
-        ('1', 'Sem área definido', '1', '1'),
+        ('1', 'Sem área definida', '1', '1'),
         ('2', 'Saúde', '1', '1'),
         ('3', 'Educação', '1', '1'),
         ('4', 'Segurança Pública', '1', '1'),
