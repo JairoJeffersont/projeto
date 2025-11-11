@@ -1,4 +1,17 @@
-<?php include('../src/Views/includes/verificaLogado.php'); ?>
+<?php
+
+use App\Controllers\GabineteController;
+
+include('../src/Views/includes/verificaLogado.php');
+
+if($_SESSION['usuario']['tipo_usuario_id'] != '1'){
+    header('Location: ?secao=home');
+}
+
+$buscaGabinetes = GabineteController::listarGabinetes();
+
+
+?>
 
 
 <div class="d-flex" id="wrapper">

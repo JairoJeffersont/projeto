@@ -37,10 +37,12 @@
             } else if ($result['status'] == 'wrong_password') {
                 echo '<div class="alert alert-danger rounded-pill px-4 py-2 custom-alert mb-2" data-timeout="3" role="alert">Senha incorreta!</div>';
             } else if ($result['status'] == 'deactived') {
-                echo '<div class="alert alert-info rounded-pill px-4 py-2 custom-alert mb-2" data-timeout="3" role="alert">Usuário ou gabinete desativado! Contate o gestor do sistema.</div>';
+                echo '<div class="alert alert-info rounded-pill px-4 py-2 custom-alert mb-2" data-timeout="3" role="alert">'.$result['message'].'</div>';
             } else if ($result['status'] == 'server_error') {
                 echo '<div class="alert alert-danger rounded-pill px-4 py-2 custom-alert mb-2" data-timeout="3" role="alert">Erro interno do servidor | ' . $result['error_id'] . '</div>';
             } else if ($result['status'] == 'success') {
+                header('location: ?secao=home');
+            } else if ($result['status'] == 'success_admin') {
                 header('location: ?secao=home_admin');
             }
         }

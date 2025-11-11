@@ -1,4 +1,8 @@
-<?php include('../src/Views/includes/verificaLogado.php'); ?>
+<?php 
+
+include('../src/Views/includes/verificaLogado.php'); 
+
+?>
 
 
 <div class="d-flex" id="wrapper">

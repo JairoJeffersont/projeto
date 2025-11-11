@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Helpers\EmailService;
 use App\Helpers\SessionHelper;
 use App\Models\UsuarioModel;
+use App\Models\GabineteModel;
 use JairoJeffersont\EasyLogger\Logger;
 use Ramsey\Uuid\Uuid;
 
@@ -28,8 +29,14 @@ class LoginController {
                 ];
 
                 if (SessionHelper::iniciarSessao($dados)) {
-                    return ['status' => 'success', 'message' => 'Login feito com sucesso!'];
+                    return ['status' => 'success_admin', 'message' => 'Login feito com sucesso!'];
                 }
+            }
+
+            $gabinete = GabineteModel::where('id', $usuario->gabinete_id)->first();
+
+            if (!$gabinete->ativo) {
+                return ['status' => 'deactived', 'message' => 'Gabinete desativado'];
             }
 
             if (!$usuario) {
