@@ -33,6 +33,7 @@ $rotas = [
     'sair' => '../src/Views/includes/sair.php',
     'home' => '../src/Views/home/home.php',
     'home_admin' => '../src/Views/admin/home.php',
+    'gabinetes' => '../src/Views/admin/gabinetes.php',
 ];
 
 if (array_key_exists($pagina, $rotas)) {
