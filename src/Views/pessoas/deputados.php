@@ -14,7 +14,6 @@ $url = 'https://www.camara.leg.br/sitcamaraws/deputados.asmx/ObterDeputados';
 
 $buscaDep = GetData::getXml($url);
 
-
 ?>
 
 
@@ -31,7 +30,7 @@ $buscaDep = GetData::getXml($url);
             </div>
             <div class="card mb-2">
                 <div class="card-header custom-card-header px-2 py-1 text-white">
-                    Pessoas
+                    Deputados federais
                 </div>
                 <div class="card-body custom-card-body p-2">
                     <p class="card-text mb-0">Nesta seção, é possível ver todos os deputados federais.</p>
@@ -41,14 +40,14 @@ $buscaDep = GetData::getXml($url);
                 <div class="card-body custom-card-body p-2">
                     <form class="row g-2 form_custom mb-0" id="form_busca" method="GET" enctype="application/x-www-form-urlencoded">
 
-                        <div class="col-md-1 col-6">
+                        <div class="col-md-1 col-5">
                             <input type="hidden" name="secao" value="deputados" />
                             <select class="form-select form-select-sm estado" name="estado" data-selected="<?= $estado ?>">
                                 <option value="" <?= ($estado == '') ? 'selected' : '' ?>>Todos os estados</option>
                             </select>
                         </div>
 
-                        <div class="col-md-1 col-6">
+                        <div class="col-md-1 col-5">
                             <select class="form-select form-select-sm partidos" name="partido" data-selected="<?= $partido ?>">
                                 <option value="" <?= ($partido == '') ? 'selected' : '' ?>>Todos os partidos</option>
                             </select>
@@ -88,11 +87,12 @@ $buscaDep = GetData::getXml($url);
                                         alt="Foto de <?= $dep['nomeParlamentar'] ?>"
                                         class="me-3 rounded border shadow-sm" width="50">
                                     <div>
-                                        <a href="?secao=deputado&id=<?= $dep['ideCadastro'] ?>" class="fw-semibold text-decoration-none">
+                                        <a href="?secao=deputado&id=<?= $dep['ideCadastro'] ?>" class="fw-semibold text-decoration-none loading-modal">
                                             <?= $dep['nomeParlamentar'] ?>
                                         </a><br>
                                         <small class="text-muted">
-                                            <b><?= $dep['partido'] ?>/<?= $dep['uf'] ?> — <?= $dep['condicao'] ?></b>
+                                            <b><?= $dep['partido'] ?>/<?= $dep['uf'] ?> — <?= $dep['condicao'] ?></b><br>
+                                            <b><?= $dep['email'] ?></b>
                                         </small>
                                     </div>
                                 </li>
