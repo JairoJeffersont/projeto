@@ -10,7 +10,7 @@ class GabineteModel extends Model {
     protected $primaryKey = 'id';
     protected $keyType = 'string';
     public $incrementing = false;
-    protected $fillable = ['id', 'nome', 'nome_slug', 'estado', 'cidade', 'assinaturas', 'ativo', 'tipo_gabinete_id'];
+    protected $fillable = ['id', 'nome', 'nome_slug', 'estado', 'cidade', 'assinaturas', 'partido',  'ativo', 'tipo_gabinete_id'];
     protected $dates = ['created_at', 'updated_at'];
 
     public function tipoGabinete() {

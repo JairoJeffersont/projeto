@@ -38,6 +38,7 @@ use App\Controllers\GabineteController;
                 $dadosGabinete = [
                     'nome' => $_POST['gabinete_nome'],
                     'estado' => $_POST['gabinete_estado'],
+                    'partido' => $_POST['gabinete_partido'],
                     'tipo_gabinete_id' => $_POST['gabinete_tipo'],
                 ];
 
@@ -78,6 +79,7 @@ use App\Controllers\GabineteController;
             <div class="col-md-6 col-6 mb-0">
                 <input type="password" class="form-control rounded-pill px-4 py-2" name="usuario_senha2" placeholder="Confirma a senha">
             </div>
+
             <div class="col-md-12 col-12 mb-0">
                 <input type="text" class="form-control rounded-pill px-4 py-2" name="usuario_telefone" placeholder="Telefone (com DDD)" data-mask="(00) 00000-0000" maxlength="15" required>
             </div>
@@ -97,6 +99,11 @@ use App\Controllers\GabineteController;
             <div class="col-md-6 col-6 mb-0">
                 <select class="form-select rounded-pill px-4 py-2 form-select-custom estado" name="gabinete_estado">
                     <option selected>Escolha o estado</option>
+                </select>
+            </div>
+            <div class="col-md-12 col-6">
+                <select class="form-select rounded-pill px-4 py-2 partidos" name="gabinete_partido" required>
+                    <option value="" selected>Partido não informado</option>
                 </select>
             </div>
             <div class="col-12 mb-2">

@@ -22,6 +22,7 @@
             nome_slug VARCHAR(100) NOT NULL,
             estado VARCHAR(2) NOT NULL,
             cidade VARCHAR(100) DEFAULT NULL,
+            partido VARCHAR(100) DEFAULT NULL,
             ativo BOOLEAN NOT NULL DEFAULT TRUE,
             assinaturas INT NOT NULL DEFAULT 1,
             tipo_gabinete_id VARCHAR(36) NOT NULL,
