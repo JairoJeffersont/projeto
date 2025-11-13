@@ -88,7 +88,7 @@ $busca = $_GET['busca'] ?? '';
                             <input type="text" class="form-control form-control-sm" name="telefone" placeholder="Telefone (somente números)" data-mask="(00) 00000-0000" maxlength="15">
                         </div>
                         <div class="col-md-2 col-6">
-                            <select class="form-select form-select-sm estado" name="estado" required>
+                            <select class="form-select form-select-sm estado" name="estado" data-selected="<?php echo $buscaGabinete ?>" required>
                                 <option value="" selected>UF</option>
                             </select>
                         </div>

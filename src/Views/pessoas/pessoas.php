@@ -108,7 +108,7 @@ $orgao = $_GET['orgao'] ?? '';
                             </select>
                         </div>
                         <div class="col-md-2 col-6">
-                            <select class="form-select form-select-sm estado" name="estado" required>
+                            <select class="form-select form-select-sm estado" name="estado" data-selected="<?php echo $buscaGabinete ?>" required>
                                 <option value="" selected>UF</option>
                             </select>
                         </div>
