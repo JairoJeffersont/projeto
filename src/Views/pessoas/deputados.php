@@ -7,7 +7,6 @@ include('../src/Views/includes/verificaLogado.php');
 
 $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabinete_id']);
 
-
 $estado = $_GET['estado'] ?? $buscaGabinete['data']['estado'];
 $partido = $_GET['partido'] ?? $buscaGabinete['data']['partido'];
 
@@ -40,64 +39,68 @@ $buscaDep = GetData::getXml($url);
             </div>
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
-                    <div class="table-responsive mb-0">
-                        <table class="table table-hover custom-table table-bordered table-striped mb-0">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nome</th>
-                                    <th scope="col">Partido/Estado</th>
-                                    <th scope="col">Situação</th>
-                                </tr>
-                            </thead>
-                            <?php
+                    <form class="row g-2 form_custom mb-0" id="form_busca" method="GET" enctype="application/x-www-form-urlencoded">
 
-                            if (!empty($buscaDep['data']['deputado'])) {
+                        <div class="col-md-1 col-6">
+                            <input type="hidden" name="secao" value="deputados" />
+                            <select class="form-select form-select-sm estado" name="estado" data-selected="<?= $estado ?>">
+                                <option value="" <?= ($estado == '') ? 'selected' : '' ?>>Todos os estados</option>
+                            </select>
+                        </div>
 
-                                // Filtra os deputados conforme o estado e/ou partido
-                                $deputados = array_filter($buscaDep['data']['deputado'], function ($dep) use ($estado, $partido) {
-                                    // Se ambos estiverem vazios, mostra todos
-                                    if ($estado === '' && $partido === '') {
-                                        return true;
-                                    }
+                        <div class="col-md-1 col-6">
+                            <select class="form-select form-select-sm partidos" name="partido" data-selected="<?= $partido ?>">
+                                <option value="" <?= ($partido == '') ? 'selected' : '' ?>>Todos os partidos</option>
+                            </select>
+                        </div>
 
-                                    // Se só estado estiver definido
-                                    if ($estado !== '' && $partido === '') {
-                                        return $dep['uf'] === $estado;
-                                    }
+                        <div class="col-md-1 col-2">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="bi bi-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <div class="card-body custom-card-body p-2">
+                    <?php
+                    if (!empty($buscaDep['data']['deputado'])) {
 
-                                    // Se só partido estiver definido
-                                    if ($estado === '' && $partido !== '') {
-                                        return $dep['partido'] === $partido;
-                                    }
+                        // Filtra conforme estado e/ou partido
+                        $deputados = array_filter($buscaDep['data']['deputado'], function ($dep) use ($estado, $partido) {
+                            if ($estado === '' && $partido === '') return true;
+                            if ($estado !== '' && $partido === '') return $dep['uf'] === $estado;
+                            if ($estado === '' && $partido !== '') return $dep['partido'] === $partido;
+                            return $dep['uf'] === $estado && $dep['partido'] === $partido;
+                        });
 
-                                    // Se ambos estiverem definidos
-                                    return $dep['uf'] === $estado && $dep['partido'] === $partido;
-                                });
+                        // Ordena por nome
+                        usort($deputados, function ($a, $b) {
+                            return strcmp($a['nomeParlamentar'], $b['nomeParlamentar']);
+                        });
+                    }
+                    ?>
 
-                                // Ordena por nome
-                                usort($deputados, function ($a, $b) {
-                                    return strcmp($a['nomeParlamentar'], $b['nomeParlamentar']);
-                                });
-                            }
-                            ?>
-
-                            <tbody>
-                                <?php
-                                if (!empty($deputados)) {
-                                    foreach ($deputados as $dep) {
-                                        echo '<tr>
-                                                <td><a href="?secao=deputado&id=' . $dep['ideCadastro'] . '">' . $dep['nomeParlamentar'] . '</a></td>
-                                                <td>' . $dep['partido'] . '/' . $dep['uf'] . '</td>
-                                                <td>' . $dep['condicao'] . '</td>
-                                            </tr>';
-                                    }
-                                } else {
-                                    echo '<tr><td colspan="3">Nenhum deputado encontrado.</td></tr>';
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+                    <?php if (!empty($deputados)) : ?>
+                        <ul class="list-group">
+                            <?php foreach ($deputados as $dep) : ?>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <img src="<?= $dep['urlFoto'] ?>"
+                                        alt="Foto de <?= $dep['nomeParlamentar'] ?>"
+                                        class="me-3 rounded border shadow-sm" width="50">
+                                    <div>
+                                        <a href="?secao=deputado&id=<?= $dep['ideCadastro'] ?>" class="fw-semibold text-decoration-none">
+                                            <?= $dep['nomeParlamentar'] ?>
+                                        </a><br>
+                                        <small class="text-muted">
+                                            <b><?= $dep['partido'] ?>/<?= $dep['uf'] ?> — <?= $dep['condicao'] ?></b>
+                                        </small>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else : ?>
+                        <div class="alert alert-info px-2 py-1 custom-alert mb-0">Nenhum deputado encontrado.</div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

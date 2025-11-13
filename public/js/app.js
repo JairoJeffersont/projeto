@@ -36,7 +36,7 @@ $.fn.populatePartidos = function () {
     // Requisição para buscar os partidos
     $.getJSON(url, function (data) {
         const partidos = data.dados || [];
-        $selectPartido.empty().append('<option value="Partido não informado">Partido não informado</option>');
+        $selectPartido.empty().append('<option value="">Partido não informado</option>');
 
         partidos.forEach(partido => {
             const isSelected = partido.sigla === selectedPartido ? 'selected' : '';
@@ -164,7 +164,7 @@ function copyToClipboard(text) {
 // =======================
 $(document).ready(function () {
     $('.alert[data-timeout]').autoHideAlert();
-    $('[name="valor"]').mask('R$ 000.000.000.000.000,00', {reverse: true});
+    $('[name="valor"]').mask('R$ 000.000.000.000.000,00', { reverse: true });
 
     // Popula todos os selects de estado encontrados
     $('.estado').each(function () {
