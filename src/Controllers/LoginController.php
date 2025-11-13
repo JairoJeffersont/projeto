@@ -20,19 +20,6 @@ class LoginController {
                 $usuario = UsuarioModel::where('telefone', preg_replace('/\D/', '', $dados['login']))->first();
             }
 
-            if ($dados['login'] == $_ENV['MASTER_USER'] && $dados['senha'] == $_ENV['MASTER_PASS']) {
-
-                $dados = [
-                    'nome' => $_ENV['MASTER_USER'],
-                    'tipo_usuario_id' => $_ENV['MASTER_TYPE'],
-                    'ativo' => 1
-                ];
-
-                if (SessionHelper::iniciarSessao($dados)) {
-                    return ['status' => 'success_admin', 'message' => 'Login feito com sucesso!'];
-                }
-            }
-
             $gabinete = GabineteModel::where('id', $usuario->gabinete_id)->first();
 
             if (!$gabinete->ativo) {

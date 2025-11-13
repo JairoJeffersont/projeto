@@ -29,11 +29,8 @@ $rotas = [
     'area-emenda' => '../src/Views/emendas/area-emenda.php',
     'emendas' => '../src/Views/emendas/emendas.php',
     'emenda' => '../src/Views/emendas/emenda.php',
-    'relatorio-emendas' => '../src/Views/emendas/relatorio.php',
     'sair' => '../src/Views/includes/sair.php',
-    'home' => '../src/Views/home/home.php',
-    'home_admin' => '../src/Views/admin/home.php',
-    'gabinetes' => '../src/Views/admin/gabinetes.php',
+    'home' => '../src/Views/home/home.php'
 ];
 
 if (array_key_exists($pagina, $rotas)) {
