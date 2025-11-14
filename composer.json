@@ -21,6 +21,8 @@
         "ramsey/uuid": "^4.9",
         "jairojeffersont/easy-logger": "^1.0",
         "jairojeffersont/file-uploader": "^1.0",
-        "phpmailer/phpmailer": "^6.10"
+        "phpmailer/phpmailer": "^6.10",
+        "shuchkin/simplexlsx": "^1.1",
+        "shuchkin/simplexls": "^1.0"
     }
 }

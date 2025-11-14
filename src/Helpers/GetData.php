@@ -100,4 +100,37 @@ class GetData {
             'data' => json_decode(json_encode($xml), true),
         ];
     }
+
+    public static function getXls(string $url): array {
+        // Baixa o arquivo
+        $tempFile = tempnam(sys_get_temp_dir(), 'xls_');
+        file_put_contents($tempFile, file_get_contents($url));
+
+        // Processa XLS (formato antigo)
+        try {
+            $xls = \Shuchkin\SimpleXLS::parse($tempFile);
+
+            if (!$xls) {
+                unlink($tempFile);
+                return [
+                    'status' => 'error',
+                    'message' => \Shuchkin\SimpleXLS::parseError()
+                ];
+            }
+
+            $rows = $xls->rows();
+            unlink($tempFile);
+
+            return [
+                'status' => 'success',
+                'data' => $rows
+            ];
+        } catch (\Throwable $e) {
+            unlink($tempFile);
+            return [
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ];
+        }
+    }
 }

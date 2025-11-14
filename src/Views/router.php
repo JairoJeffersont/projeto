@@ -18,6 +18,7 @@ $rotas = [
     'deputados' => '../src/Views/pessoas/deputados.php',
     'deputado' => '../src/Views/pessoas/deputado.php',
     'senadores' => '../src/Views/pessoas/senadores.php',
+    'senador' => '../src/Views/pessoas/senador.php',
     'pessoa' => '../src/Views/pessoas/pessoa.php',
     'aniversariantes' => '../src/Views/pessoas/aniversariantes.php',
     'tipos-documentos' => '../src/Views/documentos/tipos-documentos.php',

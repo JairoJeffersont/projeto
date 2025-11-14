@@ -10,9 +10,14 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
 $estado = $_GET['estado'] ?? $buscaGabinete['data']['estado'];
 $partido = $_GET['partido'] ?? $buscaGabinete['data']['partido'];
 
-$url = 'https://www.camara.leg.br/sitcamaraws/deputados.asmx/ObterDeputados';
+$params = [
+    'siglaUf' => $estado,
+    'siglaPartido' => $partido
+];
 
-$buscaDep = GetData::getXml($url);
+$url = 'https://dadosabertos.camara.leg.br/api/v2/deputados?' . http_build_query($params);
+
+$buscaDep = GetData::getJson($url);
 
 ?>
 
@@ -33,7 +38,12 @@ $buscaDep = GetData::getXml($url);
                     Deputados federais
                 </div>
                 <div class="card-body custom-card-body p-2">
-                    <p class="card-text mb-0">Nesta seção, é possível ver todos os deputados federais.</p>
+                    <p class="card-text mb-1">Nesta seção, é possível ver todos os deputados federais.</p>
+                    <p class="card-text mb-0"><b><a href="https://www.camara.leg.br/internet/infdoc/novoconteudo/Acervo/CELEG/Carometro/carometro_legislatura57.pdf" target="_blank">Imprimir carômetro</a> | </b>
+                    <b><a href="https://www.camara.leg.br/internet/deputado/deputado.xls" target="_blank">Baixar lista completa</a>
+
+                    </p>
+
                 </div>
             </div>
             <div class="card mb-2">
@@ -61,46 +71,28 @@ $buscaDep = GetData::getXml($url);
             </div>
             <div class="card mb-2">
                 <div class="card-body custom-card-body p-2">
-                    <?php
-                    if (!empty($buscaDep['data']['deputado'])) {
+                    <ul class="list-group">
+                        <?php
+                        if (!empty($buscaDep['data']['dados'])) {
+                            foreach ($buscaDep['data']['dados'] as $dep) {
+                                echo '
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <img src="' . $dep['urlFoto'] . '" 
+                                                alt="Foto de ' . $dep['nome'] . '" 
+                                                class="me-3 rounded-3 shadow-sm border"
+                                                style="width:60px; height:80px; object-fit:cover;">
 
-                        // Filtra conforme estado e/ou partido
-                        $deputados = array_filter($buscaDep['data']['deputado'], function ($dep) use ($estado, $partido) {
-                            if ($estado === '' && $partido === '') return true;
-                            if ($estado !== '' && $partido === '') return $dep['uf'] === $estado;
-                            if ($estado === '' && $partido !== '') return $dep['partido'] === $partido;
-                            return $dep['uf'] === $estado && $dep['partido'] === $partido;
-                        });
-
-                        // Ordena por nome
-                        usort($deputados, function ($a, $b) {
-                            return strcmp($a['nomeParlamentar'], $b['nomeParlamentar']);
-                        });
-                    }
-                    ?>
-
-                    <?php if (!empty($deputados)) : ?>
-                        <ul class="list-group">
-                            <?php foreach ($deputados as $dep) : ?>
-                                <li class="list-group-item d-flex align-items-center">
-                                    <img src="<?= $dep['urlFoto'] ?>"
-                                        alt="Foto de <?= $dep['nomeParlamentar'] ?>"
-                                        class="me-3 rounded border shadow-sm" width="50">
-                                    <div>
-                                        <a href="?secao=deputado&id=<?= $dep['ideCadastro'] ?>" class="fw-semibold text-decoration-none loading-modal">
-                                            <?= $dep['nomeParlamentar'] ?>
-                                        </a><br>
-                                        <small class="text-muted">
-                                            <b><?= $dep['partido'] ?>/<?= $dep['uf'] ?> — <?= $dep['condicao'] ?></b><br>
-                                            <b><?= $dep['email'] ?></b>
-                                        </small>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php else : ?>
-                        <div class="alert alert-info px-2 py-1 custom-alert mb-0">Nenhum deputado encontrado.</div>
-                    <?php endif; ?>
+                                            <div>
+                                                <p class="mb-0"><a href="https://www.camara.leg.br/deputados/' . $dep['id'] . '" target="_blank">' . $dep['nome'] . ' - ' . $dep['siglaPartido'] . '/' . $dep['siglaUf'] . '</a></p>
+                                                <p class="mb-0 text-muted"><small>' . $dep['email'] . '</small></p>
+                                            </div>
+                                        </li>';
+                            }
+                        } else {
+                            echo '<li class="list-group-item d-flex align-items-center"><b>Nenhum deputado encontrado</b></li>';
+                        }
+                        ?>
+                    </ul>
                 </div>
             </div>
         </div>
