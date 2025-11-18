@@ -101,13 +101,13 @@ if (!empty($partido)) {
 
                                     <div>
                                         <p class="mb-0">
-                                            <b><a href="https://www25.senado.leg.br/web/senadores/senador/-/perfil/' .
+                                            <a href="https://www25.senado.leg.br/web/senadores/senador/-/perfil/' .
                                     $senador['IdentificacaoParlamentar']['CodigoParlamentar'] .
                                     '" target="_blank">
                                                 ' . $senador['IdentificacaoParlamentar']['NomeParlamentar'] . ' - ' .
                                     $senador['IdentificacaoParlamentar']['SiglaPartidoParlamentar'] . '/' .
                                     $senador['IdentificacaoParlamentar']['UfParlamentar'] . '
-                                            </a></b>
+                                            </a>
                                         </p>
 
                                         <p class="mb-0 text-muted">

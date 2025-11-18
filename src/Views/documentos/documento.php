@@ -132,7 +132,7 @@ if ($buscaDocumento['status'] != 'success') {
                             <input type="file" class="form-control form-control-sm" name="arquivo">
                         </div>
                         <div class="col-md-12 col-12">
-                            <textarea class="form-control form-control-sm" name="resumo" rows="10" placeholder="Resumo do documento"><?php echo $buscaDocumento['data']['resumo'] ?></textarea>
+                            <textarea class="form-control form-control-sm" name="resumo" rows="10" id="tinymce"  placeholder="Resumo do documento"><?php echo $buscaDocumento['data']['resumo'] ?></textarea>
                         </div>
                         <div class="col-md-3 col-12">
                             <button type="submit" class="btn btn-success btn-sm confirm-action" data-message="Tem certeza que deseja inserir esse documento?" name="btn_salvar"><i class="bi bi-floppy-fill"></i> Salvar</button>
