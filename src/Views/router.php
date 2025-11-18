@@ -32,7 +32,8 @@ $rotas = [
     'emendas' => '../src/Views/emendas/emendas.php',
     'emenda' => '../src/Views/emendas/emenda.php',
     'sair' => '../src/Views/includes/sair.php',
-    'home' => '../src/Views/home/home.php'
+    'home' => '../src/Views/home/home.php',
+    'proposicoes' => '../src/Views/proposicoes/proposicoes.php'
 ];
 
 if (array_key_exists($pagina, $rotas)) {

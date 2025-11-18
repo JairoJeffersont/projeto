@@ -18,15 +18,13 @@
 
 
 
-         <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Agendas</p>
-         <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=compromissos"><i class="bi bi-calendar3"></i> Compromissos</a>
-
+        
          <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Gestão do gabinete</p>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=documentos"><i class="bi bi-file-earmark-text"></i> Documentos</a>
 
          <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Orçamento</p>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=emendas"><i class="bi bi-cash-stack"></i> Emendas parlamentares</a>
-         <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Comunicação do gabinete</p>
+         <p style="margin-left: 10px; margin-top:20px;font-weight: bolder;" class="text-muted"><i class="bi bi-list"></i> Comunicação</p>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=postagens"><i class="bi bi-instagram"></i> Agenda da postagens</a>
          <a class="list-group-item list-group-item-action list-group-item-light px-4 loading-modal" href="?secao=clippings"><i class="bi bi-newspaper"></i> Clipping</a>
          
