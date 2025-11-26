@@ -8,7 +8,7 @@ class ProposicaoController {
 
     public static function buscarProposicoesCD(String $deputado, String $ano, String $tipo = 'PL', String $itens = '10', String $pagina = '1'): array {
 
-        $buscaProposicoes = GetData::getJson('https://dadosabertos.camara.leg.br/api/v2/proposicoes?siglaTipo=' . $tipo . '&autor=' . urlencode($deputado) . '&ordem=ASC&itens=' . $itens . '&pagina=' . $pagina . '&ano='.$ano.'&ordenarPor=ano');
+        $buscaProposicoes = GetData::getJson('https://dadosabertos.camara.leg.br/api/v2/proposicoes?siglaTipo=' . $tipo . '&autor=' . urlencode($deputado) . '&ordem=ASC&itens=' . $itens . '&pagina=' . $pagina . '&ano=' . $ano . '&ordenarPor=ano');
 
         $payload = [];
 

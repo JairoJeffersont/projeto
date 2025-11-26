@@ -8,4 +8,8 @@ $buscaGabinete = GabineteController::buscarGabinete($_SESSION['usuario']['gabine
 
 if ($buscaGabinete['tipo_gabinete_id'] == '3') {
     include 'proposicoesCD.php';
+} else if ($buscaGabinete['tipo_gabinete_id'] == '4') {
+    include 'proposicoesSF.php';
+} else {
+    include 'proposicoesEstado.php';
 }
